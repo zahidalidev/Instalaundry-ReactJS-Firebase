@@ -77,33 +77,33 @@ function Slider(props) {
             </div>
 
             {/* <!-- Contact Info Start --> */}
-            <div class="container-fluid contact-info mt-5 mb-4">
-                <div class="container" style={{ paddingLeft: 0, paddingTop: "2rem" }}>
-                    <div class="row">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center bg-secondary mb-4 mb-lg-0" style={{ height: "6.25rem" }}>
-                            <div class="d-inline-flex">
-                                <i class="fa fa-2x fa-envelope text-white m-0 mr-3"></i>
-                                <div class="d-flex flex-column">
-                                    <h5 class="text-white font-weight-medium">Our Location</h5>
-                                    <p class="m-0 text-white">123 Street, New York, USA</p>
+            <div className="container-fluid contact-info mt-5 mb-4">
+                <div className="container" style={{ paddingLeft: 0, paddingTop: "2rem" }}>
+                    <div className="row">
+                        <div className="col-md-4 d-flex align-items-center justify-content-center bg-secondary mb-4 mb-lg-0" style={{ height: "6.25rem" }}>
+                            <div className="d-inline-flex">
+                                <i className="fa fa-2x fa-envelope text-white m-0 mr-3"></i>
+                                <div className="d-flex flex-column">
+                                    <h5 className="text-white font-weight-medium">Our Location</h5>
+                                    <p className="m-0 text-white">123 Street, New York, USA</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 d-flex align-items-center justify-content-center bg-primary mb-4 mb-lg-0" style={{ height: "6.25rem" }}>
-                            <div class="d-inline-flex text-left">
-                                <i class="fa fa-2x fa-envelope text-white m-0 mr-3"></i>
-                                <div class="d-flex flex-column">
-                                    <h5 class="text-white font-weight-medium">Email Us</h5>
-                                    <p class="m-0 text-white">info@example.com</p>
+                        <div className="col-md-4 d-flex align-items-center justify-content-center bg-primary mb-4 mb-lg-0" style={{ height: "6.25rem" }}>
+                            <div className="d-inline-flex text-left">
+                                <i className="fa fa-2x fa-envelope text-white m-0 mr-3"></i>
+                                <div className="d-flex flex-column">
+                                    <h5 className="text-white font-weight-medium">Email Us</h5>
+                                    <p className="m-0 text-white">info@example.com</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 d-flex align-items-center justify-content-center bg-secondary mb-4 mb-lg-0" style={{ height: "6.25rem" }}>
-                            <div class="d-inline-flex text-left">
-                                <i class="fa fa-2x fa-envelope text-white m-0 mr-3"></i>
-                                <div class="d-flex flex-column">
-                                    <h5 class="text-white font-weight-medium">Call Us</h5>
-                                    <p class="m-0 text-white">+012 345 6789</p>
+                        <div className="col-md-4 d-flex align-items-center justify-content-center bg-secondary mb-4 mb-lg-0" style={{ height: "6.25rem" }}>
+                            <div className="d-inline-flex text-left">
+                                <i className="fa fa-2x fa-envelope text-white m-0 mr-3"></i>
+                                <div className="d-flex flex-column">
+                                    <h5 className="text-white font-weight-medium">Call Us</h5>
+                                    <p className="m-0 text-white">+012 345 6789</p>
                                 </div>
                             </div>
                         </div>
