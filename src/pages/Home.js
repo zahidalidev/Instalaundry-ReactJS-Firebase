@@ -8,6 +8,7 @@ const About = React.lazy(() => import("./About"))
 
 // laxy components
 const Services = React.lazy(() => import("../components/Services"))
+const Testimonial = React.lazy(() => import("../components/Testimonial"))
 
 export default function Home() {
     const [show, setShow] = useState(false)
@@ -36,6 +37,7 @@ export default function Home() {
                         <About removeHeader={true} />
                         : null
                 }
+                <Testimonial />
             </Suspense>
         </ div>
     )
