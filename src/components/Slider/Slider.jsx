@@ -78,7 +78,7 @@ function Slider(props) {
 
             {/* <!-- Contact Info Start --> */}
             <div className="container-fluid contact-info mt-5 mb-4">
-                <div className="container" style={{ paddingLeft: 0, paddingTop: "2rem" }}>
+                <div className="container" style={{ paddingLeft: 0 }}>
                     <div className="row">
                         <div className="col-md-4 d-flex align-items-center justify-content-center bg-secondary mb-4 mb-lg-0" style={{ height: "6.25rem" }}>
                             <div className="d-inline-flex">
