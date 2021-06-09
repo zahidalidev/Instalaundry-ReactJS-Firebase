@@ -1,21 +1,33 @@
-import MyAppbar from './components/MyAppbar';
-import Home from './pages/Home';
+import React, { Suspense } from "react";
+
+//styles
 import './css/style.css';
 import './css/style.min.css';
+
+// pages
+import Home from './pages/Home';
 import About from './pages/About';
-import Footer from './components/Footer';
 import Price from './pages/Price';
 import Contact from './pages/Contact';
+
+// components
+import MyAppbar from './components/MyAppbar';
+const Footer = React.lazy(() => import('./components/Footer'))
+
+
 
 function App() {
   return (
     <div>
       <MyAppbar />
-      {/* <Price></Price> */}
-      {/* <Home /> */}
-      {/* <About></About> */}
-      <Contact></Contact>
-      <Footer></Footer>
+      <Home />
+      {/* <Price />
+      <About />
+      <Contact /> */}
+      <Suspense fallback={<div></div>} >
+
+        <Footer />
+      </Suspense>
     </div>
   );
 }
