@@ -53,14 +53,7 @@ function Testimonial(props) {
             profession: "Profession",
             description: "Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor ipsum clita",
             image: testimonial_3,
-        },
-        {
-            id: 3,
-            name: "Client Name",
-            profession: "Profession",
-            description: "Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor ipsum clita",
-            image: testimonial_4,
-        },
+        }
     ]
     return (
         <div className="container-fluid py-5">
@@ -79,23 +72,6 @@ function Testimonial(props) {
                             </div>
                         </div>
                     ))}
-
-                    {/* <div className="testimonial-item col-md-4">
-                        <img className="position-relative rounded-circle bg-white shadow mx-auto" src={testimonial_2} style={{ display: "block", width: "100px", height: "100px", padding: "12px", marginBottom: "-50px", zIndex: 1 }} alt="" />
-                        <div className="bg-light text-center p-4 pt-0">
-                            <h5 className="font-weight-medium mt-5">Client Name</h5>
-                            <p className="text-muted font-italic">Profession</p>
-                            <p className="m-0">Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor ipsum clita</p>
-                        </div>
-                    </div>
-                    <div className="testimonial-item col-md-4">
-                        <img className="position-relative rounded-circle bg-white shadow mx-auto" src={testimonial_3} style={{ display: "block", width: "100px", height: "100px", padding: "12px", marginBottom: "-50px", zIndex: 1 }} alt="" />
-                        <div className="bg-light text-center p-4 pt-0">
-                            <h5 className="font-weight-medium mt-5">Client Name</h5>
-                            <p className="text-muted font-italic">Profession</p>
-                            <p className="m-0">Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor ipsum clita</p>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </div>

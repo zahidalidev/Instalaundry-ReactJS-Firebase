@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Route } from 'react-router';
+import { Redirect, Route } from 'react-router-dom';
 
 //styles
 import './css/style.css';
@@ -21,11 +21,13 @@ function App() {
     <div>
       <MyAppbar />
 
-      <Route path="/home" exact render={props => <Home {...props} />} />
-      <Route path="/faq" exact render={props => <Faq {...props} />} />
-      <Route path="/pricing" exact render={props => <Pricing {...props} />} />
-      <Route path="/about" exact render={props => <About {...props} />} />
-      <Route path="/contact" exact render={props => <Contact {...props} />} />
+      <Route path="/home" exact render={(props) => <Home {...props} />} />
+      <Route path="/faq" exact render={(props) => <Faq {...props} />} />
+      <Route path="/pricing" exact render={(props) => <Pricing {...props} />} />
+      <Route path="/about" exact render={(props) => <About {...props} />} />
+      <Route path="/contact" exact render={(props) => <Contact {...props} />} />
+
+      <Redirect to="/home" />
 
       <Suspense fallback={<div></div>}>
         <Footer />

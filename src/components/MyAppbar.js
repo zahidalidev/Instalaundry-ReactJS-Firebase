@@ -1,8 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 
 import logo from '../assets/img/logo1.png';
 
 function MyAppbar(props) {
+  const history = useHistory();
+
   return (
     <>
       <div className="container-fluid bg-primary py-3">
@@ -10,28 +13,28 @@ function MyAppbar(props) {
           <div className="row">
             <div className="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
               <div className="d-inline-flex align-items-center">
-                <a className="text-white pr-3">FAQs</a>
+                <a style={{ cursor: "pointer" }} className="text-white pr-3">FAQs</a>
                 <span className="text-white">|</span>
-                <a className="text-white px-3">Help</a>
+                <a style={{ cursor: "pointer" }} className="text-white px-3">Help</a>
                 <span className="text-white">|</span>
-                <a className="text-white pl-3">Support</a>
+                <a style={{ cursor: "pointer" }} className="text-white pl-3">Support</a>
               </div>
             </div>
             <div className="col-md-6 text-center text-lg-right">
               <div className="d-inline-flex align-items-center">
-                <a className="text-white px-3">
+                <a style={{ cursor: "pointer" }} className="text-white px-3">
                   <i className="fab fa-facebook-f"></i>
                 </a>
-                <a className="text-white px-3">
+                <a style={{ cursor: "pointer" }} className="text-white px-3">
                   <i className="fab fa-twitter"></i>
                 </a>
-                <a className="text-white px-3">
+                <a style={{ cursor: "pointer" }} className="text-white px-3">
                   <i className="fab fa-linkedin-in"></i>
                 </a>
-                <a className="text-white px-3">
+                <a style={{ cursor: "pointer" }} className="text-white px-3">
                   <i className="fab fa-instagram"></i>
                 </a>
-                <a className="text-white pl-3">
+                <a style={{ cursor: "pointer" }} className="text-white pl-3">
                   <i className="fab fa-youtube"></i>
                 </a>
               </div>
@@ -46,7 +49,7 @@ function MyAppbar(props) {
           style={{ zIndex: 9 }}
         >
           <nav className="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 pl-3 pl-lg-5">
-            <img style={{ width: '13rem' }} src={logo} />
+            <img onClick={() => history.push('/home')} style={{ width: '13rem', cursor: "pointer" }} src={logo} />
             <button
               type="button"
               className="navbar-toggler"
@@ -60,36 +63,36 @@ function MyAppbar(props) {
               id="navbarCollapse"
             >
               <div className="navbar-nav ml-auto py-0">
-                <a href="index.html" className="nav-item nav-link active">
+                <a style={{ cursor: "pointer" }} onClick={() => history.push('/home')} className="nav-item nav-link active">
                   Home
                 </a>
-                <a href="about.html" className="nav-item nav-link">
+                <a style={{ cursor: "pointer" }} onClick={() => history.push('/about')} className="nav-item nav-link">
                   About
                 </a>
-                <a href="service.html" className="nav-item nav-link">
-                  Services
+                <a style={{ cursor: "pointer" }} onClick={() => history.push('/faq')} className="nav-item nav-link">
+                  FAQ
                 </a>
-                <a href="pricing.html" className="nav-item nav-link">
+                <a style={{ cursor: "pointer" }} onClick={() => history.push('/pricing')} className="nav-item nav-link">
                   Pricing
                 </a>
+
                 <div className="nav-item dropdown">
-                  <a
-                    href="#"
+                  <a style={{ cursor: "pointer" }}
                     className="nav-link dropdown-toggle"
                     data-toggle="dropdown"
                   >
                     Pages
                   </a>
                   <div className="dropdown-menu border-0 rounded-0 m-0">
-                    <a href="blog.html" className="dropdown-item">
+                    <a style={{ cursor: "pointer" }} className="dropdown-item">
                       Blog Grid
                     </a>
-                    <a href="single.html" className="dropdown-item">
+                    <a style={{ cursor: "pointer" }} className="dropdown-item">
                       Blog Detail
                     </a>
                   </div>
                 </div>
-                <a href="contact.html" className="nav-item nav-link">
+                <a style={{ cursor: "pointer" }} onClick={() => history.push('/contact')} className="nav-item nav-link">
                   Contact
                 </a>
               </div>
