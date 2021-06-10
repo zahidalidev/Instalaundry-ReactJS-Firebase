@@ -1,6 +1,6 @@
 import PricingPlan from '../components/Slider/PricingPlan';
 
-export default function Price() {
+export default function Pricing() {
   return (
     <>
       <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-2 mb-5">

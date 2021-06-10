@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { Route } from 'react-router';
 
 //styles
 import './css/style.css';
@@ -7,7 +8,7 @@ import './css/style.min.css';
 // pages
 import Home from './pages/Home';
 import About from './pages/About';
-import Price from './pages/Price';
+import Pricing from './pages/Pricing';
 import Faq from './pages/Faq';
 import Contact from './pages/Contact';
 
@@ -19,12 +20,13 @@ function App() {
   return (
     <div>
       <MyAppbar />
-      <Faq></Faq>
 
-      {/* <Home /> */}
-      {/* <Price />
-      <About />
-      <Contact /> */}
+      <Route path="/home" exact render={props => <Home {...props} />} />
+      <Route path="/faq" exact render={props => <Faq {...props} />} />
+      <Route path="/pricing" exact render={props => <Pricing {...props} />} />
+      <Route path="/about" exact render={props => <About {...props} />} />
+      <Route path="/contact" exact render={props => <Contact {...props} />} />
+
       <Suspense fallback={<div></div>}>
         <Footer />
       </Suspense>
