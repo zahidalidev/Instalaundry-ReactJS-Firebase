@@ -11,10 +11,11 @@ import About from './pages/About';
 import Pricing from './pages/Pricing';
 import Faq from './pages/Faq';
 import Contact from './pages/Contact';
-import Profile from "./pages/user/Profile"
+import Profile from './pages/user/Profile';
 
 // components
 import MyAppbar from './components/MyAppbar';
+import Checkout from './pages/Checkout';
 const Footer = React.lazy(() => import('./components/Footer'));
 
 function App() {
@@ -22,14 +23,15 @@ function App() {
     <div>
       <MyAppbar />
 
-      <Route path="/home" exact render={(props) => <Home {...props} />} />
+      {/* <Route path="/home" exact render={(props) => <Home {...props} />} />
       <Route path="/faq" exact render={(props) => <Faq {...props} />} />
       <Route path="/pricing" exact render={(props) => <Pricing {...props} />} />
       <Route path="/about" exact render={(props) => <About {...props} />} />
       <Route path="/contact" exact render={(props) => <Contact {...props} />} />
       <Route path="/profile" exact render={(props) => <Profile {...props} />} />
 
-      {/* <Redirect to="/home" /> */}
+      <Redirect to="/home" /> */}
+      <Checkout></Checkout>
 
       <Suspense fallback={<div></div>}>
         <Footer />
