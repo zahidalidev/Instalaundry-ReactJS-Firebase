@@ -5,7 +5,7 @@ import { Colors } from './../config/Colors';
 export default function Footer() {
   return (
     <div>
-      <div className="container-fluid bg-primary text-white mt-5 pt-5 px-sm-3 px-md-5">
+      <div className="container-fluid bg-primary text-white pt-5 px-sm-3 px-md-5">
         <div className="row pt-5">
           <div className="col-lg-3 col-md-6 mb-5">
             <a>
