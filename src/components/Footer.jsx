@@ -14,11 +14,20 @@ export default function Footer() {
         <div className="row pt-5">
           <div className="col-lg-3 col-md-6 mb-5">
             <a>
-              <h1 style={{ marginTop: "-1rem" }} className="text-secondary mb-3">
+              <h1
+                style={{ marginTop: '-1rem' }}
+                className="text-secondary mb-3"
+              >
                 <img style={{ width: '16rem' }} src={logo} />
               </h1>
             </a>
-            <p style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem' }} >
+            <p
+              style={{
+                fontFamily: 'Courier',
+                wordSpacing: -4,
+                fontSize: '0.9rem',
+              }}
+            >
               Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem
               lorem sit sed elitr sit no, sed kasd et ipsum dolor duo dolor
             </p>
@@ -51,37 +60,101 @@ export default function Footer() {
           </div>
           <div className="col-lg-3 col-md-6 mb-5">
             <h4 className="text-white mb-4">Get In Touch</h4>
-            <p style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem' }}  >
+            <p
+              style={{
+                fontFamily: 'Courier',
+                wordSpacing: -4,
+                fontSize: '0.9rem',
+              }}
+            >
               Lorem Ipsum clita stet nonumy clita diam vero, et et ipsum diam
               labore
             </p>
-            <p style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem' }}  >
+            <p
+              style={{
+                fontFamily: 'Courier',
+                wordSpacing: -4,
+                fontSize: '0.9rem',
+              }}
+            >
               <i class="fa fa-map-marker" aria-hidden="true"></i> 123 Street,
               New York, USA
             </p>
-            <p style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem' }}  >
+            <p
+              style={{
+                fontFamily: 'Courier',
+                wordSpacing: -4,
+                fontSize: '0.9rem',
+              }}
+            >
               <i class="fa fa-phone" aria-hidden="true"></i> +012 345 67890
             </p>
-            <p style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem' }}  >
+            <p
+              style={{
+                fontFamily: 'Courier',
+                wordSpacing: -4,
+                fontSize: '0.9rem',
+              }}
+            >
               <i className="fa fa-envelope mr-2"></i>info@example.com
             </p>
           </div>
           <div className="col-lg-3 col-md-6 mb-5">
             <h4 className="text-white mb-4">Quick Links</h4>
             <div className="d-flex flex-column justify-content-start">
-              <a style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white mb-2">
+              <a
+                style={{
+                  fontFamily: 'Courier',
+                  wordSpacing: -4,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                }}
+                className="text-white mb-2"
+              >
                 <i className="fa fa-angle-right mr-2"></i>Home
               </a>
-              <a style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white mb-2">
+              <a
+                style={{
+                  fontFamily: 'Courier',
+                  wordSpacing: -4,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                }}
+                className="text-white mb-2"
+              >
                 <i className="fa fa-angle-right mr-2"></i>About Us
               </a>
-              <a style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white mb-2">
+              <a
+                style={{
+                  fontFamily: 'Courier',
+                  wordSpacing: -4,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                }}
+                className="text-white mb-2"
+              >
                 <i className="fa fa-angle-right mr-2"></i>Services
               </a>
-              <a style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white mb-2">
+              <a
+                style={{
+                  fontFamily: 'Courier',
+                  wordSpacing: -4,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                }}
+                className="text-white mb-2"
+              >
                 <i className="fa fa-angle-right mr-2"></i>Pricing
               </a>
-              <a style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white">
+              <a
+                style={{
+                  fontFamily: 'Courier',
+                  wordSpacing: -4,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                }}
+                className="text-white"
+              >
                 <i className="fa fa-angle-right mr-2"></i>Contact Us
               </a>
               <a onClick={() => history.push('/admin')} style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white">
@@ -133,6 +206,6 @@ export default function Footer() {
           All Rights Reserved.
         </p>
       </div>
-    </div >
+    </div>
   );
 }
