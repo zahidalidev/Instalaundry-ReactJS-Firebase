@@ -75,25 +75,11 @@ function MyAppbar(props) {
                 <a style={{ cursor: "pointer" }} onClick={() => history.push('/pricing')} className="nav-item nav-link">
                   Pricing
                 </a>
-
-                <div className="nav-item dropdown">
-                  <a style={{ cursor: "pointer" }}
-                    className="nav-link dropdown-toggle"
-                    data-toggle="dropdown"
-                  >
-                    Pages
-                  </a>
-                  <div className="dropdown-menu border-0 rounded-0 m-0">
-                    <a style={{ cursor: "pointer" }} className="dropdown-item">
-                      Blog Grid
-                    </a>
-                    <a style={{ cursor: "pointer" }} className="dropdown-item">
-                      Blog Detail
-                    </a>
-                  </div>
-                </div>
                 <a style={{ cursor: "pointer" }} onClick={() => history.push('/contact')} className="nav-item nav-link">
                   Contact
+                </a>
+                <a style={{ cursor: "pointer" }} onClick={() => history.push('/profile')} className="nav-item nav-link">
+                  Profile
                 </a>
               </div>
             </div>

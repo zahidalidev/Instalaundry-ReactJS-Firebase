@@ -60,7 +60,7 @@ function Testimonial(props) {
     ]
     return (
 
-        <div style={{ marginLeft: -14, marginRight: -14, marginBottom: 100 }}>
+        <div style={{ marginBottom: 100 }}>
             <h6 className="text-secondary text-uppercase text-center font-weight-medium mb-3">Testimonial</h6>
             <h1 className="display-4 text-center mb-5">Our Clients Say</h1>
             <div style={{ marginLeft: 50, marginRight: 50, marginBottom: 100 }}>

@@ -12,8 +12,6 @@ import Pricing from './pages/Pricing';
 import Faq from './pages/Faq';
 import Contact from './pages/Contact';
 import Profile from './pages/user/Profile';
-import Login from './pages/login/Login';
-import Register from './pages/login/Register';
 
 // components
 import MyAppbar from './components/MyAppbar';
@@ -31,6 +29,7 @@ function App() {
       <Route path="/about" exact render={(props) => <About {...props} />} />
       <Route path="/contact" exact render={(props) => <Contact {...props} />} />
       <Route path="/profile" exact render={(props) => <Profile {...props} />} />
+      <Route path="/admin" exact render={(props) => <AdminProfile {...props} />} />
 
       <Redirect to="/home" /> */}
       {/* <Checkout></Checkout> */}
