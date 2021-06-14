@@ -19,7 +19,7 @@ export default function PricingPlan() {
                 <div
                   className="d-inline-flex flex-column align-items-center justify-content-center bg-secondary rounded-circle shadow mt-2 mb-4"
                   style={{
-                    width: '250px',
+                    width: '255px',
                     height: '250px',
                     border: '15px solid #ffffff',
                   }}
@@ -71,7 +71,8 @@ export default function PricingPlan() {
                   style={{
                     backgroundColor: '#62c7ce',
                     color: Colors.white,
-
+                    height: '2.6rem',
+                    width: '9rem',
                     borderRadius: '0.5rem',
                   }}
                   className="btn btn-primary py-md-3 px-md-2 mt-2"
@@ -102,7 +103,7 @@ export default function PricingPlan() {
                     >
                       $
                     </small>
-                    18.99
+                    <span style={{ fontSize: '3.6vw' }}>18.99</span>
                     <small
                       className="align-bottom"
                       style={{ fontSize: '16px', lineHeight: '40px' }}
@@ -141,7 +142,8 @@ export default function PricingPlan() {
                   style={{
                     backgroundColor: '#1f4376',
                     color: Colors.white,
-
+                    height: '2.6rem',
+                    width: '9rem',
                     borderRadius: '0.5rem',
                   }}
                   className="btn btn-primary py-md-3 px-md-2 mt-2"
@@ -172,7 +174,7 @@ export default function PricingPlan() {
                     >
                       $
                     </small>
-                    26.99
+                    <span style={{ fontSize: '3.6vw' }}>26.99</span>
                     <small
                       className="align-bottom"
                       style={{ fontSize: '16px', lineHeight: '40px' }}
@@ -211,7 +213,8 @@ export default function PricingPlan() {
                   style={{
                     backgroundColor: '#62c7ce',
                     color: Colors.white,
-
+                    height: '2.6rem',
+                    width: '9rem',
                     borderRadius: '0.5rem',
                   }}
                   className="btn btn-primary py-md-3 px-md-2 mt-2"

@@ -23,15 +23,15 @@ function App() {
     <div>
       <MyAppbar />
 
-      {/* <Route path="/home" exact render={(props) => <Home {...props} />} />
+      <Route path="/home" exact render={(props) => <Home {...props} />} />
       <Route path="/faq" exact render={(props) => <Faq {...props} />} />
       <Route path="/pricing" exact render={(props) => <Pricing {...props} />} />
       <Route path="/about" exact render={(props) => <About {...props} />} />
       <Route path="/contact" exact render={(props) => <Contact {...props} />} />
       <Route path="/profile" exact render={(props) => <Profile {...props} />} />
 
-      <Redirect to="/home" /> */}
-      <Checkout></Checkout>
+      <Redirect to="/home" />
+      {/* <Checkout></Checkout> */}
 
       <Suspense fallback={<div></div>}>
         <Footer />
