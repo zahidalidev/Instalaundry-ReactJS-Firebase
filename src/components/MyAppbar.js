@@ -78,6 +78,12 @@ function MyAppbar(props) {
                 <a style={{ cursor: "pointer" }} onClick={() => history.push('/contact')} className="nav-item nav-link">
                   Contact
                 </a>
+                <a style={{ cursor: "pointer" }} onClick={() => history.push('/login')} className="nav-item nav-link">
+                  Login
+                </a>
+                <a style={{ cursor: "pointer" }} onClick={() => history.push('/register')} className="nav-item nav-link">
+                  Sign Up
+                </a>
                 <a style={{ cursor: "pointer" }} onClick={() => history.push('/profile')} className="nav-item nav-link">
                   Profile
                 </a>

@@ -119,7 +119,7 @@ function Profile(props) {
                                     <div className="row d-flex flex-row justify-content-md-center" >
                                         <div className="col-md-12 d-flex justify-content-center align-self-center" style={{ flexDirection: "column", height: 300, flex: 1, justifyContent: "center", alignItems: "center" }}  >
 
-                                            <div style={{ marginTop: "10rem" }} className="row">
+                                            <div style={{ marginTop: "10rem", width: "82%" }} className="row">
                                                 <div className="col-md-6">
                                                     <MyTextFeild width={"100%"} label="First Name" onChange={(value) => console.log(value)} />
                                                 </div>
