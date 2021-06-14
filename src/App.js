@@ -33,9 +33,9 @@ function App() {
       <Route path="/profile" exact render={(props) => <Profile {...props} />} />
 
       <Redirect to="/home" /> */}
-      {/* <Checkout></Checkout> */}
+      <Checkout></Checkout>
       {/* <Login></Login> */}
-      <Register></Register>
+      {/* <Register></Register> */}
 
       <Suspense fallback={<div></div>}>
         <Footer />
