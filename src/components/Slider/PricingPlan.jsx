@@ -1,7 +1,11 @@
 import Button from '@material-ui/core/Button';
 import { Colors } from './../../config/Colors';
 
+import { useHistory } from 'react-router';
+
 export default function PricingPlan() {
+  const history = useHistory();
+
   return (
     <>
       <div className="container-fluid pt-5 pb-3">
@@ -210,6 +214,7 @@ export default function PricingPlan() {
                   </p>
                 </div>
                 <Button
+                  onClick={() => history.push("/checkout")}
                   style={{
                     backgroundColor: '#62c7ce',
                     color: Colors.white,

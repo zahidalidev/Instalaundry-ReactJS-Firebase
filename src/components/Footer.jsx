@@ -1,11 +1,16 @@
-import logo from '../assets/img/logo1.png';
+import { useHistory } from "react-router-dom"
 import Button from '@material-ui/core/Button';
+
+// config
 import { Colors } from './../config/Colors';
 
+import logo from '../assets/img/logo1.png';
+
 export default function Footer() {
+  const history = useHistory()
   return (
     <div>
-      <div className="container-fluid bg-primary text-white  pt-5 px-sm-3 px-md-5">
+      <div className="container-fluid bg-primary text-white pt-5 px-sm-3 px-md-5">
         <div className="row pt-5">
           <div className="col-lg-3 col-md-6 mb-5">
             <a>
@@ -151,6 +156,9 @@ export default function Footer() {
                 className="text-white"
               >
                 <i className="fa fa-angle-right mr-2"></i>Contact Us
+              </a>
+              <a onClick={() => history.push('/admin')} style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white">
+                <i className="fa fa-angle-right mr-2"></i>Admin
               </a>
             </div>
           </div>

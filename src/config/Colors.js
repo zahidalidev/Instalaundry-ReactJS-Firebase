@@ -15,4 +15,7 @@ export const Colors = {
   lightBlack: '#333333',
   // white: "#fff",
   darkBlue: '#1c2989',
+  grey: "grey",
+  secondaryTrans: "rgba(25, 67, 118, 0.8)",
+  primaryTrans: "rgba(128, 213, 231, 0.7)"
 };

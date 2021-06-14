@@ -12,12 +12,13 @@ import Pricing from './pages/Pricing';
 import Faq from './pages/Faq';
 import Contact from './pages/Contact';
 import Profile from './pages/user/Profile';
-import Login from './pages/login/Login';
-import Register from './pages/login/Register';
+import Checkout from './pages/Checkout';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import AdminProfile from './pages/admin/Profile';
 
 // components
 import MyAppbar from './components/MyAppbar';
-import Checkout from './pages/Checkout';
 const Footer = React.lazy(() => import('./components/Footer'));
 
 function App() {
@@ -25,17 +26,30 @@ function App() {
     <div>
       <MyAppbar />
 
-      {/* <Route path="/home" exact render={(props) => <Home {...props} />} />
+      <Route path="/home" exact render={(props) => <Home {...props} />} />
       <Route path="/faq" exact render={(props) => <Faq {...props} />} />
       <Route path="/pricing" exact render={(props) => <Pricing {...props} />} />
       <Route path="/about" exact render={(props) => <About {...props} />} />
       <Route path="/contact" exact render={(props) => <Contact {...props} />} />
       <Route path="/profile" exact render={(props) => <Profile {...props} />} />
+      <Route
+        path="/admin"
+        exact
+        render={(props) => <AdminProfile {...props} />}
+      />
+      <Route
+        path="/register"
+        exact
+        render={(props) => <Register {...props} />}
+      />
+      <Route path="/login" exact render={(props) => <Login {...props} />} />
+      <Route
+        path="/checkout"
+        exact
+        render={(props) => <Checkout {...props} />}
+      />
 
-      <Redirect to="/home" /> */}
-      <Checkout></Checkout>
-      {/* <Login></Login> */}
-      {/* <Register></Register> */}
+      <Redirect to="/home" />
 
       <Suspense fallback={<div></div>}>
         <Footer />
