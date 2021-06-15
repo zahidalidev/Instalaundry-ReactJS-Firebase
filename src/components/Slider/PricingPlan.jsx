@@ -72,6 +72,7 @@ export default function PricingPlan() {
                   </p>
                 </div>
                 <Button
+                  onClick={() => history.push("/checkout")}
                   style={{
                     backgroundColor: '#62c7ce',
                     color: Colors.white,
@@ -143,6 +144,7 @@ export default function PricingPlan() {
                   </p>
                 </div>
                 <Button
+                  onClick={() => history.push("/checkout")}
                   style={{
                     backgroundColor: '#1f4376',
                     color: Colors.white,

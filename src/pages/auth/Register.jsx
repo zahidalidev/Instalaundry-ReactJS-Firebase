@@ -1,75 +1,85 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
-import img1 from '../../assets/img/2.jpg';
-import './Login.css';
-import { Colors } from '../../config/Colors';
 import { toast } from 'react-toastify';
-// import { login } from '../../http/api';
+
+import { addUser } from '../../services/UserServices';
+import { Colors } from '../../config/Colors';
+import './Login.css';
+import img1 from '../../assets/img/2.jpg';
 
 class Register extends Component {
   state = {
     loginFeilds: [
       {
+        id: 0,
         label: 'Name',
         name: 'name',
         type: 'text',
+        value: ''
       },
       {
+        id: 1,
         label: 'Email',
         name: 'email',
         type: 'email',
+        value: ''
       },
       {
-        label: 'Address',
-        name: 'address',
-        type: 'text',
-      },
-      {
+        id: 2,
         label: 'Password',
         name: 'password',
         type: 'password',
+        value: ''
       },
       {
+        id: 3,
         label: 'Confirm Password',
         name: 'confirmPassword',
         type: 'password',
+        value: ''
       },
-    ],
-    email: '',
-    password: '',
-    address: '',
+    ]
   };
 
-  handleChange = (e, name) => {
-    const value = e.target.value;
-    if (name === 'email') {
-      this.setState({ email: value });
-    } else if (name === 'password') {
-      this.setState({ password: value });
+  handleChange = (value, index) => {
+    let loginFeilds = [...this.state.loginFeilds];
+    loginFeilds[index].value = value;
+    this.setState({ loginFeilds })
+  };
+
+  handSignUp = async () => {
+    console.log('hi')
+    let loginFeilds = [...this.state.loginFeilds];
+    let name = loginFeilds[0].value;
+    let email = loginFeilds[1].value;
+    let password = loginFeilds[2].value;
+    let confirmPassword = loginFeilds[3].value;
+
+    if (password !== confirmPassword) {
+      toast.error("Password an Confirm password are not same !")
+      return;
     }
-  };
 
-  handleLogin = async () => {
-    // let { email, password } = this.state;
-    // email = email.trim();
-    // password = password.trim();
-    // if (email === '' || password === '') {
-    //   toast.error('Please fill all the feilds');
-    // } else {
-    //   const body = {
-    //     email,
-    //     password,
-    //   };
-    //   try {
-    //     const { data: jwt } = await login(body);
-    //     localStorage.setItem('token', jwt);
-    //     this.props.onHandleLogin(this.props.history);
-    //   } catch (error) {
-    //     toast.error('User Login Error: Email or password in invalid ');
-    //   }
-    // }
+    if (name === '' || email === '' || password === '') {
+      toast.error('Please fill all the feilds');
+      return;
+    }
+
+    const body = {
+      name,
+      email,
+      password,
+    };
+
+    try {
+      await addUser(body);
+      toast.success("Reistration Successfull")
+      this.props.history.push('/login')
+    } catch (error) {
+      toast.error('User Login Error: Email or password in invalid ');
+    }
+
   };
 
   render() {
@@ -111,20 +121,7 @@ class Register extends Component {
             opacity: '0.9',
           }}
         >
-          <div
-            className="container-fluid"
-            // style={{
-            //   position: 'absolute',
-            //   top: '21rem',
-            //   left: 0,
-            //   bottom: '100rem',
-            //   right: 0,
-            //   backgroundColor: 'black',
-            //   width: '100%',
-            //   height: '100%',
-            // }}
-          >
-            {/* <img src={img1} style={{ width: '100%', height: '100%' }}></img> */}
+          <div className="container-fluid" >
             <div
               className="container loginContainer"
               style={{ height: '50rem ', width: '38rem' }}
@@ -137,43 +134,29 @@ class Register extends Component {
                   Sign Up
                 </h1>
                 <div className="col-md-12">
-                  {loginFeilds.map((login, i) => (
+
+                  {/* inpuit feilds */}
+                  {loginFeilds.map((item, i) => (
                     <div className="col-md-12" key={i}>
                       <TextField
                         className="loginTextFeild"
-                        label={login.label}
+                        label={item.label}
                         variant="outlined"
                         size="medium"
-                        onChange={(e) => this.handleChange(e, login.name)}
-                        type={login.type}
+                        onChange={(e) => this.handleChange(e.target.value, i)}
+                        type={item.type}
                         style={{ marginBottom: '3rem' }}
                       />
                     </div>
                   ))}
-                  {/* <div
-                className="col-md-12"
-                style={{ marginLeft: '4%', marginTop: '-1.4vw' }}
-              >
-                <p style={{ alignSelf: 'center' }}>
-                  Don't have account{' '}
-                  <span
-                    onClick={() => this.props.history.push('/register')}
-                    style={{ color: Colors.primary, cursor: 'pointer' }}
-                  >
-                    Sign up
-                  </span>{' '}
-                </p>
-              </div> */}
 
                   <div className="col-md-12 align-items-center justify-content-center">
                     <div className="d-flex flex-row align-items-center justify-content-center">
                       <Button
-                        onClick={this.handleLogin}
                         className="loginButton"
-                        onClick={this.handleLogin}
+                        onClick={this.handSignUp}
                         style={{
                           backgroundColor: Colors.secondary,
-                          // marginLeft: 'rem !important',
                         }}
                         variant="contained"
                         color="primary"
@@ -182,11 +165,6 @@ class Register extends Component {
                       </Button>
                     </div>
                   </div>
-                  {/* <div className="col-md-12" >
-                                <Button className="forgetButton" onClick={this.handleLogin} variant="contained" color="primary">
-                                    Forget Password
-                                </Button>
-                            </div> */}
                 </div>
               </div>
             </div>

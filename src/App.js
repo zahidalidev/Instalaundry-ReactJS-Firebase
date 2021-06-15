@@ -1,7 +1,9 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify'
 
 //styles
+import "react-toastify/dist/ReactToastify.css"
 import './css/style.css';
 import './css/style.min.css';
 
@@ -25,6 +27,7 @@ function App() {
   return (
     <div>
       <MyAppbar />
+      <ToastContainer autoClose={5000} position={toast.POSITION.TOP_RIGHT} />
 
       <Route path="/home" exact render={(props) => <Home {...props} />} />
       <Route path="/faq" exact render={(props) => <Faq {...props} />} />

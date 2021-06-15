@@ -6,6 +6,7 @@ import img1 from '../../assets/img/2.jpg';
 import './Login.css';
 import { Colors } from '../../config/Colors';
 import { toast } from 'react-toastify';
+import { loginUser } from '../../services/UserServices';
 // import { login } from '../../http/api';
 
 class Login extends Component {
@@ -15,45 +16,43 @@ class Login extends Component {
         label: 'Email',
         name: 'email',
         type: 'email',
+        value: ''
       },
       {
         label: 'Password',
         name: 'password',
         type: 'password',
+        value: ''
       },
     ],
-    email: '',
-    password: '',
   };
 
-  handleChange = (e, name) => {
-    const value = e.target.value;
-    if (name === 'email') {
-      this.setState({ email: value });
-    } else if (name === 'password') {
-      this.setState({ password: value });
-    }
+  handleChange = (value, index) => {
+    let loginFeilds = [...this.state.loginFeilds];
+    loginFeilds[index].value = value;
+    this.setState({ loginFeilds })
   };
 
   handleLogin = async () => {
-    // let { email, password } = this.state;
-    // email = email.trim();
-    // password = password.trim();
-    // if (email === '' || password === '') {
-    //   toast.error('Please fill all the feilds');
-    // } else {
-    //   const body = {
-    //     email,
-    //     password,
-    //   };
-    //   try {
-    //     const { data: jwt } = await login(body);
-    //     localStorage.setItem('token', jwt);
-    //     this.props.onHandleLogin(this.props.history);
-    //   } catch (error) {
-    //     toast.error('User Login Error: Email or password in invalid ');
-    //   }
-    // }
+    let loginFeilds = [...this.state.loginFeilds];
+    const email = loginFeilds[0].value.trim();
+    const password = loginFeilds[1].value.trim();
+
+    if (email === '' || password === '') {
+      toast.error('Please fill all the feilds');
+      return;
+    }
+
+    try {
+      const res = await loginUser(email, password)
+      console.log(res);
+
+      localStorage.setItem('token', res);
+      // this.props.onHandleLogin(this.props.history);
+    } catch (error) {
+      console.log(error)
+      toast.error('User Login Error: Email or password in invalid ');
+    }
   };
 
   render() {
@@ -97,16 +96,16 @@ class Login extends Component {
         >
           <div
             className="container-fluid"
-            // style={{
-            //   position: 'absolute',
-            //   top: '21rem',
-            //   left: 0,
-            //   bottom: '100rem',
-            //   right: 0,
-            //   backgroundColor: 'black',
-            //   width: '100%',
-            //   height: '100%',
-            // }}
+          // style={{
+          //   position: 'absolute',
+          //   top: '21rem',
+          //   left: 0,
+          //   bottom: '100rem',
+          //   right: 0,
+          //   backgroundColor: 'black',
+          //   width: '100%',
+          //   height: '100%',
+          // }}
           >
             {/* <img src={img1} style={{ width: '100%', height: '100%' }}></img> */}
             <div className="container loginContainer">
@@ -118,15 +117,15 @@ class Login extends Component {
                   Login
                 </h1>
                 <div className="col-md-12">
-                  {loginFeilds.map((login, i) => (
+                  {loginFeilds.map((item, i) => (
                     <div className="col-md-12" key={i}>
                       <TextField
                         className="loginTextFeild"
-                        label={login.label}
+                        label={item.label}
                         variant="outlined"
                         size="medium"
-                        onChange={(e) => this.handleChange(e, login.name)}
-                        type={login.type}
+                        onChange={(e) => this.handleChange(e.target.value, i)}
+                        type={item.type}
                         style={{ marginBottom: '4.2rem' }}
                       />
                     </div>
