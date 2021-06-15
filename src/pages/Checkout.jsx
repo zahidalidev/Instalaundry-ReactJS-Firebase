@@ -206,7 +206,7 @@ export default function Checkout() {
               fontWeight: 'bold',
             }}
           >
-            Personal Information
+            Pick Up Information
           </div>
         </div>
         <div
