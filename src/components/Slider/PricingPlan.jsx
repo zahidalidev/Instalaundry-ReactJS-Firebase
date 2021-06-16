@@ -92,7 +92,7 @@ export default function PricingPlan() {
                     </p>
                   </div>
                   <Button
-                    onClick={() => history.push("/checkout")}
+                    onClick={() => history.push("/checkout", { plan: "hi data" })}
                     style={{
                       backgroundColor: item.id === 2 ? Colors.secondary : Colors.primaryBlue,
                       color: Colors.white,
