@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import _ from "lodash"
 
 import logo from '../assets/img/logo1.png';
 
 function MyAppbar(props) {
   const history = useHistory();
+
+  const [currentUser, setCurrentUser] = useState({});
+
+  const getCurrentUser = async () => {
+    const user = JSON.parse(localStorage.getItem('token'))
+    if (user) {
+      setCurrentUser(user)
+    } else {
+      setCurrentUser({})
+    }
+  }
+
+  useEffect(() => {
+    getCurrentUser()
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.reload()
+  }
 
   return (
     <>
@@ -78,12 +99,20 @@ function MyAppbar(props) {
                 <a style={{ cursor: "pointer" }} onClick={() => history.push('/contact')} className="nav-item nav-link">
                   Contact
                 </a>
-                <a style={{ cursor: "pointer" }} onClick={() => history.push('/login')} className="nav-item nav-link">
-                  Login
-                </a>
-                <a style={{ cursor: "pointer" }} onClick={() => history.push('/register')} className="nav-item nav-link">
-                  Sign Up
-                </a>
+                {_.isEmpty(currentUser) ?
+                  <>
+                    <a style={{ cursor: "pointer" }} onClick={() => history.push('/login')} className="nav-item nav-link">
+                      Login
+                    </a>
+                    <a style={{ cursor: "pointer" }} onClick={() => history.push('/register')} className="nav-item nav-link">
+                      Sign Up
+                    </a>
+                  </> :
+
+                  <a style={{ cursor: "pointer" }} onClick={() => handleLogout()} className="nav-item nav-link">
+                    Logout
+                  </a>
+                }
                 <a style={{ cursor: "pointer" }} onClick={() => history.push('/profile')} className="nav-item nav-link">
                   Profile
                 </a>

@@ -44,10 +44,10 @@ class Login extends Component {
     }
 
     try {
+      console.log(email, password)
       const res = await loginUser(email, password)
-      console.log(res);
-
-      localStorage.setItem('token', res);
+      localStorage.setItem('token', JSON.stringify(res));
+      window.location.reload()
       // this.props.onHandleLogin(this.props.history);
     } catch (error) {
       console.log(error)
