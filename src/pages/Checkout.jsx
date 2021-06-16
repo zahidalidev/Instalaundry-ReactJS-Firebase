@@ -62,11 +62,11 @@ export default function Checkout(props) {
       dropItems: [
         {
           label: "Male",
-          vaue: 'male'
+          value: 'male'
         },
         {
           label: "Female",
-          vaue: 'female'
+          value: 'female'
         }
       ]
     },
@@ -77,11 +77,11 @@ export default function Checkout(props) {
       dropItems: [
         {
           label: "Single",
-          vaue: 'single'
+          value: 'single'
         },
         {
           label: "Married",
-          vaue: 'married'
+          value: 'married'
         }
       ]
     },
@@ -119,7 +119,7 @@ export default function Checkout(props) {
       dropItems: [
         {
           label: "Canada",
-          vaue: 'canada'
+          value: 'canada'
         }
       ]
     },
@@ -130,19 +130,42 @@ export default function Checkout(props) {
       dropItems: [
         {
           label: "British Columbia",
-          vaue: 'british columbia'
+          value: 'british columbia'
         },
         {
           label: "Ontario",
-          vaue: 'ontario'
+          value: 'ontario'
         }
       ]
     },
   ])
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const [apartmentSuit, setApartmentSuit] = useState('')
+
+  const infoFieldChange = (index, value) => {
+    let tempFeilds = [...infoFeild];
+    tempFeilds[index].value = value;
+    setInfoFeild(tempFeilds)
+  }
+
+  const pickupFieldChange = (index, value) => {
+    let tempFeilds = [...pickupFeild];
+    tempFeilds[index].value = value;
+    setPickupFeild(tempFeilds)
+  }
+
+  const dropInfoChange = (index, value) => {
+    let tempFeilds = [...infoDropFeild];
+    tempFeilds[index].value = value;
+    setInfoDropFeild(tempFeilds)
+  }
+
+  const dropPickupChange = (index, value) => {
+    let tempFeilds = [...pickupDropFeild];
+    tempFeilds[index].value = value;
+    setPickupDropFeild(tempFeilds)
+  }
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -196,7 +219,7 @@ export default function Checkout(props) {
                   <MyTextFeild
                     width="78%"
                     label={item.label}
-                    onChange={(value) => console.log(value)}
+                    onChange={(value) => infoFieldChange(index, value)}
                   ></MyTextFeild>
                 </div>
               )
@@ -219,8 +242,7 @@ export default function Checkout(props) {
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
                     value={item.value}
-                    onChange={handleChange}
-                    label="Age"
+                    onChange={(e) => dropInfoChange(index, e.target.value)}
                   >
                     {
                       item.dropItems.map((dropItem, i) =>
@@ -283,7 +305,7 @@ export default function Checkout(props) {
                 <MyTextFeild
                   width="78%"
                   label={item.label}
-                  onChange={(value) => console.log(value)}
+                  onChange={(value) => pickupFieldChange(index, value)}
                 ></MyTextFeild>
               </div>
             )}
@@ -307,12 +329,12 @@ export default function Checkout(props) {
                   <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={age}
-                    onChange={handleChange}
+                    value={item.value}
+                    onChange={(e) => dropPickupChange(index, e.target.value)}
                     label="Status"
                   >
                     {item.dropItems.map((drop, i) =>
-                      <MenuItem key={i} value={drop.vaue}>{drop.label}</MenuItem>
+                      <MenuItem key={i} value={drop.value}>{drop.label}</MenuItem>
                     )}
                   </Select>
                 </FormControl>
@@ -326,7 +348,7 @@ export default function Checkout(props) {
               <MyTextFeild
                 width="78%"
                 label="Apartment, Suite, unit etc(Optional)"
-                onChange={(value) => console.log(value)}
+                onChange={(value) => setApartmentSuit(value)}
                 style={{ fontSize: '5rem' }}
               ></MyTextFeild>
             </div>
