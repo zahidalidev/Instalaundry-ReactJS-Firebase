@@ -81,8 +81,8 @@ function Testimonial(props) {
                     deviceType={props.deviceType}
                     itemClass="carousel-item-padding-40-px"
                 >
-                    {allTestimonials.map((client, i) => (
-                        <div style={{ minWidth: "100%" }} className="col-md-4">
+                    {allTestimonials.map((client, index) => (
+                        <div key={index} style={{ minWidth: "100%" }} className="col-md-4">
                             <img className="position-relative rounded-circle bg-white shadow mx-auto" src={client.image} style={{ display: "block", width: "100px", height: "100px", padding: "12px", marginBottom: "-50px", zIndex: 1 }} alt="" />
                             <div className="bg-light text-center p-4 pt-0">
                                 <h5 className="font-weight-medium mt-5">{client.name}</h5>

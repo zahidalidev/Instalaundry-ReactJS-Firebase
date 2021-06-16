@@ -9,14 +9,14 @@ if (firebase.apps.length === 0) {
 
 const firestore = firebase.firestore();
 
-const userRef = firestore.collection('user')
+const planRef = firestore.collection('plan')
 
-export const addUser = async (body) => {
-    return await userRef.add(body);
+export const addPlan = async (body) => {
+    return await planRef.add(body);
 }
 
-export const loginUser = async (email, password) => {
-    const snapshot = await userRef.where('email', '==', email).where('password', '==', password).get();
+export const getPlans = async () => {
+    const snapshot = await planRef.orderBy('id').get();
     if (snapshot.empty) {
         return false;
     }
@@ -26,15 +26,11 @@ export const loginUser = async (email, password) => {
         res.push(doc.data())
     });
 
-    return res[0]
-
+    return res
 }
 
 
-
-
-
-// return await userRef.where('name', "==", "zahid").onSnapshot((querySnapshot) => {
+// return await planRef.where('name', "==", "zahid").onSnapshot((querySnapshot) => {
 //     let groups = querySnapshot.docChanges().map(({ doc }) => {
 //         const group = doc.data();
 //         console.log(group);

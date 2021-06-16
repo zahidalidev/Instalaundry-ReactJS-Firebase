@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -29,19 +29,150 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Checkout() {
+export default function Checkout(props) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = React.useState(
     new Date('2014-08-18T21:11:54')
   );
   const [age, setAge] = React.useState('');
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const [infoFeild, setInfoFeild] = useState([
+    {
+      id: 0,
+      label: "Full Name",
+      value: "",
+    },
+    {
+      id: 1,
+      label: "Phone Number",
+      value: "",
+    },
+    {
+      id: 2,
+      label: "Email addres",
+      value: "",
+    },
+  ])
+
+  const [infoDropFeild, setInfoDropFeild] = useState([
+    {
+      id: 0,
+      label: "Gender",
+      value: "",
+      dropItems: [
+        {
+          label: "Male",
+          value: 'male'
+        },
+        {
+          label: "Female",
+          value: 'female'
+        }
+      ]
+    },
+    {
+      id: 1,
+      label: "Status",
+      value: "",
+      dropItems: [
+        {
+          label: "Single",
+          value: 'single'
+        },
+        {
+          label: "Married",
+          value: 'married'
+        }
+      ]
+    },
+  ])
+
+  const [pickupFeild, setPickupFeild] = useState([
+    {
+      id: 0,
+      label: "Company Name",
+      value: "",
+    },
+    {
+      id: 1,
+      label: "Street Address",
+      value: "",
+    },
+    {
+      id: 2,
+      label: "Town City",
+      value: "",
+    },
+    {
+      id: 3,
+      label: "Postal Code",
+      value: "",
+    },
+  ])
+
+
+  const [pickupDropFeild, setPickupDropFeild] = useState([
+    {
+      id: 0,
+      label: "Countary",
+      value: "",
+      dropItems: [
+        {
+          label: "Canada",
+          value: 'canada'
+        }
+      ]
+    },
+    {
+      id: 1,
+      label: "Province",
+      value: "",
+      dropItems: [
+        {
+          label: "British Columbia",
+          value: 'british columbia'
+        },
+        {
+          label: "Ontario",
+          value: 'ontario'
+        }
+      ]
+    },
+  ])
+
+  const [apartmentSuit, setApartmentSuit] = useState('')
+
+  const infoFieldChange = (index, value) => {
+    let tempFeilds = [...infoFeild];
+    tempFeilds[index].value = value;
+    setInfoFeild(tempFeilds)
+  }
+
+  const pickupFieldChange = (index, value) => {
+    let tempFeilds = [...pickupFeild];
+    tempFeilds[index].value = value;
+    setPickupFeild(tempFeilds)
+  }
+
+  const dropInfoChange = (index, value) => {
+    let tempFeilds = [...infoDropFeild];
+    tempFeilds[index].value = value;
+    setInfoDropFeild(tempFeilds)
+  }
+
+  const dropPickupChange = (index, value) => {
+    let tempFeilds = [...pickupDropFeild];
+    tempFeilds[index].value = value;
+    setPickupDropFeild(tempFeilds)
+  }
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
+  useEffect(() => {
+    console.log(props.history.location.state)
+  }, [])
 
   return (
     <>
@@ -80,100 +211,56 @@ export default function Checkout() {
           className="row  d-flex justify-content-center align-items-center"
           style={{ marginTop: '3rem' }}
         >
+
           <div className="col-5 text-white " style={{ height: '30rem' }}>
-            <div className="row d-flex justify-content-center align-items-center">
-              <MyTextFeild
-                width="78%"
-                label="First Name"
-                onChange={(value) => console.log(value)}
-              ></MyTextFeild>
-            </div>
-            <div
-              className="row d-flex justify-content-center align-items-center "
-              style={{ marginTop: '3rem' }}
-            >
-              <MyTextFeild
-                width="78%"
-                label="Phone Number"
-                onChange={(value) => console.log(value)}
-              ></MyTextFeild>
-            </div>
-            <div
-              className="row d-flex justify-content-center align-items-center"
-              style={{ marginTop: '3rem' }}
-            >
-              <FormControl
-                variant="outlined"
-                className={classes.formControl}
-                style={{ width: '78%' }}
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Gender
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={age}
-                  onChange={handleChange}
-                  label="Age"
-                >
-                  <MenuItem value={10}>Male</MenuItem>
-                  <MenuItem value={20}>Female</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <div
-              className="row d-flex justify-content-center align-items-center"
-              style={{ marginTop: '3rem' }}
-            >
-              <FormControl
-                variant="outlined"
-                className={classes.formControl}
-                style={{ width: '78%' }}
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Status
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={age}
-                  onChange={handleChange}
-                  label="Status"
-                >
-                  <MenuItem value={10}>Single</MenuItem>
-                  <MenuItem value={20}>Married</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
+            {
+              infoFeild.map((item, index) =>
+                <div key={index} style={{ marginTop: index === 0 ? null : '3rem' }} className="row d-flex justify-content-center align-items-center">
+                  <MyTextFeild
+                    width="78%"
+                    label={item.label}
+                    onChange={(value) => infoFieldChange(index, value)}
+                  ></MyTextFeild>
+                </div>
+              )
+            }
           </div>
+
           <div className="col-5  text-white " style={{ height: '30rem' }}>
-            <div className="row d-flex justify-content-start align-items-start">
-              <MyTextFeild
-                width="78%"
-                label="Last Name"
-                onChange={(value) => console.log(value)}
-                style={{ fontSize: '5rem' }}
-              ></MyTextFeild>
-            </div>
+
+            {infoDropFeild.map((item, index) =>
+              <div style={{ marginTop: index === 0 ? "-0.4rem" : '1.5rem' }} className="row d-flex justify-content-start align-items-start" >
+                <FormControl
+                  variant="outlined"
+                  className={classes.formControl}
+                  style={{ width: '78%' }}
+                >
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    {item.label}
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={item.value}
+                    onChange={(e) => dropInfoChange(index, e.target.value)}
+                  >
+                    {
+                      item.dropItems.map((dropItem, i) =>
+                        <MenuItem key={i} value={dropItem.value}>{dropItem.label}</MenuItem>
+                      )
+                    }
+                  </Select>
+                </FormControl>
+              </div>
+            )}
+
             <div
               className="row d-flex justify-content-start align-items-start"
-              style={{ marginTop: '3rem' }}
+              style={{ marginTop: '1.5rem' }}
             >
-              <MyTextFeild
-                width="78%"
-                label="Email Address"
-                onChange={(value) => console.log(value)}
-                style={{ fontSize: '5rem' }}
-              ></MyTextFeild>
-            </div>
-            <div
-              className="row d-flex justify-content-start align-items-start"
-              style={{ marginTop: '3rem' }}
-            >
-              <div className="col-5 d-flex  align-items-start justify-content-start">
+              <div className="col-5 d-flex align-items-start justify-content-start">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <Grid container justify="space-around">
+                  <Grid container>
                     <KeyboardDatePicker
                       margin="normal"
                       id="date-picker-dialog"
@@ -195,11 +282,10 @@ export default function Checkout() {
       {/* Contact Info End */}
 
       {/* Personal Info Start */}
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ marginTop: "-6rem" }} >
         <div className="row p-4 d-flex justify-content-center align-items-center">
-          <div className="col"> </div>
           <div
-            className="col-8 "
+            className="col-md-8 d-flex justify-content-center align-items-center"
             style={{
               color: Colors.secondary,
               fontSize: '3vw',
@@ -209,73 +295,52 @@ export default function Checkout() {
             Pick Up Information
           </div>
         </div>
-        <div
-          className="row  d-flex justify-content-center align-items-center"
+        <div className="row  d-flex justify-content-center align-items-center"
           style={{ marginTop: '3rem' }}
         >
+
           <div className="col-5 text-white " style={{ height: '30rem' }}>
-            <div className="row d-flex justify-content-center align-items-center">
-              <MyTextFeild
-                width="78%"
-                label="Comapny Name(Optional)"
-                onChange={(value) => console.log(value)}
-              ></MyTextFeild>
-            </div>
-            <div
-              className="row d-flex justify-content-center align-items-center "
-              style={{ marginTop: '3rem' }}
-            >
-              <MyTextFeild
-                width="78%"
-                label="Street Address"
-                onChange={(value) => console.log(value)}
-              ></MyTextFeild>
-            </div>
-            <div
-              className="row d-flex justify-content-center align-items-center"
-              style={{ marginTop: '3rem' }}
-            >
-              <MyTextFeild
-                width="78%"
-                label="Town / City"
-                onChange={(value) => console.log(value)}
-              ></MyTextFeild>
-            </div>
-            <div
-              className="row d-flex justify-content-center align-items-center"
-              style={{ marginTop: '3rem' }}
-            >
-              <MyTextFeild
-                width="78%"
-                label="Postal Code"
-                onChange={(value) => console.log(value)}
-              ></MyTextFeild>
-            </div>
+            {pickupFeild.map((item, index) =>
+              <div style={{ marginTop: index === 0 ? null : '3rem' }} className="row d-flex justify-content-center align-items-center">
+                <MyTextFeild
+                  width="78%"
+                  label={item.label}
+                  onChange={(value) => pickupFieldChange(index, value)}
+                ></MyTextFeild>
+              </div>
+            )}
           </div>
+
           <div className="col-5  text-white " style={{ height: '30rem' }}>
-            <div
-              className="row d-flex justify-content-start align-items-start"
-              style={{ marginTop: '-0.5rem' }}
-            >
-              <FormControl
-                variant="outlined"
-                className={classes.formControl}
-                style={{ width: '78%' }}
+            {pickupDropFeild.map((item, index) =>
+              <div
+                key={index}
+                className="row d-flex justify-content-start align-items-start"
+                style={{ marginTop: index === 0 ? "-0.5rem" : '1.4rem' }}
               >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Country
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={age}
-                  onChange={handleChange}
-                  label="Status"
+                <FormControl
+                  variant="outlined"
+                  className={classes.formControl}
+                  style={{ width: '78%' }}
                 >
-                  <MenuItem value={10}>Canada</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    {item.label}
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={item.value}
+                    onChange={(e) => dropPickupChange(index, e.target.value)}
+                    label="Status"
+                  >
+                    {item.dropItems.map((drop, i) =>
+                      <MenuItem key={i} value={drop.value}>{drop.label}</MenuItem>
+                    )}
+                  </Select>
+                </FormControl>
+              </div>
+            )}
+
             <div
               className="row d-flex justify-content-start align-items-start"
               style={{ marginTop: '2.2rem', marginLeft: '-0.3rem' }}
@@ -283,33 +348,9 @@ export default function Checkout() {
               <MyTextFeild
                 width="78%"
                 label="Apartment, Suite, unit etc(Optional)"
-                onChange={(value) => console.log(value)}
+                onChange={(value) => setApartmentSuit(value)}
                 style={{ fontSize: '5rem' }}
               ></MyTextFeild>
-            </div>
-            <div
-              className="row d-flex justify-content-start align-items-start"
-              style={{ marginTop: '2.2rem' }}
-            >
-              <FormControl
-                variant="outlined"
-                className={classes.formControl}
-                style={{ width: '78%' }}
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Province
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={age}
-                  onChange={handleChange}
-                  label="Status"
-                >
-                  <MenuItem value={10}>British Coumbia</MenuItem>
-                  <MenuItem value={20}>Ontario</MenuItem>
-                </Select>
-              </FormControl>
             </div>
           </div>
         </div>
