@@ -1,8 +1,9 @@
 import React from 'react';
 
 function Breadcrumbs({ title, previousPages = [], currentPage }) {
+
     return (
-        <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-2 mb-5">
+        <div key={title + 3} className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-2 mb-5">
             <div className="container py-1">
                 <div className="row  align-items-center py-4">
                     <div className="col-md-6 text-center text-md-left">

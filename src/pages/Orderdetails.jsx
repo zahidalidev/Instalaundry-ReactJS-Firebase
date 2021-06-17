@@ -18,6 +18,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import { Colors } from './../config/Colors';
 import MyTextFeild from '../components/common/MyTextFeild';
+import Paynow from '../components/client/Paynow';
 
 const columns = [
   { id: 'services', label: 'Services', minWidth: 550 },
@@ -186,6 +187,9 @@ export default function Orderdetails() {
           </div>
         </div>
       </div>
+
+      <Paynow />
+
     </div >
   );
 }
