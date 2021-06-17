@@ -7,20 +7,20 @@ import { getPlans } from '../../services/PricingServices';
 
 export default function PricingPlan() {
   const history = useHistory();
-  const [plans, setPlans] = useState([])
+  const [plans, setPlans] = useState([]);
 
   const getAllPlans = async () => {
     try {
       const res = await getPlans();
-      setPlans(res)
+      setPlans(res);
     } catch (error) {
-      console.log("Pricing Plans: ", error)
+      console.log('Pricing Plans: ', error);
     }
-  }
+  };
 
   useEffect(() => {
-    getAllPlans()
-  }, [])
+    getAllPlans();
+  }, []);
 
   return (
     <>
@@ -31,17 +31,16 @@ export default function PricingPlan() {
           </h6>
           <h1 className="display-4 text-center mb-5">The Best Price</h1>
           <div className="row">
-
-            {plans.map((item, index) =>
-
-
+            {plans.map((item, index) => (
               <div key={index} className="col-lg-4 mb-4 ">
                 <div
                   className="bg-light text-center mb-2 pt-4"
                   style={{ borderRadius: '1rem', height: '35rem' }}
                 >
                   <div
-                    className={`d-inline-flex flex-column align-items-center justify-content-center ${item.id === 2 ? "bg-primary" : "bg-secondary"} rounded-circle shadow mt-2 mb-4`}
+                    className={`d-inline-flex flex-column align-items-center justify-content-center ${
+                      item.id === 2 ? 'bg-primary' : 'bg-secondary'
+                    } rounded-circle shadow mt-2 mb-4`}
                     style={{
                       width: '255px',
                       height: '250px',
@@ -92,9 +91,12 @@ export default function PricingPlan() {
                     </p>
                   </div>
                   <Button
-                    onClick={() => history.push("/checkout", { plan: "hi data" })}
+                    onClick={() =>
+                      history.push('/checkout', { plan: 'hi data' })
+                    }
                     style={{
-                      backgroundColor: item.id === 2 ? Colors.secondary : Colors.primaryBlue,
+                      backgroundColor:
+                        item.id === 2 ? Colors.secondary : Colors.primaryBlue,
                       color: Colors.white,
                       height: '2.6rem',
                       width: '9rem',
@@ -107,8 +109,7 @@ export default function PricingPlan() {
                   </Button>
                 </div>
               </div>
-            )}
-
+            ))}
           </div>
         </div>
       </div>

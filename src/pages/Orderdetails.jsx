@@ -156,7 +156,6 @@ export default function Orderdetails() {
                 style={{
                   color: Colors.secondary,
                   fontSize: '1.5rem',
-                  fontStyle: 'italic',
                   fontWeight: 'bold',
                 }}
               >
