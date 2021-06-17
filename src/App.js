@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
 
 //styles
-import "react-toastify/dist/ReactToastify.css"
+import 'react-toastify/dist/ReactToastify.css';
 import './css/style.css';
 import './css/style.min.css';
 
@@ -18,6 +18,7 @@ import Checkout from './pages/Checkout';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import AdminProfile from './pages/admin/Profile';
+import Orderdetails from './pages/Orderdetails';
 
 // components
 import MyAppbar from './components/MyAppbar';
@@ -29,7 +30,7 @@ function App() {
       <MyAppbar />
       <ToastContainer autoClose={5000} position={toast.POSITION.TOP_RIGHT} />
 
-      <Route path="/home" exact render={(props) => <Home {...props} />} />
+      {/* <Route path="/home" exact render={(props) => <Home {...props} />} />
       <Route path="/faq" exact render={(props) => <Faq {...props} />} />
       <Route path="/pricing" exact render={(props) => <Pricing {...props} />} />
       <Route path="/about" exact render={(props) => <About {...props} />} />
@@ -50,8 +51,8 @@ function App() {
         path="/checkout"
         exact
         render={(props) => <Checkout {...props} />}
-      />
-
+      /> */}
+      <Orderdetails></Orderdetails>
       <Redirect to="/home" />
 
       <Suspense fallback={<div></div>}>
