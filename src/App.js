@@ -27,32 +27,22 @@ const Footer = React.lazy(() => import('./components/Footer'));
 function App() {
   return (
     <div>
-      <MyAppbar />
       <ToastContainer autoClose={5000} position={toast.POSITION.TOP_RIGHT} />
 
-      {/* <Route path="/home" exact render={(props) => <Home {...props} />} />
+      <MyAppbar />
+
+      <Route path="/home" exact render={(props) => <Home {...props} />} />
       <Route path="/faq" exact render={(props) => <Faq {...props} />} />
       <Route path="/pricing" exact render={(props) => <Pricing {...props} />} />
       <Route path="/about" exact render={(props) => <About {...props} />} />
       <Route path="/contact" exact render={(props) => <Contact {...props} />} />
       <Route path="/profile" exact render={(props) => <Profile {...props} />} />
-      <Route
-        path="/admin"
-        exact
-        render={(props) => <AdminProfile {...props} />}
-      />
-      <Route
-        path="/register"
-        exact
-        render={(props) => <Register {...props} />}
-      />
+      <Route path="/admin" exact render={(props) => <AdminProfile {...props} />} />
+      <Route path="/register" exact render={(props) => <Register {...props} />} />
       <Route path="/login" exact render={(props) => <Login {...props} />} />
-      <Route
-        path="/checkout"
-        exact
-        render={(props) => <Checkout {...props} />}
-      /> */}
-      <Orderdetails></Orderdetails>
+      <Route path="/checkout" exact render={(props) => <Checkout {...props} />} />
+      <Route path="/orderdetails" exact render={(props) => <Orderdetails {...props} />} />
+
       <Redirect to="/home" />
 
       <Suspense fallback={<div></div>}>

@@ -12,6 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
+import { DataGrid } from '@material-ui/data-grid';
 
 //components
 import Breadcrumbs from '../components/common/Breadcrumbs';
@@ -27,14 +28,6 @@ function createData(services, total) {
   return { services, total };
 }
 
-const rows = [
-  createData('Open Load x 1', '$9.99'),
-  createData('Subtotal', '$9.99'),
-  createData('Service Fee', '$0.00'),
-  createData('GST (5.00%)', '$0.50'),
-  createData('Total', '$10.99'),
-  ,
-];
 
 const useStyles = makeStyles({
   root: {
@@ -45,13 +38,22 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Orderdetails() {
-  const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+const orderDetailColumns = [
+  { field: 'services', headerName: 'Services', width: 170 },
+  { field: 'total', headerName: 'Total', width: 170 },
+];
+
+export default function Orderdetails() {
   const [value, setValue] = React.useState(' ');
 
+  const orderRows = [
+    { id: 1, services: 'Open Load x 1', total: "$9.99" },
+    { id: 2, services: 'Subtotal', total: "$9.99" },
+    { id: 3, services: 'Service Fee', total: "$0.00" },
+    { id: 4, services: 'GST (5.00%)', total: "$0.50" },
+    { id: 5, services: 'Total', total: "$10.99" },
+  ];
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -84,62 +86,10 @@ export default function Orderdetails() {
           className="row d-flex justify-content-center align-items-center"
           style={{ marginTop: '5rem' }}
         >
-          <div className="col-md-6 d-flex justify-content-center align-items-center">
-            <TableContainer
-              className={classes.container}
-              style={{ border: '1px solid #194376', borderRadius: '0.5rem' }}
-            >
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        key={column.id}
-                        align={column.align}
-                        style={{
-                          minWidth: column.minWidth,
-                          color: Colors.secondary,
-                          fontSize: '1.4rem',
-                        }}
-                      >
-                        {column.label}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row.code}
-                        >
-                          {columns.map((column) => {
-                            const value = row[column.id];
-                            return (
-                              <TableCell
-                                key={column.id}
-                                align={column.align}
-                                style={{
-                                  fontSize: '1rem',
-                                }}
-                              >
-                                {column.format && typeof value === 'number'
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
-                          })}
-                        </TableRow>
-                      );
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
+          <div className="d-flex flex-column justify-content-start col-md-4">
+            <div style={{ marginTop: "2rem", height: "30rem", width: '40%%' }} className="justify-content-md-start" >
+              <DataGrid rows={orderRows} columns={orderDetailColumns} pageSize={6} checkboxSelection={false} />
+            </div>
           </div>
         </div>
       </div>
@@ -236,6 +186,6 @@ export default function Orderdetails() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

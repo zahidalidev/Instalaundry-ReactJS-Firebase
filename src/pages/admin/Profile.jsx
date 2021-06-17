@@ -11,11 +11,7 @@ import { Colors } from '../../config/Colors';
 
 const userColumns = [
     { field: 'name', headerName: 'Name', width: 130 },
-    {
-        field: 'contactNumber',
-        headerName: 'Contact',
-        width: 160,
-    },
+    { field: 'contactNumber', headerName: 'Contact', width: 160 },
     { field: 'email', headerName: 'Email', width: 180 },
     { field: 'address', headerName: 'Address', width: 200 },
 ];

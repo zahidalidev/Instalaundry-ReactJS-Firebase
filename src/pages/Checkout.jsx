@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router'
+import 'date-fns';
 
 //config
 import { Colors } from '../config/Colors';
@@ -31,9 +27,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Checkout(props) {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date('2014-08-18T21:11:54')
-  );
+  const history = useHistory()
+  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
   const [age, setAge] = React.useState('');
 
   const [infoFeild, setInfoFeild] = useState([
@@ -356,6 +351,30 @@ export default function Checkout(props) {
         </div>
       </div>
       {/* Personal Info End */}
+      <div className="container-fluid" style={{ marginTop: "-4rem" }} >
+        <div
+          className="row d-flex justify-content-center align-items-center"
+          style={{ marginBottom: '5rem' }}
+        >
+          <Button
+            onClick={() =>
+              history.push('/orderdetails', { plan: 'hi data' })
+            }
+            style={{
+              backgroundColor: Colors.secondary,
+              color: Colors.white,
+              height: '2.6rem',
+              width: '9rem',
+              borderRadius: '0.5rem',
+            }}
+            className="btn btn-primary py-md-3 px-md-2 mt-2"
+            variant="contained"
+          >
+            Checkout
+          </Button>
+        </div>
+      </div>
+
     </>
   );
 }

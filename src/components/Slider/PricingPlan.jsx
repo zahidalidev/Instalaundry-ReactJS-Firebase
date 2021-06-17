@@ -15,6 +15,7 @@ export default function PricingPlan() {
       setPlans(res);
     } catch (error) {
       console.log('Pricing Plans: ', error);
+      setPlans([])
     }
   };
 
@@ -38,9 +39,8 @@ export default function PricingPlan() {
                   style={{ borderRadius: '1rem', height: '35rem' }}
                 >
                   <div
-                    className={`d-inline-flex flex-column align-items-center justify-content-center ${
-                      item.id === 2 ? 'bg-primary' : 'bg-secondary'
-                    } rounded-circle shadow mt-2 mb-4`}
+                    className={`d-inline-flex flex-column align-items-center justify-content-center ${item.id === 2 ? 'bg-primary' : 'bg-secondary'
+                      } rounded-circle shadow mt-2 mb-4`}
                     style={{
                       width: '255px',
                       height: '250px',
