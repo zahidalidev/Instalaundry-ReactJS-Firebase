@@ -85,7 +85,7 @@ export default function Orderdetails() {
           className="row d-flex justify-content-center align-items-center"
           style={{ marginTop: '5rem' }}
         >
-          <div className="d-flex flex-column justify-content-start col-md-6 ">
+          <div className="d-flex flex-column justify-content-start col-md-4 ">
             <div
               style={{ marginTop: '2rem', height: '30rem', width: '100%' }}
               className="justify-content-start"
