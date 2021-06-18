@@ -193,8 +193,6 @@ export default function Orderdetails() {
           </div>
         </div>
       </div>
-
-      <Paynow />
     </div>
   );
 }
