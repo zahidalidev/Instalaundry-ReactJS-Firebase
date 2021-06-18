@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
-
 // stripe
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 // Util imports
@@ -42,7 +41,7 @@ function HomePage() {
     const stripe = useStripe();
     const elements = useElements();
 
-    const handleSubmit = async (event) => {
+    const handleSubmitPay = async (event) => {
         if (!stripe || !elements) {
             // Stripe.js has not yet loaded.
             // Make sure to disable form submission until Stripe.js has loaded.
@@ -78,6 +77,48 @@ function HomePage() {
         }
     };
 
+    const handleSubmitSub = async (event) => {
+        if (!stripe || !elements) {
+            // Stripe.js has not yet loaded.
+            // Make sure to disable form submission until Stripe.js has loaded.
+            return;
+        }
+
+        const result = await stripe.createPaymentMethod({
+            type: 'card',
+            card: elements.getElement(CardElement),
+            billing_details: {
+                email: email,
+            },
+        });
+
+        if (result.error) {
+            console.log(result.error.message);
+        } else {
+            const res = await axios.post('http://localhost:5000/api/sub', { 'payment_method': result.paymentMethod.id, 'email': email });
+            // eslint-disable-next-line camelcase
+            const { client_secret, status } = res.data;
+
+            if (status === 'requires_action') {
+                stripe.confirmCardPayment(client_secret).then(function (result) {
+                    if (result.error) {
+                        console.log('There was an issue!');
+                        console.log(result.error);
+                        // Display error message in your UI.
+                        // The card was declined (i.e. insufficient funds, card has expired, etc)
+                    } else {
+                        console.log('You got the money!');
+                        // Show a success message to your customer
+                    }
+                });
+            } else {
+                console.log('You got the money!');
+                // No additional information was needed
+                // Show a success message to your customer
+            }
+        }
+    };
+
     return (
         <Card className={classes.root}>
             <CardContent className={classes.content}>
@@ -95,10 +136,10 @@ function HomePage() {
                 />
                 <CardInput />
                 <div className={classes.div}>
-                    <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+                    <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmitPay}>
                         Pay
                     </Button>
-                    <Button variant="contained" color="primary" className={classes.button}>
+                    <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmitSub}>
                         Subscription
                     </Button>
                 </div>
