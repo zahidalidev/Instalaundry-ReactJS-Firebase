@@ -29,7 +29,6 @@ function createData(services, total) {
   return { services, total };
 }
 
-
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -38,7 +37,6 @@ const useStyles = makeStyles({
     maxHeight: 500,
   },
 });
-
 
 const orderDetailColumns = [
   { field: 'services', headerName: 'Services', width: 170 },
@@ -49,11 +47,11 @@ export default function Orderdetails() {
   const [value, setValue] = React.useState(' ');
 
   const orderRows = [
-    { id: 1, services: 'Open Load x 1', total: "$9.99" },
-    { id: 2, services: 'Subtotal', total: "$9.99" },
-    { id: 3, services: 'Service Fee', total: "$0.00" },
-    { id: 4, services: 'GST (5.00%)', total: "$0.50" },
-    { id: 5, services: 'Total', total: "$10.99" },
+    { id: 1, services: 'Open Load x 1', total: '$9.99' },
+    { id: 2, services: 'Subtotal', total: '$9.99' },
+    { id: 3, services: 'Service Fee', total: '$0.00' },
+    { id: 4, services: 'GST (5.00%)', total: '$0.50' },
+    { id: 5, services: 'Total', total: '$10.99' },
   ];
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -72,7 +70,7 @@ export default function Orderdetails() {
           style={{ marginTop: '5rem' }}
         >
           <div
-            className="col-md-8  d-flex justify-content-center align-items-center"
+            className="col-md-12  d-flex justify-content-center align-items-center"
             style={{
               color: Colors.secondary,
               fontSize: '3vw',
@@ -87,9 +85,17 @@ export default function Orderdetails() {
           className="row d-flex justify-content-center align-items-center"
           style={{ marginTop: '5rem' }}
         >
-          <div className="d-flex flex-column justify-content-start col-md-4">
-            <div style={{ marginTop: "2rem", height: "30rem", width: '40%%' }} className="justify-content-md-start" >
-              <DataGrid rows={orderRows} columns={orderDetailColumns} pageSize={6} checkboxSelection={false} />
+          <div className="d-flex flex-column justify-content-start col-md-6 ">
+            <div
+              style={{ marginTop: '2rem', height: '30rem', width: '100%' }}
+              className="justify-content-start"
+            >
+              <DataGrid
+                rows={orderRows}
+                columns={orderDetailColumns}
+                pageSize={6}
+                checkboxSelection={false}
+              />
             </div>
           </div>
         </div>
@@ -189,7 +195,6 @@ export default function Orderdetails() {
       </div>
 
       <Paynow />
-
-    </div >
+    </div>
   );
 }
