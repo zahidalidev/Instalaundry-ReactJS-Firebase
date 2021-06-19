@@ -12,6 +12,7 @@ export default function PricingPlan() {
   const getAllPlans = async () => {
     try {
       const res = await getPlans();
+      console.log(res)
       setPlans(res);
     } catch (error) {
       console.log('Pricing Plans: ', error);
@@ -22,6 +23,10 @@ export default function PricingPlan() {
   useEffect(() => {
     getAllPlans();
   }, []);
+
+  const handleSelectPlans = (planObj) => {
+    history.push('/checkout', { planObj })
+  }
 
   return (
     <>
@@ -91,9 +96,11 @@ export default function PricingPlan() {
                     </p>
                   </div>
                   <Button
-                    onClick={() =>
-                      history.push('/checkout', { plan: 'hi data' })
-                    }
+                    onClick={() => handleSelectPlans({
+                      id: item.id,
+                      planStripeId: item.planStripeId,
+                      price: item.price
+                    })}
                     style={{
                       backgroundColor:
                         item.id === 2 ? Colors.secondary : Colors.primaryBlue,
