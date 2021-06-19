@@ -14,11 +14,19 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import { DataGrid } from '@material-ui/data-grid';
 
+// Stripe
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
 //components
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import { Colors } from './../config/Colors';
 import MyTextFeild from '../components/common/MyTextFeild';
 import Paynow from '../components/client/Paynow';
+
+const stripePromise = loadStripe(
+  'pk_test_51ISGFTLuBGwlYLhYZv0JuDFVCxSTvXbZ1bEkqNblhSKgL04eWCTDGc94Nfebm2Ywb3IqOA6PfrPWZfc9hPkkpUql00pAXaOiL9'
+);
 
 const columns = [
   { id: 'services', label: 'Services', minWidth: 550 },
@@ -314,6 +322,9 @@ export default function Orderdetails() {
           </div>
         </div>
       </div>
+      <Elements stripe={stripePromise}>
+        <Paynow />
+      </Elements>
     </div>
   );
 }
