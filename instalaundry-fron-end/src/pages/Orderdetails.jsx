@@ -40,7 +40,9 @@ const useStyles = makeStyles({
 
 const orderDetailColumns = [
   { field: 'services', headerName: 'Services', width: 170 },
-  { field: 'total', headerName: 'Total', width: 170 },
+  { field: ' ', headerName: '', width: 150 },
+  { field: ' ', headerName: '', width: 120 },
+  { field: 'total', headerName: 'Total', width: 140 },
 ];
 
 export default function Orderdetails() {
@@ -85,17 +87,59 @@ export default function Orderdetails() {
           className="row d-flex justify-content-center align-items-center"
           style={{ marginTop: '5rem' }}
         >
-          <div className="d-flex flex-column justify-content-start col-md-4 ">
+          <div className="d-flex flex-column justify-content-start col-md-6 ">
             <div
               style={{ marginTop: '2rem', height: '30rem', width: '100%' }}
               className="justify-content-start"
             >
-              <DataGrid
+              {/* <DataGrid
                 rows={orderRows}
                 columns={orderDetailColumns}
                 pageSize={6}
                 checkboxSelection={false}
-              />
+              /> */}
+              <table className="table" style={{ border: '1px solid #194376' }}>
+                <thead className="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Services</th>
+                    <th scope="col"></th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Open Load x 1</td>
+                    <td></td>
+                    <td>$9.99</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Subtotal</td>
+                    <td></td>
+                    <td>$9.99</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Service Fee</td>
+                    <td></td>
+                    <td>$0.00</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>GST</td>
+                    <td></td>
+                    <td>$0.50</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Total</td>
+                    <td></td>
+                    <td>$10.50</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -103,7 +147,7 @@ export default function Orderdetails() {
 
       <div
         className="container-fluid"
-        style={{ marginTop: '7rem', height: '25rem' }}
+        style={{ marginTop: '1rem', height: '25rem' }}
       >
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-5  d-flex justify-content-center align-items-center">
