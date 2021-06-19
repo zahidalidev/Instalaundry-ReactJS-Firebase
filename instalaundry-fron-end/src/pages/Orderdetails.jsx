@@ -47,6 +47,7 @@ const orderDetailColumns = [
 
 export default function Orderdetails() {
   const [value, setValue] = React.useState(' ');
+  const [tipButton, showTipButton] = React.useState(false);
 
   const orderRows = [
     { id: 1, services: 'Open Load x 1', total: '$9.99' },
@@ -173,16 +174,77 @@ export default function Orderdetails() {
                   value="paylater"
                   control={<Radio />}
                   label="Pay Tip Later (After Delivery)"
+                  onClick={() => showTipButton(false)}
                 />
                 <FormControlLabel
                   value="paynow"
                   control={<Radio />}
                   label="Pay Tip Now"
+                  onClick={() => showTipButton(true)}
                 />
+
+                {tipButton ? (
+                  <div className="container-fluid">
+                    <div className="row d-flex justify-content-center align-items-center">
+                      Thank you so much, 21% of tip is added to the totals!
+                    </div>
+                    <div className="row d-flex justify-content-start align-items-start">
+                      <div className="col-3 justify-content-start align-items-start">
+                        <Button
+                          style={{
+                            backgroundColor: '#1a1a1a',
+                            color: Colors.white,
+                            height: '2.5rem',
+                            width: '5rem',
+                            fontSize: '0.8rem',
+                          }}
+                          className="btn btn-primary py-md-2 px-md-2 mt-2"
+                          variant="contained"
+                        >
+                          12%(1.20)
+                        </Button>
+                      </div>
+                      <div className="col-3 justify-content-start align-items-start">
+                        <Button
+                          style={{
+                            backgroundColor: '#1a1a1a',
+                            color: Colors.white,
+                            height: '2.5rem',
+                            width: '5rem',
+                            fontSize: '0.8rem',
+                          }}
+                          className="btn btn-primary py-md-2 px-md-2 mt-2"
+                          variant="contained"
+                        >
+                          18%(1.80)
+                        </Button>
+                      </div>
+                      <div className="col-3 justify-content-start align-items-start">
+                        <Button
+                          style={{
+                            backgroundColor: '#1a1a1a',
+                            color: Colors.white,
+                            height: '2.5rem',
+                            width: '5rem',
+                            fontSize: '0.8rem',
+                          }}
+                          className="btn btn-primary py-md-2 px-md-2 mt-2"
+                          variant="contained"
+                        >
+                          21%(2.10)
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+
                 <FormControlLabel
                   value="other"
                   control={<Radio />}
                   label="No Tip"
+                  onClick={() => showTipButton(false)}
                 />
               </RadioGroup>
             </FormControl>
@@ -194,7 +256,7 @@ export default function Orderdetails() {
                 color: Colors.secondary,
                 fontSize: '1.5rem',
                 fontWeight: 'bold',
-                marginTop: '2rem',
+                marginTop: '-2.5rem',
               }}
             >
               Have Coupon / Referral Code?
