@@ -48,6 +48,7 @@ const orderDetailColumns = [
 export default function Orderdetails() {
   const [value, setValue] = React.useState(' ');
   const [tipButton, showTipButton] = React.useState(false);
+  const [tipValue, showTipValue] = React.useState(' ');
 
   const orderRows = [
     { id: 1, services: 'Open Load x 1', total: '$9.99' },
@@ -185,10 +186,21 @@ export default function Orderdetails() {
 
                 {tipButton ? (
                   <div className="container-fluid">
-                    <div className="row d-flex justify-content-center align-items-center">
-                      Thank you so much, 21% of tip is added to the totals!
+                    <div
+                      className="row d-flex justify-content-center align-items-center"
+                      style={{
+                        color: Colors.secondary,
+                        fontSize: '1rem',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      Thank you so much, {tipValue} of tip is added to the
+                      totals!
                     </div>
-                    <div className="row d-flex justify-content-start align-items-start">
+                    <div
+                      className="row d-flex justify-content-start align-items-start"
+                      style={{ marginTop: '1rem' }}
+                    >
                       <div className="col-3 justify-content-start align-items-start">
                         <Button
                           style={{
@@ -198,6 +210,7 @@ export default function Orderdetails() {
                             width: '5rem',
                             fontSize: '0.8rem',
                           }}
+                          onClick={() => showTipValue('12%')}
                           className="btn btn-primary py-md-2 px-md-2 mt-2"
                           variant="contained"
                         >
@@ -213,6 +226,7 @@ export default function Orderdetails() {
                             width: '5rem',
                             fontSize: '0.8rem',
                           }}
+                          onClick={() => showTipValue('18%')}
                           className="btn btn-primary py-md-2 px-md-2 mt-2"
                           variant="contained"
                         >
@@ -228,6 +242,7 @@ export default function Orderdetails() {
                             width: '5rem',
                             fontSize: '0.8rem',
                           }}
+                          onClick={() => showTipValue('21%')}
                           className="btn btn-primary py-md-2 px-md-2 mt-2"
                           variant="contained"
                         >
@@ -256,7 +271,7 @@ export default function Orderdetails() {
                 color: Colors.secondary,
                 fontSize: '1.5rem',
                 fontWeight: 'bold',
-                marginTop: '-2.5rem',
+                marginTop: '1rem',
               }}
             >
               Have Coupon / Referral Code?
