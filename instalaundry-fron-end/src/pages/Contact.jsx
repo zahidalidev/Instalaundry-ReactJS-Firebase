@@ -1,4 +1,5 @@
 import Button from '@material-ui/core/Button';
+import img1 from '../assets/img/contact.png';
 
 export default function Contact() {
   return (
@@ -26,7 +27,46 @@ export default function Contact() {
         </div>
       </div>
       {/* -- Contact Start -- */}
+
       <div className="container-fluid py-5">
+        <div className="row d-flex justify-content-center align-items-center">
+          <div
+            className="col-6   justify-content-center align-items-center"
+            style={{ marginTop: '5rem' }}
+          >
+            <img
+              src={img1}
+              style={{ height: '23rem', marginLeft: '6rem' }}
+            ></img>
+          </div>
+          <div className="col-6 d-flex flex-column justify-content-center align-items-center">
+            <h1
+              className="display-4 text-center mb-5"
+              style={{ fontSize: '2.5rem' }}
+            >
+              Have a Question?
+            </h1>
+            Type your question into our virtual assistant who will help you find
+            an answer to your question or put you in touch with our friendly
+            customer care team.
+            <br />
+            Don't see the chat button? Make sure your ad blocker is turned off
+            in your Browser Settings. If you are still having difficulty
+            connecting, please give us a call at:
+            <br />
+            <a href="">604-LAUNDRY </a>Alternatively check out our FAQ's for
+            commonly asked questions and answers or Email us at:
+            <a href="">support@instalaundry.ca</a>
+          </div>
+        </div>
+      </div>
+      <h1
+        className="display-4 text-center mb-5"
+        style={{ fontSize: '3rem', marginTop: '8rem' }}
+      >
+        Contact Us
+      </h1>
+      <div className="container-fluid py-5" style={{ marginBottom: '6rem' }}>
         <div className="container" style={{ maxWidth: '900px' }}>
           <div className="row">
             <div className="col-12">

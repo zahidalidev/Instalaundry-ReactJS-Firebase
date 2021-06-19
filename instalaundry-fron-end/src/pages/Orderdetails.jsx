@@ -24,7 +24,9 @@ import { Colors } from './../config/Colors';
 import MyTextFeild from '../components/common/MyTextFeild';
 import Paynow from '../components/client/Paynow';
 
-const stripePromise = loadStripe('pk_test_51ISGFTLuBGwlYLhYZv0JuDFVCxSTvXbZ1bEkqNblhSKgL04eWCTDGc94Nfebm2Ywb3IqOA6PfrPWZfc9hPkkpUql00pAXaOiL9');
+const stripePromise = loadStripe(
+  'pk_test_51ISGFTLuBGwlYLhYZv0JuDFVCxSTvXbZ1bEkqNblhSKgL04eWCTDGc94Nfebm2Ywb3IqOA6PfrPWZfc9hPkkpUql00pAXaOiL9'
+);
 
 const columns = [
   { id: 'services', label: 'Services', minWidth: 550 },
@@ -35,7 +37,6 @@ function createData(services, total) {
   return { services, total };
 }
 
-
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -45,21 +46,24 @@ const useStyles = makeStyles({
   },
 });
 
-
 const orderDetailColumns = [
   { field: 'services', headerName: 'Services', width: 170 },
-  { field: 'total', headerName: 'Total', width: 170 },
+  { field: ' ', headerName: '', width: 150 },
+  { field: ' ', headerName: '', width: 120 },
+  { field: 'total', headerName: 'Total', width: 140 },
 ];
 
 export default function Orderdetails() {
   const [value, setValue] = React.useState(' ');
+  const [tipButton, showTipButton] = React.useState(false);
+  const [tipValue, showTipValue] = React.useState(' ');
 
   const orderRows = [
-    { id: 1, services: 'Open Load x 1', total: "$9.99" },
-    { id: 2, services: 'Subtotal', total: "$9.99" },
-    { id: 3, services: 'Service Fee', total: "$0.00" },
-    { id: 4, services: 'GST (5.00%)', total: "$0.50" },
-    { id: 5, services: 'Total', total: "$10.99" },
+    { id: 1, services: 'Open Load x 1', total: '$9.99' },
+    { id: 2, services: 'Subtotal', total: '$9.99' },
+    { id: 3, services: 'Service Fee', total: '$0.00' },
+    { id: 4, services: 'GST (5.00%)', total: '$0.50' },
+    { id: 5, services: 'Total', total: '$10.99' },
   ];
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -78,7 +82,7 @@ export default function Orderdetails() {
           style={{ marginTop: '5rem' }}
         >
           <div
-            className="col-md-8  d-flex justify-content-center align-items-center"
+            className="col-md-12  d-flex justify-content-center align-items-center"
             style={{
               color: Colors.secondary,
               fontSize: '3vw',
@@ -93,9 +97,59 @@ export default function Orderdetails() {
           className="row d-flex justify-content-center align-items-center"
           style={{ marginTop: '5rem' }}
         >
-          <div className="d-flex flex-column justify-content-start col-md-4">
-            <div style={{ marginTop: "2rem", height: "30rem", width: '40%%' }} className="justify-content-md-start" >
-              <DataGrid rows={orderRows} columns={orderDetailColumns} pageSize={6} checkboxSelection={false} />
+          <div className="d-flex flex-column justify-content-start col-md-6 ">
+            <div
+              style={{ marginTop: '2rem', height: '30rem', width: '100%' }}
+              className="justify-content-start"
+            >
+              {/* <DataGrid
+                rows={orderRows}
+                columns={orderDetailColumns}
+                pageSize={6}
+                checkboxSelection={false}
+              /> */}
+              <table className="table" style={{ border: '1px solid #194376' }}>
+                <thead className="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Services</th>
+                    <th scope="col"></th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Open Load x 1</td>
+                    <td></td>
+                    <td>$9.99</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Subtotal</td>
+                    <td></td>
+                    <td>$9.99</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Service Fee</td>
+                    <td></td>
+                    <td>$0.00</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>GST</td>
+                    <td></td>
+                    <td>$0.50</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Total</td>
+                    <td></td>
+                    <td>$10.50</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -103,7 +157,7 @@ export default function Orderdetails() {
 
       <div
         className="container-fluid"
-        style={{ marginTop: '7rem', height: '25rem' }}
+        style={{ marginTop: '1rem', height: '25rem' }}
       >
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-5  d-flex justify-content-center align-items-center">
@@ -129,16 +183,91 @@ export default function Orderdetails() {
                   value="paylater"
                   control={<Radio />}
                   label="Pay Tip Later (After Delivery)"
+                  onClick={() => showTipButton(false)}
                 />
                 <FormControlLabel
                   value="paynow"
                   control={<Radio />}
                   label="Pay Tip Now"
+                  onClick={() => showTipButton(true)}
                 />
+
+                {tipButton ? (
+                  <div className="container-fluid">
+                    <div
+                      className="row d-flex justify-content-center align-items-center"
+                      style={{
+                        color: Colors.secondary,
+                        fontSize: '1rem',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      Thank you so much, {tipValue} of tip is added to the
+                      totals!
+                    </div>
+                    <div
+                      className="row d-flex justify-content-start align-items-start"
+                      style={{ marginTop: '1rem' }}
+                    >
+                      <div className="col-3 justify-content-start align-items-start">
+                        <Button
+                          style={{
+                            backgroundColor: '#1a1a1a',
+                            color: Colors.white,
+                            height: '2.5rem',
+                            width: '5rem',
+                            fontSize: '0.8rem',
+                          }}
+                          onClick={() => showTipValue('12%')}
+                          className="btn btn-primary py-md-2 px-md-2 mt-2"
+                          variant="contained"
+                        >
+                          12%(1.20)
+                        </Button>
+                      </div>
+                      <div className="col-3 justify-content-start align-items-start">
+                        <Button
+                          style={{
+                            backgroundColor: '#1a1a1a',
+                            color: Colors.white,
+                            height: '2.5rem',
+                            width: '5rem',
+                            fontSize: '0.8rem',
+                          }}
+                          onClick={() => showTipValue('18%')}
+                          className="btn btn-primary py-md-2 px-md-2 mt-2"
+                          variant="contained"
+                        >
+                          18%(1.80)
+                        </Button>
+                      </div>
+                      <div className="col-3 justify-content-start align-items-start">
+                        <Button
+                          style={{
+                            backgroundColor: '#1a1a1a',
+                            color: Colors.white,
+                            height: '2.5rem',
+                            width: '5rem',
+                            fontSize: '0.8rem',
+                          }}
+                          onClick={() => showTipValue('21%')}
+                          className="btn btn-primary py-md-2 px-md-2 mt-2"
+                          variant="contained"
+                        >
+                          21%(2.10)
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+
                 <FormControlLabel
                   value="other"
                   control={<Radio />}
                   label="No Tip"
+                  onClick={() => showTipButton(false)}
                 />
               </RadioGroup>
             </FormControl>
@@ -150,7 +279,7 @@ export default function Orderdetails() {
                 color: Colors.secondary,
                 fontSize: '1.5rem',
                 fontWeight: 'bold',
-                marginTop: '2rem',
+                marginTop: '1rem',
               }}
             >
               Have Coupon / Referral Code?
@@ -193,11 +322,9 @@ export default function Orderdetails() {
           </div>
         </div>
       </div>
-
       <Elements stripe={stripePromise}>
         <Paynow />
       </Elements>
-
-    </div >
+    </div>
   );
 }

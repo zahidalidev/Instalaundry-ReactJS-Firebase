@@ -6,9 +6,12 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router';
 import 'date-fns';
 
 //config
@@ -27,147 +30,163 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Checkout(props) {
   const classes = useStyles();
-  const history = useHistory()
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+  const history = useHistory();
+  const [selectedDate, setSelectedDate] = React.useState(
+    new Date('2014-08-18T21:11:54')
+  );
   const [age, setAge] = React.useState('');
 
   const [infoFeild, setInfoFeild] = useState([
     {
       id: 0,
-      label: "Full Name",
-      value: "",
+      label: 'Full Name',
+      value: '',
     },
     {
       id: 1,
-      label: "Phone Number",
-      value: "",
+      label: 'Phone Number',
+      value: '',
     },
     {
       id: 2,
-      label: "Email addres",
-      value: "",
+      label: 'Email addres',
+      value: '',
     },
-  ])
+  ]);
 
   const [infoDropFeild, setInfoDropFeild] = useState([
     {
       id: 0,
-      label: "Gender",
-      value: "",
+      label: 'Gender',
+      value: '',
       dropItems: [
         {
-          label: "Male",
-          value: 'male'
+          label: 'Male',
+          value: 'male',
         },
         {
-          label: "Female",
-          value: 'female'
-        }
-      ]
+          label: 'Female',
+          value: 'female',
+        },
+      ],
     },
     {
       id: 1,
-      label: "Status",
-      value: "",
+      label: 'Status',
+      value: '',
       dropItems: [
         {
-          label: "Single",
-          value: 'single'
+          label: 'Single',
+          value: 'single',
         },
         {
-          label: "Married",
-          value: 'married'
-        }
-      ]
+          label: 'Married',
+          value: 'married',
+        },
+      ],
     },
-  ])
+  ]);
 
   const [pickupFeild, setPickupFeild] = useState([
     {
       id: 0,
-      label: "Company Name",
-      value: "",
+      label: 'Company Name',
+      value: '',
     },
     {
       id: 1,
-      label: "Street Address",
-      value: "",
+      label: 'Street Address',
+      value: '',
     },
     {
       id: 2,
-      label: "Town City",
-      value: "",
+      label: 'Town City',
+      value: '',
     },
     {
       id: 3,
-      label: "Postal Code",
-      value: "",
+      label: 'Postal Code',
+      value: '',
     },
-  ])
-
+  ]);
 
   const [pickupDropFeild, setPickupDropFeild] = useState([
     {
       id: 0,
-      label: "Countary",
-      value: "",
+      label: 'Countary',
+      value: '',
       dropItems: [
         {
-          label: "Canada",
-          value: 'canada'
-        }
-      ]
+          label: 'Canada',
+          value: 'canada',
+        },
+      ],
     },
     {
       id: 1,
-      label: "Province",
-      value: "",
+      label: 'Province',
+      value: '',
       dropItems: [
         {
-          label: "British Columbia",
-          value: 'british columbia'
+          label: 'British Columbia',
+          value: 'british columbia',
         },
         {
-          label: "Ontario",
-          value: 'ontario'
-        }
-      ]
+          label: 'Ontario',
+          value: 'ontario',
+        },
+      ],
     },
-  ])
+    {
+      id: 2,
+      label: 'Timing',
+      value: '',
+      dropItems: [
+        {
+          label: 'Morning',
+          value: 'morning',
+        },
+        {
+          label: 'Evening',
+          value: 'evening',
+        },
+      ],
+    },
+  ]);
 
-  const [apartmentSuit, setApartmentSuit] = useState('')
+  const [apartmentSuit, setApartmentSuit] = useState('');
 
   const infoFieldChange = (index, value) => {
     let tempFeilds = [...infoFeild];
     tempFeilds[index].value = value;
-    setInfoFeild(tempFeilds)
-  }
+    setInfoFeild(tempFeilds);
+  };
 
   const pickupFieldChange = (index, value) => {
     let tempFeilds = [...pickupFeild];
     tempFeilds[index].value = value;
-    setPickupFeild(tempFeilds)
-  }
+    setPickupFeild(tempFeilds);
+  };
 
   const dropInfoChange = (index, value) => {
     let tempFeilds = [...infoDropFeild];
     tempFeilds[index].value = value;
-    setInfoDropFeild(tempFeilds)
-  }
+    setInfoDropFeild(tempFeilds);
+  };
 
   const dropPickupChange = (index, value) => {
     let tempFeilds = [...pickupDropFeild];
     tempFeilds[index].value = value;
-    setPickupDropFeild(tempFeilds)
-  }
+    setPickupDropFeild(tempFeilds);
+  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
   useEffect(() => {
-    console.log(props.history.location.state)
-  }, [])
+    console.log(props.history.location.state);
+  }, []);
 
   return (
     <>
@@ -206,25 +225,28 @@ export default function Checkout(props) {
           className="row  d-flex justify-content-center align-items-center"
           style={{ marginTop: '3rem' }}
         >
-
           <div className="col-5 text-white " style={{ height: '30rem' }}>
-            {
-              infoFeild.map((item, index) =>
-                <div key={index} style={{ marginTop: index === 0 ? null : '3rem' }} className="row d-flex justify-content-center align-items-center">
-                  <MyTextFeild
-                    width="78%"
-                    label={item.label}
-                    onChange={(value) => infoFieldChange(index, value)}
-                  ></MyTextFeild>
-                </div>
-              )
-            }
+            {infoFeild.map((item, index) => (
+              <div
+                key={index}
+                style={{ marginTop: index === 0 ? null : '3rem' }}
+                className="row d-flex justify-content-center align-items-center"
+              >
+                <MyTextFeild
+                  width="78%"
+                  label={item.label}
+                  onChange={(value) => infoFieldChange(index, value)}
+                ></MyTextFeild>
+              </div>
+            ))}
           </div>
 
           <div className="col-5  text-white " style={{ height: '30rem' }}>
-
-            {infoDropFeild.map((item, index) =>
-              <div style={{ marginTop: index === 0 ? "-0.4rem" : '1.5rem' }} className="row d-flex justify-content-start align-items-start" >
+            {infoDropFeild.map((item, index) => (
+              <div
+                style={{ marginTop: index === 0 ? '-0.4rem' : '1.5rem' }}
+                className="row d-flex justify-content-start align-items-start"
+              >
                 <FormControl
                   variant="outlined"
                   className={classes.formControl}
@@ -239,15 +261,15 @@ export default function Checkout(props) {
                     value={item.value}
                     onChange={(e) => dropInfoChange(index, e.target.value)}
                   >
-                    {
-                      item.dropItems.map((dropItem, i) =>
-                        <MenuItem key={i} value={dropItem.value}>{dropItem.label}</MenuItem>
-                      )
-                    }
+                    {item.dropItems.map((dropItem, i) => (
+                      <MenuItem key={i} value={dropItem.value}>
+                        {dropItem.label}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </div>
-            )}
+            ))}
 
             <div
               className="row d-flex justify-content-start align-items-start"
@@ -277,7 +299,7 @@ export default function Checkout(props) {
       {/* Contact Info End */}
 
       {/* Personal Info Start */}
-      <div className="container-fluid" style={{ marginTop: "-6rem" }} >
+      <div className="container-fluid" style={{ marginTop: '-6rem' }}>
         <div className="row p-4 d-flex justify-content-center align-items-center">
           <div
             className="col-md-8 d-flex justify-content-center align-items-center"
@@ -290,28 +312,31 @@ export default function Checkout(props) {
             Pick Up Information
           </div>
         </div>
-        <div className="row  d-flex justify-content-center align-items-center"
+        <div
+          className="row  d-flex justify-content-center align-items-center"
           style={{ marginTop: '3rem' }}
         >
-
           <div className="col-5 text-white " style={{ height: '30rem' }}>
-            {pickupFeild.map((item, index) =>
-              <div style={{ marginTop: index === 0 ? null : '3rem' }} className="row d-flex justify-content-center align-items-center">
+            {pickupFeild.map((item, index) => (
+              <div
+                style={{ marginTop: index === 0 ? null : '3rem' }}
+                className="row d-flex justify-content-center align-items-center"
+              >
                 <MyTextFeild
                   width="78%"
                   label={item.label}
                   onChange={(value) => pickupFieldChange(index, value)}
                 ></MyTextFeild>
               </div>
-            )}
+            ))}
           </div>
 
           <div className="col-5  text-white " style={{ height: '30rem' }}>
-            {pickupDropFeild.map((item, index) =>
+            {pickupDropFeild.map((item, index) => (
               <div
                 key={index}
                 className="row d-flex justify-content-start align-items-start"
-                style={{ marginTop: index === 0 ? "-0.5rem" : '1.4rem' }}
+                style={{ marginTop: index === 0 ? '-0.5rem' : '1.4rem' }}
               >
                 <FormControl
                   variant="outlined"
@@ -328,17 +353,19 @@ export default function Checkout(props) {
                     onChange={(e) => dropPickupChange(index, e.target.value)}
                     label="Status"
                   >
-                    {item.dropItems.map((drop, i) =>
-                      <MenuItem key={i} value={drop.value}>{drop.label}</MenuItem>
-                    )}
+                    {item.dropItems.map((drop, i) => (
+                      <MenuItem key={i} value={drop.value}>
+                        {drop.label}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </div>
-            )}
+            ))}
 
             <div
               className="row d-flex justify-content-start align-items-start"
-              style={{ marginTop: '2.2rem', marginLeft: '-0.3rem' }}
+              style={{ marginTop: '2.5rem', marginLeft: '-0.3rem' }}
             >
               <MyTextFeild
                 width="78%"
@@ -351,15 +378,13 @@ export default function Checkout(props) {
         </div>
       </div>
       {/* Personal Info End */}
-      <div className="container-fluid" style={{ marginTop: "-4rem" }} >
+      <div className="container-fluid" style={{ marginTop: '-4rem' }}>
         <div
           className="row d-flex justify-content-center align-items-center"
           style={{ marginBottom: '5rem' }}
         >
           <Button
-            onClick={() =>
-              history.push('/orderdetails', { plan: 'hi data' })
-            }
+            onClick={() => history.push('/orderdetails', { plan: 'hi data' })}
             style={{
               backgroundColor: Colors.secondary,
               color: Colors.white,
@@ -374,7 +399,6 @@ export default function Checkout(props) {
           </Button>
         </div>
       </div>
-
     </>
   );
 }
