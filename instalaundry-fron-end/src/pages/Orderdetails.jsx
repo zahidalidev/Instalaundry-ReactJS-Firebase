@@ -18,7 +18,7 @@ import MyTextFeild from '../components/common/MyTextFeild';
 import Paynow from '../components/client/Paynow';
 
 // config
-import configObj from "../config/config.json"
+import configObj from '../config/config.json';
 
 const stripePromise = loadStripe(configObj.stripPublicId);
 
@@ -26,7 +26,7 @@ export default function Orderdetails(props) {
   const [value, setValue] = useState('');
   const [tipButton, showTipButton] = useState(false);
   const [tipValue, showTipValue] = useState('');
-  const [subscribedDetail, setSubscribedDetail] = useState()
+  const [subscribedDetail, setSubscribedDetail] = useState();
 
   const [orderDetail, setOrderDetails] = useState([
     { id: 1, title: 'Open Load x 1', price: 0 },
@@ -48,11 +48,9 @@ export default function Orderdetails(props) {
     oldOrderDetail[0].price = price;
     oldOrderDetail[1].price = price;
     oldOrderDetail[3].price = (price * 0.05).toFixed(2);
-    oldOrderDetail[4].price = (price + (price * 0.05)).toFixed(2);
+    oldOrderDetail[4].price = (price + price * 0.05).toFixed(2);
 
-
-    setOrderDetails(oldOrderDetail)
-
+    setOrderDetails(oldOrderDetail);
   }, [props.history.location.state]);
 
   return (
@@ -104,16 +102,14 @@ export default function Orderdetails(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                    orderDetail.map((item, index) =>
-                      <tr key={index} >
-                        <th scope="row">{item.id}</th>
-                        <td>{item.title}</td>
-                        <td></td>
-                        <td>${item.price}</td>
-                      </tr>
-                    )
-                  }
+                  {orderDetail.map((item, index) => (
+                    <tr key={index}>
+                      <th scope="row">{item.id}</th>
+                      <td>{item.title}</td>
+                      <td></td>
+                      <td>${item.price}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
