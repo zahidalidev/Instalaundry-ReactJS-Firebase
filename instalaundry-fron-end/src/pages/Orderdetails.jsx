@@ -18,7 +18,7 @@ import MyTextFeild from '../components/common/MyTextFeild';
 import Paynow from '../components/client/Paynow';
 
 // config
-import configObj from "../config/config.json"
+import configObj from '../config/config.json';
 
 const stripePromise = loadStripe(configObj.stripPublicId);
 
@@ -26,8 +26,9 @@ export default function Orderdetails(props) {
   const [value, setValue] = useState('');
   const [tipButton, showTipButton] = useState(false);
   const [tipValue, showTipValue] = useState('');
+
   const [oldTotalPrice, setOldTotalPrice] = useState(0);
-  const [subscribedDetail, setSubscribedDetail] = useState()
+  const [subscribedDetail, setSubscribedDetail] = useState();
 
   const [orderDetail, setOrderDetails] = useState([
     { id: 1, title: 'Open Load x 1', price: 0 },
@@ -57,37 +58,37 @@ export default function Orderdetails(props) {
       newOrderDetail[0].price = price;
       newOrderDetail[1].price = price;
       newOrderDetail[3].price = (price * 0.05).toFixed(2);
-      newOrderDetail[4].price = (price + (price * 0.05)).toFixed(2);
-      setOldTotalPrice((price + (price * 0.05)).toFixed(2));
-      setOrderDetails(newOrderDetail)
+      newOrderDetail[4].price = (price + price * 0.05).toFixed(2);
+      setOldTotalPrice((price + price * 0.05).toFixed(2));
+      setOrderDetails(newOrderDetail);
 
       let newTips = [...tips];
       newTips[0].price = (price * 0.12).toFixed(2);
       newTips[1].price = (price * 0.18).toFixed(2);
       newTips[2].price = (price * 0.21).toFixed(2);
-      setTips(newTips)
-
+      setTips(newTips);
     }
 
+    setOrderDetails(oldOrderDetail);
   }, [props.history.location.state]);
 
   const handleTip = (index) => {
     let tipPrice = tips[index].price;
-    showTipValue(tipPrice)
+    showTipValue(tipPrice);
     let newOrderDetail = [...orderDetail];
     newOrderDetail[2].price = tipPrice;
     let newTotal = parseFloat(oldTotalPrice) + parseFloat(tipPrice);
     newOrderDetail[4].price = newTotal.toFixed(2);
-    setOrderDetails(newOrderDetail)
-  }
+    setOrderDetails(newOrderDetail);
+  };
 
   const handleNoTip = () => {
-    showTipButton(false)
+    showTipButton(false);
     let newOrderDetail = [...orderDetail];
     newOrderDetail[2].price = 0;
     newOrderDetail[4].price = oldTotalPrice;
-    setOrderDetails(newOrderDetail)
-  }
+    setOrderDetails(newOrderDetail);
+  };
 
   return (
     <div>
@@ -138,16 +139,14 @@ export default function Orderdetails(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                    orderDetail.map((item, index) =>
-                      <tr key={index} >
-                        <th scope="row">{item.id}</th>
-                        <td>{item.title}</td>
-                        <td></td>
-                        <td>${item.price}</td>
-                      </tr>
-                    )
-                  }
+                  {orderDetail.map((item, index) => (
+                    <tr key={index}>
+                      <th scope="row">{item.id}</th>
+                      <td>{item.title}</td>
+                      <td></td>
+                      <td>${item.price}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -209,26 +208,24 @@ export default function Orderdetails(props) {
                       className="row d-flex justify-content-start align-items-start"
                       style={{ marginTop: '1rem' }}
                     >
-                      {
-                        tips.map((item, index) =>
-                          <div className="col-3 justify-content-start align-items-start">
-                            <Button
-                              style={{
-                                backgroundColor: '#1a1a1a',
-                                color: Colors.white,
-                                height: '2.5rem',
-                                width: '5rem',
-                                fontSize: '0.8rem',
-                              }}
-                              onClick={() => handleTip(index)}
-                              className="btn btn-primary py-md-2 px-md-2 mt-2"
-                              variant="contained"
-                            >
-                              {`${item.title}(${item.price})`}
-                            </Button>
-                          </div>
-                        )
-                      }
+                      {tips.map((item, index) => (
+                        <div className="col-3 justify-content-start align-items-start">
+                          <Button
+                            style={{
+                              backgroundColor: '#1a1a1a',
+                              color: Colors.white,
+                              height: '2.5rem',
+                              width: '5rem',
+                              fontSize: '0.8rem',
+                            }}
+                            onClick={() => handleTip(index)}
+                            className="btn btn-primary py-md-2 px-md-2 mt-2"
+                            variant="contained"
+                          >
+                            {`${item.title}(${item.price})`}
+                          </Button>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ) : (
@@ -295,7 +292,10 @@ export default function Orderdetails(props) {
         </div>
       </div>
       <Elements stripe={stripePromise}>
-        <Paynow planDetails={subscribedDetail} tipPrice={orderDetail[2].price} />
+        <Paynow
+          planDetails={subscribedDetail}
+          tipPrice={orderDetail[2].price}
+        />
       </Elements>
     </div>
   );
