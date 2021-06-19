@@ -10,6 +10,7 @@ if (firebase.apps.length === 0) {
 const firestore = firebase.firestore();
 
 const userRef = firestore.collection('user')
+const pickupInfoRef = firestore.collection('pickUpInfo')
 
 export const addUser = async (body) => {
     return await userRef.add(body);
@@ -21,17 +22,46 @@ export const loginUser = async (email, password) => {
         return false;
     }
 
-    let res = []
+    let res = {}
     snapshot.forEach(doc => {
-        res.push(doc.data())
+        res = doc.data()
+        res.id = doc.id
     });
 
-    return res[0]
+    return res
 
 }
 
+export const updateUser = async (id, userInfo) => {
+    try {
+        await userRef.doc(id).update(userInfo)
+        return true;
+    } catch (error) {
+        return false
+    }
+}
 
+// PickUp Info
+export const addPickUpInfo = async (id, body) => {
+    try {
+        const snapshot = await pickupInfoRef.where('userId', '==', id).get();
+        if (snapshot.empty) {
+            await pickupInfoRef.add(body);
+            return true;
+        }
 
+        let pickUpId = ''
+        snapshot.forEach(doc => {
+            pickUpId = doc.id
+        });
+
+        await pickupInfoRef.doc(pickUpId).update(body)
+        return true;
+    } catch (error) {
+        return false;
+    }
+
+}
 
 
 // return await userRef.where('name', "==", "zahid").onSnapshot((querySnapshot) => {

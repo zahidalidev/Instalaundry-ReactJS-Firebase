@@ -23,7 +23,7 @@ export const getPlans = async () => {
 
     let res = []
     snapshot.forEach(doc => {
-        res.push(doc.data())
+        res.push({ ...doc.data(), id: doc.id })
     });
 
     return res

@@ -6,17 +6,19 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router';
 import 'date-fns';
+import _ from "lodash"
 
 //config
 import { Colors } from '../config/Colors';
 import MyTextFeild from '../components/common/MyTextFeild';
+import { toast } from 'react-toastify';
+
+//Services
+import { updateUser, addPickUpInfo } from "../services/UserServices"
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -31,10 +33,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Checkout(props) {
   const classes = useStyles();
   const history = useHistory();
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date('2014-08-18T21:11:54')
-  );
-  const [age, setAge] = React.useState('');
+  const [selectedPlan, setSelectedPlan] = useState({});
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const [infoFeild, setInfoFeild] = useState([
     {
@@ -45,11 +45,6 @@ export default function Checkout(props) {
     {
       id: 1,
       label: 'Phone Number',
-      value: '',
-    },
-    {
-      id: 2,
-      label: 'Email addres',
       value: '',
     },
   ]);
@@ -90,7 +85,7 @@ export default function Checkout(props) {
   const [pickupFeild, setPickupFeild] = useState([
     {
       id: 0,
-      label: 'Company Name',
+      label: 'Company Name (optional) ',
       value: '',
     },
     {
@@ -185,8 +180,68 @@ export default function Checkout(props) {
   };
 
   useEffect(() => {
-    console.log(props.history.location.state);
-  }, []);
+    setSelectedPlan(props.history.location.state.planObj);
+  }, [props.history.location.state]);
+
+
+  const handleCheckout = async () => {
+
+    const userInfo = {
+      name: infoFeild[0].value,
+      gender: infoDropFeild[0].value,
+      contactNumber: infoFeild[1].value,
+      status: infoDropFeild[1].value,
+      dob: selectedDate
+    }
+
+    const pickupInof = {
+      streetAddress: pickupFeild[1].value,
+      townCity: pickupFeild[2].value,
+      postalCode: pickupFeild[3].value,
+      countary: pickupDropFeild[0].value,
+      province: pickupDropFeild[1].value,
+      timing: pickupDropFeild[2].value,
+    }
+
+    for (const property in userInfo) {
+      if (userInfo[property] === '') {
+        toast.error("Please fill all the value")
+        return;
+      }
+    }
+
+    for (const property in pickupInof) {
+      if (pickupInof[property] === '') {
+        toast.error("Please fill all the value")
+        return;
+      }
+    }
+
+    pickupInof.companyName = pickupFeild[0].value
+    pickupInof.apartment = apartmentSuit
+
+    try {
+
+      const currentUser = JSON.parse(localStorage.getItem('token'));
+      if (!currentUser) {
+        return;
+      }
+
+      let userId = currentUser.id;
+      pickupInof.userId = userId;
+
+      const res = await updateUser(userId, userInfo);
+      if (res) {
+        const pickUpres = await addPickUpInfo(userId, pickupInof)
+        console.log("pickUpres: ", pickUpres)
+
+      }
+
+    } catch (error) {
+
+    }
+
+  }
 
   return (
     <>
@@ -384,7 +439,7 @@ export default function Checkout(props) {
           style={{ marginBottom: '5rem' }}
         >
           <Button
-            onClick={() => history.push('/orderdetails', { plan: 'hi data' })}
+            onClick={() => handleCheckout()}
             style={{
               backgroundColor: Colors.secondary,
               color: Colors.white,

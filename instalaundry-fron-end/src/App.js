@@ -24,7 +24,7 @@ import Orderdetails from './pages/Orderdetails';
 import MyAppbar from './components/MyAppbar';
 const Footer = React.lazy(() => import('./components/Footer'));
 
-function App() {
+function App(props) {
   return (
     <div>
       <ToastContainer autoClose={5000} position={toast.POSITION.TOP_RIGHT} />
@@ -43,7 +43,10 @@ function App() {
       <Route path="/checkout" exact render={(props) => <Checkout {...props} />} />
       <Route path="/orderdetails" exact render={(props) => <Orderdetails {...props} />} />
 
-      <Redirect to="/home" />
+      <Redirect to={{
+        pathname: '/home',
+        state: { from: props.location },
+      }} />
 
       <Suspense fallback={<div></div>}>
         <Footer />
