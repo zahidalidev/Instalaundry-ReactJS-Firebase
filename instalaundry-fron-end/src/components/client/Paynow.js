@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 // MUI Components
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -11,6 +10,7 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { makeStyles } from '@material-ui/core/styles';
 // Custom Components
 import CardInput from './CardInput';
+import { paySinglePayment, paySubscription } from '../../services/OrderServices';
 
 const useStyles = makeStyles({
     root: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     },
 });
 
-function HomePage() {
+function HomePage(props) {
     const classes = useStyles();
     // State
     const [email, setEmail] = useState('');
@@ -42,13 +42,11 @@ function HomePage() {
     const elements = useElements();
 
     const handleSubmitPay = async (event) => {
+
         if (!stripe || !elements) {
-            // Stripe.js has not yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
             return;
         }
-
-        const res = await axios.post('http://localhost:5000/api/pay', { email: email });
+        const res = await paySinglePayment(email, props.tipPrice);
 
         const clientSecret = res.data['client_secret'];
 
@@ -62,25 +60,17 @@ function HomePage() {
         });
 
         if (result.error) {
-            // Show error to your customer (e.g., insufficient funds)
             console.log(result.error.message);
         } else {
             // The payment has been processed!
             if (result.paymentIntent.status === 'succeeded') {
                 console.log('Money is in the bank!');
-                // Show a success message to your customer
-                // There's a risk of the customer closing the window before callback
-                // execution. Set up a webhook or plugin to listen for the
-                // payment_intent.succeeded event that handles any business critical
-                // post-payment actions.
+                handleSubmitSub();
             }
         }
     };
-
     const handleSubmitSub = async (event) => {
         if (!stripe || !elements) {
-            // Stripe.js has not yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
             return;
         }
 
@@ -95,7 +85,7 @@ function HomePage() {
         if (result.error) {
             console.log(result.error.message);
         } else {
-            const res = await axios.post('http://localhost:5000/api/sub', { 'payment_method': result.paymentMethod.id, 'email': email });
+            const res = await paySubscription(result, email, props.planDetails.planStripeId);
             // eslint-disable-next-line camelcase
             const { client_secret, status } = res.data;
 
@@ -104,20 +94,29 @@ function HomePage() {
                     if (result.error) {
                         console.log('There was an issue!');
                         console.log(result.error);
-                        // Display error message in your UI.
                         // The card was declined (i.e. insufficient funds, card has expired, etc)
                     } else {
                         console.log('You got the money!');
-                        // Show a success message to your customer
                     }
                 });
             } else {
                 console.log('You got the money!');
-                // No additional information was needed
-                // Show a success message to your customer
             }
         }
     };
+
+    const handleAllPayments = () => {
+        let currentUser = JSON.parse(localStorage.getItem('token'));
+        if (currentUser) {
+            setEmail(currentUser.email);
+            if (props.tipPrice == 0) {
+                handleSubmitSub()
+            } else {
+                handleSubmitPay()
+            }
+        }
+
+    }
 
     return (
         <Card className={classes.root}>
@@ -136,11 +135,8 @@ function HomePage() {
                 />
                 <CardInput />
                 <div className={classes.div}>
-                    <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmitPay}>
-                        Pay
-                    </Button>
-                    <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmitSub}>
-                        Subscription
+                    <Button variant="contained" color="primary" className={classes.button} onClick={handleAllPayments}>
+                        Pay Now
                     </Button>
                 </div>
             </CardContent>

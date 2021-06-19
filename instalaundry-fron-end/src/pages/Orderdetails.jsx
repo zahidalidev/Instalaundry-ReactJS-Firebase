@@ -295,7 +295,7 @@ export default function Orderdetails(props) {
         </div>
       </div>
       <Elements stripe={stripePromise}>
-        <Paynow />
+        <Paynow planDetails={subscribedDetail} tipPrice={orderDetail[2].price} />
       </Elements>
     </div>
   );
