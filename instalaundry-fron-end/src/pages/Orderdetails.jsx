@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
-import { DataGrid } from '@material-ui/data-grid';
 
 // Stripe
 import { Elements } from '@stripe/react-stripe-js';
@@ -24,50 +17,43 @@ import { Colors } from './../config/Colors';
 import MyTextFeild from '../components/common/MyTextFeild';
 import Paynow from '../components/client/Paynow';
 
-const stripePromise = loadStripe(
-  'pk_test_51ISGFTLuBGwlYLhYZv0JuDFVCxSTvXbZ1bEkqNblhSKgL04eWCTDGc94Nfebm2Ywb3IqOA6PfrPWZfc9hPkkpUql00pAXaOiL9'
-);
+// config
+import configObj from "../config/config.json"
 
-const columns = [
-  { id: 'services', label: 'Services', minWidth: 550 },
-  { id: 'total', label: 'Total', minWidth: 10 },
-];
+const stripePromise = loadStripe(configObj.stripPublicId);
 
-function createData(services, total) {
-  return { services, total };
-}
+export default function Orderdetails(props) {
+  const [value, setValue] = useState('');
+  const [tipButton, showTipButton] = useState(false);
+  const [tipValue, showTipValue] = useState('');
+  const [subscribedDetail, setSubscribedDetail] = useState()
 
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-  },
-  container: {
-    maxHeight: 500,
-  },
-});
+  const [orderDetail, setOrderDetails] = useState([
+    { id: 1, title: 'Open Load x 1', price: 0 },
+    { id: 2, title: 'Subtotal', price: 0 },
+    { id: 3, title: 'Tip', price: 0 },
+    { id: 4, title: 'GST (5.00%)', price: 0 },
+    { id: 5, title: 'Total', price: 0 },
+  ]);
 
-const orderDetailColumns = [
-  { field: 'services', headerName: 'Services', width: 170 },
-  { field: ' ', headerName: '', width: 150 },
-  { field: ' ', headerName: '', width: 120 },
-  { field: 'total', headerName: 'Total', width: 140 },
-];
-
-export default function Orderdetails() {
-  const [value, setValue] = React.useState(' ');
-  const [tipButton, showTipButton] = React.useState(false);
-  const [tipValue, showTipValue] = React.useState(' ');
-
-  const orderRows = [
-    { id: 1, services: 'Open Load x 1', total: '$9.99' },
-    { id: 2, services: 'Subtotal', total: '$9.99' },
-    { id: 3, services: 'Service Fee', total: '$0.00' },
-    { id: 4, services: 'GST (5.00%)', total: '$0.50' },
-    { id: 5, services: 'Total', total: '$10.99' },
-  ];
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
+  useEffect(() => {
+    setSubscribedDetail(props.history.location.state.checkOutObj);
+    const { price } = props.history.location.state.checkOutObj;
+
+    let oldOrderDetail = [...orderDetail];
+    oldOrderDetail[0].price = price;
+    oldOrderDetail[1].price = price;
+    oldOrderDetail[3].price = (price * 0.05).toFixed(2);
+    oldOrderDetail[4].price = (price + (price * 0.05)).toFixed(2);
+
+
+    setOrderDetails(oldOrderDetail)
+
+  }, [props.history.location.state]);
 
   return (
     <div>
@@ -118,36 +104,16 @@ export default function Orderdetails() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Open Load x 1</td>
-                    <td></td>
-                    <td>$9.99</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Subtotal</td>
-                    <td></td>
-                    <td>$9.99</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Service Fee</td>
-                    <td></td>
-                    <td>$0.00</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>GST</td>
-                    <td></td>
-                    <td>$0.50</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Total</td>
-                    <td></td>
-                    <td>$10.50</td>
-                  </tr>
+                  {
+                    orderDetail.map((item, index) =>
+                      <tr key={index} >
+                        <th scope="row">{item.id}</th>
+                        <td>{item.title}</td>
+                        <td></td>
+                        <td>${item.price}</td>
+                      </tr>
+                    )
+                  }
                 </tbody>
               </table>
             </div>
