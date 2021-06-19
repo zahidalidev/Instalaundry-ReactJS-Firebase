@@ -238,6 +238,7 @@ export default function Checkout(props) {
 
           const checkOutObj = {
             planId: selectedPlan.id,
+            planTitle: selectedPlan.planTitle,
             planStripeId: selectedPlan.planStripeId,
             price: selectedPlan.price,
             userId

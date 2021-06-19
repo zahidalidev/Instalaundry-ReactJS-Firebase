@@ -26,6 +26,7 @@ export default function Orderdetails(props) {
   const [value, setValue] = useState('');
   const [tipButton, showTipButton] = useState(false);
   const [tipValue, showTipValue] = useState('');
+  const [oldTotalPrice, setOldTotalPrice] = useState(0);
   const [subscribedDetail, setSubscribedDetail] = useState()
 
   const [orderDetail, setOrderDetails] = useState([
@@ -36,24 +37,57 @@ export default function Orderdetails(props) {
     { id: 5, title: 'Total', price: 0 },
   ]);
 
+  const [tips, setTips] = useState([
+    { id: 1, title: '12%', price: 0 },
+    { id: 2, title: '18%', price: 0 },
+    { id: 3, title: '21%', price: 0 },
+  ]);
+
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   useEffect(() => {
-    setSubscribedDetail(props.history.location.state.checkOutObj);
-    const { price } = props.history.location.state.checkOutObj;
+    if (props.history.location.state.checkOutObj !== undefined) {
+      setSubscribedDetail(props.history.location.state.checkOutObj);
+      const { price, planTitle } = props.history.location.state.checkOutObj;
 
-    let oldOrderDetail = [...orderDetail];
-    oldOrderDetail[0].price = price;
-    oldOrderDetail[1].price = price;
-    oldOrderDetail[3].price = (price * 0.05).toFixed(2);
-    oldOrderDetail[4].price = (price + (price * 0.05)).toFixed(2);
+      let newOrderDetail = [...orderDetail];
+      newOrderDetail[0].title = planTitle;
+      newOrderDetail[0].price = price;
+      newOrderDetail[1].price = price;
+      newOrderDetail[3].price = (price * 0.05).toFixed(2);
+      newOrderDetail[4].price = (price + (price * 0.05)).toFixed(2);
+      setOldTotalPrice((price + (price * 0.05)).toFixed(2));
+      setOrderDetails(newOrderDetail)
 
+      let newTips = [...tips];
+      newTips[0].price = (price * 0.12).toFixed(2);
+      newTips[1].price = (price * 0.18).toFixed(2);
+      newTips[2].price = (price * 0.21).toFixed(2);
+      setTips(newTips)
 
-    setOrderDetails(oldOrderDetail)
+    }
 
   }, [props.history.location.state]);
+
+  const handleTip = (index) => {
+    let tipPrice = tips[index].price;
+    showTipValue(tipPrice)
+    let newOrderDetail = [...orderDetail];
+    newOrderDetail[2].price = tipPrice;
+    let newTotal = parseFloat(oldTotalPrice) + parseFloat(tipPrice);
+    newOrderDetail[4].price = newTotal.toFixed(2);
+    setOrderDetails(newOrderDetail)
+  }
+
+  const handleNoTip = () => {
+    showTipButton(false)
+    let newOrderDetail = [...orderDetail];
+    newOrderDetail[2].price = 0;
+    newOrderDetail[4].price = oldTotalPrice;
+    setOrderDetails(newOrderDetail)
+  }
 
   return (
     <div>
@@ -149,7 +183,7 @@ export default function Orderdetails(props) {
                   value="paylater"
                   control={<Radio />}
                   label="Pay Tip Later (After Delivery)"
-                  onClick={() => showTipButton(false)}
+                  onClick={() => handleNoTip()}
                 />
                 <FormControlLabel
                   value="paynow"
@@ -175,54 +209,26 @@ export default function Orderdetails(props) {
                       className="row d-flex justify-content-start align-items-start"
                       style={{ marginTop: '1rem' }}
                     >
-                      <div className="col-3 justify-content-start align-items-start">
-                        <Button
-                          style={{
-                            backgroundColor: '#1a1a1a',
-                            color: Colors.white,
-                            height: '2.5rem',
-                            width: '5rem',
-                            fontSize: '0.8rem',
-                          }}
-                          onClick={() => showTipValue('12%')}
-                          className="btn btn-primary py-md-2 px-md-2 mt-2"
-                          variant="contained"
-                        >
-                          12%(1.20)
-                        </Button>
-                      </div>
-                      <div className="col-3 justify-content-start align-items-start">
-                        <Button
-                          style={{
-                            backgroundColor: '#1a1a1a',
-                            color: Colors.white,
-                            height: '2.5rem',
-                            width: '5rem',
-                            fontSize: '0.8rem',
-                          }}
-                          onClick={() => showTipValue('18%')}
-                          className="btn btn-primary py-md-2 px-md-2 mt-2"
-                          variant="contained"
-                        >
-                          18%(1.80)
-                        </Button>
-                      </div>
-                      <div className="col-3 justify-content-start align-items-start">
-                        <Button
-                          style={{
-                            backgroundColor: '#1a1a1a',
-                            color: Colors.white,
-                            height: '2.5rem',
-                            width: '5rem',
-                            fontSize: '0.8rem',
-                          }}
-                          onClick={() => showTipValue('21%')}
-                          className="btn btn-primary py-md-2 px-md-2 mt-2"
-                          variant="contained"
-                        >
-                          21%(2.10)
-                        </Button>
-                      </div>
+                      {
+                        tips.map((item, index) =>
+                          <div className="col-3 justify-content-start align-items-start">
+                            <Button
+                              style={{
+                                backgroundColor: '#1a1a1a',
+                                color: Colors.white,
+                                height: '2.5rem',
+                                width: '5rem',
+                                fontSize: '0.8rem',
+                              }}
+                              onClick={() => handleTip(index)}
+                              className="btn btn-primary py-md-2 px-md-2 mt-2"
+                              variant="contained"
+                            >
+                              {`${item.title}(${item.price})`}
+                            </Button>
+                          </div>
+                        )
+                      }
                     </div>
                   </div>
                 ) : (
@@ -233,7 +239,7 @@ export default function Orderdetails(props) {
                   value="other"
                   control={<Radio />}
                   label="No Tip"
-                  onClick={() => showTipButton(false)}
+                  onClick={() => handleNoTip()}
                 />
               </RadioGroup>
             </FormControl>
