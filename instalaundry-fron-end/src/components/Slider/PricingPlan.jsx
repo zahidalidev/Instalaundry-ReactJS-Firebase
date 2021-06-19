@@ -98,6 +98,7 @@ export default function PricingPlan() {
                   <Button
                     onClick={() => handleSelectPlans({
                       id: item.id,
+                      planTitle: item.name + " plan",
                       planStripeId: item.planStripeId,
                       price: item.price
                     })}
