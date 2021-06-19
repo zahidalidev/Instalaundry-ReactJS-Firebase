@@ -233,12 +233,27 @@ export default function Checkout(props) {
       const res = await updateUser(userId, userInfo);
       if (res) {
         const pickUpres = await addPickUpInfo(userId, pickupInof)
-        console.log("pickUpres: ", pickUpres)
+        if (pickUpres) {
+          console.log(selectedPlan.id, selectedPlan.planStripeId, selectedPlan.price)
 
+          const checkOutObj = {
+            planId: selectedPlan.id,
+            planStripeId: selectedPlan.planStripeId,
+            price: selectedPlan.price,
+            userId
+          }
+
+          history.push('/orderdetails', { checkOutObj })
+        } else {
+          toast.error("Something went wrong please try again")
+        }
+
+      } else {
+        toast.error("Something went wrong please try again")
       }
 
     } catch (error) {
-
+      toast.error("Something went wrong please try again")
     }
 
   }
