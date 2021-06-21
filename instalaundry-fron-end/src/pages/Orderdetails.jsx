@@ -49,11 +49,12 @@ export default function Orderdetails(props) {
   };
 
   useEffect(() => {
+    let newOrderDetail;
     if (props.history.location.state.checkOutObj !== undefined) {
       setSubscribedDetail(props.history.location.state.checkOutObj);
       const { price, planTitle, lbsPrice } = props.history.location.state.checkOutObj;
 
-      let newOrderDetail = [...orderDetail];
+      newOrderDetail = [...orderDetail];
       newOrderDetail[0].title = planTitle;
       newOrderDetail[0].price = price;
       newOrderDetail[1].price = price;
@@ -71,7 +72,7 @@ export default function Orderdetails(props) {
       setTips(newTips);
     }
 
-    setOrderDetails(oldOrderDetail);
+    setOrderDetails(newOrderDetail);
   }, [props.history.location.state]);
 
   const handleTip = (index) => {
