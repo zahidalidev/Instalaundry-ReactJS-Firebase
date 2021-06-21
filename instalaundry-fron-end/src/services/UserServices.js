@@ -11,6 +11,7 @@ const firestore = firebase.firestore();
 
 const userRef = firestore.collection('user')
 const pickupInfoRef = firestore.collection('pickUpInfo')
+const planRef = firestore.collection('subscriptionPlan')
 
 export const addUser = async (body) => {
     return await userRef.add(body);
@@ -35,6 +36,15 @@ export const loginUser = async (email, password) => {
 export const updateUser = async (id, userInfo) => {
     try {
         await userRef.doc(id).update(userInfo)
+        return true;
+    } catch (error) {
+        return false
+    }
+}
+
+export const subscribePlan = async (body) => {
+    try {
+        await planRef.add(body)
         return true;
     } catch (error) {
         return false

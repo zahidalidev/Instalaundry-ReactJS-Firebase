@@ -40,8 +40,7 @@ router.post('/sub', async (req, res) => {
     const status = subscription['latest_invoice']['payment_intent']['status']
     const client_secret = subscription['latest_invoice']['payment_intent']['client_secret']
     const new1 = subscription['latest_invoice'];
-    console.log(new1.subscription)
-    res.json({ 'client_secret': client_secret, 'status': status });
+    res.json({ 'client_secret': client_secret, 'status': status, 'user_sub_id': new1.subscription });
 
     // cancel
     // const da = await stripe.subscriptions.del('sub_Jh7cAvdRlaQL93');

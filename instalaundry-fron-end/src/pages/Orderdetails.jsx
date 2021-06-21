@@ -289,7 +289,7 @@ export default function Orderdetails(props) {
         </div>
       </div>
       <Elements stripe={stripePromise}>
-        <Paynow planDetails={subscribedDetail} tipPrice={parseFloat(orderDetail[2].price) + orderDetail[3].price} />
+        <Paynow planDetails={subscribedDetail} extraLbs={orderDetail[3].price} extraTip={orderDetail[2].price} tipPrice={parseFloat(orderDetail[2].price) + orderDetail[3].price} />
       </Elements>
     </div>
   );

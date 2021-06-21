@@ -11,6 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 // Custom Components
 import CardInput from './CardInput';
 import { paySinglePayment, paySubscription } from '../../services/OrderServices';
+import { subscribePlan } from '../../services/UserServices';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles({
     root: {
@@ -88,7 +90,7 @@ function HomePage(props) {
         } else {
             const res = await paySubscription(result, email, props.planDetails.planStripeId);
             // eslint-disable-next-line camelcase
-            const { client_secret, status } = res.data;
+            const { client_secret, status, user_sub_id } = res.data;
 
             if (status === 'requires_action') {
                 stripe.confirmCardPayment(client_secret).then(function (result) {
@@ -98,13 +100,38 @@ function HomePage(props) {
                         // The card was declined (i.e. insufficient funds, card has expired, etc)
                     } else {
                         console.log('You got the money!');
+                        subscribePlanDb(user_sub_id)
+
                     }
                 });
             } else {
                 console.log('You got the money!');
+                subscribePlanDb(user_sub_id)
             }
         }
     };
+
+    const subscribePlanDb = async (user_sub_id) => {
+        const body = {
+            tip: props.extraTip,
+            extraLbs: props.extraLbs,
+            userSubId: user_sub_id,
+            userId: props.planDetails.userId,
+            planId: props.planDetails.planId
+        }
+
+        try {
+            let res = await subscribePlan(body)
+            if (!res) {
+                toast.error("Network Error, Contact the support")
+            } else {
+                toast.success("Payment Successfull")
+            }
+
+        } catch (error) {
+            console.log("update user error: ", error)
+        }
+    }
 
     const handleAllPayments = () => {
         let currentUser = JSON.parse(localStorage.getItem('token'));
