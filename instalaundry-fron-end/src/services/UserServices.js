@@ -33,6 +33,23 @@ export const loginUser = async (email, password) => {
 
 }
 
+export const getAllUserSubscriptions = async (id) => {
+    const snapshot = await planRef.where('userId', '==', id).get()
+
+    if (snapshot.empty) {
+        return false;
+    }
+
+    let res = []
+    snapshot.forEach(doc => {
+        let res1 = doc.data();
+        res1.docId = doc.id
+        res.push(res1)
+    });
+
+    return res
+}
+
 export const updateUser = async (id, userInfo) => {
     try {
         await userRef.doc(id).update(userInfo)

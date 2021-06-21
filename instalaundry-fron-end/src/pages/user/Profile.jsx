@@ -6,7 +6,7 @@ import SubscriptionCard from '../../components/SubscriptionCard';
 
 // config
 import { Colors } from '../../config/Colors';
-import { updateUser } from '../../services/UserServices';
+import { getAllUserSubscriptions, updateUser } from '../../services/UserServices';
 
 function Profile(props) {
   const [showPersonal, setShowPersonal] = useState(true);
@@ -79,9 +79,10 @@ function Profile(props) {
     }
   }
 
-  const userSubscriptions = () => {
+  const userSubscriptions = async () => {
     try {
-
+      let res = await getAllUserSubscriptions(currentUserId)
+      console.log(res);
     } catch (error) {
 
     }
