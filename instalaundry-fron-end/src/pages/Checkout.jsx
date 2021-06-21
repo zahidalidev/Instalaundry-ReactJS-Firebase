@@ -6,12 +6,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import ButtonGroup from "@material-ui/core/ButtonGroup";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router';
 import 'date-fns';
-import _ from "lodash"
+import _ from 'lodash';
 
 //config
 import { Colors } from '../config/Colors';
@@ -19,7 +22,7 @@ import MyTextFeild from '../components/common/MyTextFeild';
 import { toast } from 'react-toastify';
 
 //Services
-import { updateUser, addPickUpInfo } from "../services/UserServices"
+import { updateUser, addPickUpInfo } from '../services/UserServices';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -37,7 +40,7 @@ export default function Checkout(props) {
   const [selectedPlan, setSelectedPlan] = useState({});
   const [lbsCount, setLbsCount] = useState(10);
   const [radio, setRadio] = useState(false);
-  const [extraLoad, showExtraLoad] = useState(false)
+  const [extraLoad, showExtraLoad] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -188,16 +191,14 @@ export default function Checkout(props) {
     setSelectedPlan(props.history.location.state.planObj);
   }, [props.history.location.state]);
 
-
   const handleCheckout = async () => {
-
     const userInfo = {
       name: infoFeild[0].value,
       gender: infoDropFeild[0].value,
       contactNumber: infoFeild[1].value,
       status: infoDropFeild[1].value,
-      dob: selectedDate
-    }
+      dob: selectedDate,
+    };
 
     const pickupInof = {
       streetAddress: pickupFeild[1].value,
@@ -206,28 +207,27 @@ export default function Checkout(props) {
       countary: pickupDropFeild[0].value,
       province: pickupDropFeild[1].value,
       timing: pickupDropFeild[2].value,
-      lbsPrice: extraLoad ? lbsCount : 0
-    }
+      lbsPrice: extraLoad ? lbsCount : 0,
+    };
 
     for (const property in userInfo) {
       if (userInfo[property] === '') {
-        toast.error("Please fill all the value")
+        toast.error('Please fill all the value');
         return;
       }
     }
 
     for (const property in pickupInof) {
       if (pickupInof[property] === '') {
-        toast.error("Please fill all the value")
+        toast.error('Please fill all the value');
         return;
       }
     }
 
-    pickupInof.companyName = pickupFeild[0].value
-    pickupInof.apartment = apartmentSuit
+    pickupInof.companyName = pickupFeild[0].value;
+    pickupInof.apartment = apartmentSuit;
 
     try {
-
       const currentUser = JSON.parse(localStorage.getItem('token'));
       if (!currentUser) {
         return;
@@ -238,9 +238,13 @@ export default function Checkout(props) {
 
       const res = await updateUser(userId, userInfo);
       if (res) {
-        const pickUpres = await addPickUpInfo(userId, pickupInof)
+        const pickUpres = await addPickUpInfo(userId, pickupInof);
         if (pickUpres) {
-          console.log(selectedPlan.id, selectedPlan.planStripeId, selectedPlan.price)
+          console.log(
+            selectedPlan.id,
+            selectedPlan.planStripeId,
+            selectedPlan.price
+          );
 
           const checkOutObj = {
             planId: selectedPlan.id,
@@ -248,36 +252,32 @@ export default function Checkout(props) {
             planStripeId: selectedPlan.planStripeId,
             price: selectedPlan.price,
             userId,
-            lbsPrice: extraLoad ? lbsCount : 0
-          }
+            lbsPrice: extraLoad ? lbsCount : 0,
+          };
 
-          history.push('/orderdetails', { checkOutObj })
+          history.push('/orderdetails', { checkOutObj });
         } else {
-          toast.error("Something went wrong please try again")
+          toast.error('Something went wrong please try again');
         }
-
       } else {
-        toast.error("Something went wrong please try again")
+        toast.error('Something went wrong please try again');
       }
-
     } catch (error) {
-      toast.error("Something went wrong please try again")
+      toast.error('Something went wrong please try again');
     }
-
-  }
-
+  };
 
   const lbsIncrement = () => {
     if (lbsCount < 50) {
-      setLbsCount(lbsCount + 1)
+      setLbsCount(lbsCount + 1);
     }
-  }
+  };
 
   const lbsDecrement = () => {
     if (lbsCount > 10) {
-      setLbsCount(lbsCount - 1)
+      setLbsCount(lbsCount - 1);
     }
-  }
+  };
 
   return (
     <>
@@ -425,16 +425,22 @@ export default function Checkout(props) {
               style={{ marginTop: '3rem' }}
               className="row d-flex justify-content-center align-items-center"
             >
-              <Button style={{ marginRight: "0.5rem" }} onClick={() => showExtraLoad(!extraLoad)}>Want to add Extra Load? (1lbs/$1)</Button>
-              {
-                extraLoad ?
-                  <ButtonGroup size="small" aria-label="small outlined button group">
-                    <Button onClick={() => lbsIncrement()}>+</Button>
-                    <Button >{lbsCount}</Button>
-                    <Button onClick={() => lbsDecrement()}>-</Button>
-                  </ButtonGroup>
-                  : null
-              }
+              <Button
+                style={{ marginRight: '0.5rem' }}
+                onClick={() => showExtraLoad(!extraLoad)}
+              >
+                Want to add Extra Load? (1lbs/$1)
+              </Button>
+              {extraLoad ? (
+                <ButtonGroup
+                  size="small"
+                  aria-label="small outlined button group"
+                >
+                  <Button onClick={() => lbsIncrement()}>+</Button>
+                  <Button>{lbsCount}</Button>
+                  <Button onClick={() => lbsDecrement()}>-</Button>
+                </ButtonGroup>
+              ) : null}
             </div>
           </div>
 
@@ -488,7 +494,7 @@ export default function Checkout(props) {
       <div className="container-fluid" style={{ marginTop: '-4rem' }}>
         <div
           className="row d-flex justify-content-center align-items-center"
-          style={{ marginBottom: '5rem', marginTop: "2rem" }}
+          style={{ marginBottom: '5rem', marginTop: '2rem' }}
         >
           <Button
             onClick={() => handleCheckout()}

@@ -52,7 +52,8 @@ export default function Orderdetails(props) {
     let newOrderDetail;
     if (props.history.location.state.checkOutObj !== undefined) {
       setSubscribedDetail(props.history.location.state.checkOutObj);
-      const { price, planTitle, lbsPrice } = props.history.location.state.checkOutObj;
+      const { price, planTitle, lbsPrice } =
+        props.history.location.state.checkOutObj;
 
       newOrderDetail = [...orderDetail];
       newOrderDetail[0].title = planTitle;
@@ -61,9 +62,9 @@ export default function Orderdetails(props) {
       newOrderDetail[3].price = lbsPrice;
       newOrderDetail[4].price = (price * 0.05).toFixed(2);
 
-      newOrderDetail[5].price = (lbsPrice + price + (price * 0.05)).toFixed(2);
-      setOldTotalPrice((price + (price * 0.05)).toFixed(2));
-      setOrderDetails(newOrderDetail)
+      newOrderDetail[5].price = (lbsPrice + price + price * 0.05).toFixed(2);
+      setOldTotalPrice((price + price * 0.05).toFixed(2));
+      setOrderDetails(newOrderDetail);
 
       let newTips = [...tips];
       newTips[0].price = (price * 0.12).toFixed(2);
@@ -82,16 +83,16 @@ export default function Orderdetails(props) {
     newOrderDetail[2].price = tipPrice;
     let newTotal = parseFloat(oldTotalPrice) + parseFloat(tipPrice);
     newOrderDetail[5].price = newTotal.toFixed(2);
-    setOrderDetails(newOrderDetail)
-  }
+    setOrderDetails(newOrderDetail);
+  };
 
   const handleNoTip = () => {
     showTipButton(false);
     let newOrderDetail = [...orderDetail];
     newOrderDetail[2].price = 0;
     newOrderDetail[5].price = oldTotalPrice;
-    setOrderDetails(newOrderDetail)
-  }
+    setOrderDetails(newOrderDetail);
+  };
 
   return (
     <div>
@@ -103,7 +104,7 @@ export default function Orderdetails(props) {
       <div className="container-fluid">
         <div
           className="row d-flex justify-content-center align-items-center"
-          style={{ marginTop: '5rem' }}
+          style={{ marginTop: '6rem' }}
         >
           <div
             className="col-md-12  d-flex justify-content-center align-items-center"
@@ -127,7 +128,13 @@ export default function Orderdetails(props) {
               className="justify-content-start"
             >
               <table className="table" style={{ border: '1px solid #194376' }}>
-                <thead className="thead-dark">
+                <thead
+                  className=" "
+                  style={{
+                    backgroundColor: Colors.secondary,
+                    color: Colors.white,
+                  }}
+                >
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Services</th>
@@ -151,10 +158,7 @@ export default function Orderdetails(props) {
         </div>
       </div>
 
-      <div
-        className="container-fluid"
-        style={{ marginTop: '-6rem', height: '25rem' }}
-      >
+      <div className="container-fluid" style={{ height: '25rem' }}>
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-5  d-flex justify-content-center align-items-center">
             <FormControl component="fieldset">
@@ -209,7 +213,7 @@ export default function Orderdetails(props) {
                         <div className="col-3 justify-content-start align-items-start">
                           <Button
                             style={{
-                              backgroundColor: '#1a1a1a',
+                              backgroundColor: Colors.secondary,
                               color: Colors.white,
                               height: '2.5rem',
                               width: '5rem',
@@ -289,7 +293,12 @@ export default function Orderdetails(props) {
         </div>
       </div>
       <Elements stripe={stripePromise}>
-        <Paynow planDetails={subscribedDetail} extraLbs={orderDetail[3].price} extraTip={orderDetail[2].price} tipPrice={parseFloat(orderDetail[2].price) + orderDetail[3].price} />
+        <Paynow
+          planDetails={subscribedDetail}
+          extraLbs={orderDetail[3].price}
+          extraTip={orderDetail[2].price}
+          tipPrice={parseFloat(orderDetail[2].price) + orderDetail[3].price}
+        />
       </Elements>
     </div>
   );
