@@ -7,6 +7,7 @@ import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router';
 import 'date-fns';
@@ -34,6 +35,10 @@ export default function Checkout(props) {
   const classes = useStyles();
   const history = useHistory();
   const [selectedPlan, setSelectedPlan] = useState({});
+  const [lbsCount, setLbsCount] = useState(10);
+  const [radio, setRadio] = useState(false);
+  const [extraLoad, showExtraLoad] = useState(false)
+
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const [infoFeild, setInfoFeild] = useState([
@@ -201,6 +206,7 @@ export default function Checkout(props) {
       countary: pickupDropFeild[0].value,
       province: pickupDropFeild[1].value,
       timing: pickupDropFeild[2].value,
+      lbsPrice: extraLoad ? lbsCount : 0
     }
 
     for (const property in userInfo) {
@@ -241,7 +247,8 @@ export default function Checkout(props) {
             planTitle: selectedPlan.planTitle,
             planStripeId: selectedPlan.planStripeId,
             price: selectedPlan.price,
-            userId
+            userId,
+            lbsPrice: extraLoad ? lbsCount : 0
           }
 
           history.push('/orderdetails', { checkOutObj })
@@ -257,6 +264,19 @@ export default function Checkout(props) {
       toast.error("Something went wrong please try again")
     }
 
+  }
+
+
+  const lbsIncrement = () => {
+    if (lbsCount < 50) {
+      setLbsCount(lbsCount + 1)
+    }
+  }
+
+  const lbsDecrement = () => {
+    if (lbsCount > 10) {
+      setLbsCount(lbsCount - 1)
+    }
   }
 
   return (
@@ -400,6 +420,22 @@ export default function Checkout(props) {
                 ></MyTextFeild>
               </div>
             ))}
+
+            <div
+              style={{ marginTop: '3rem' }}
+              className="row d-flex justify-content-center align-items-center"
+            >
+              <Button style={{ marginRight: "0.5rem" }} onClick={() => showExtraLoad(!extraLoad)}>Want to add Extra Load? (1lbs/$1)</Button>
+              {
+                extraLoad ?
+                  <ButtonGroup size="small" aria-label="small outlined button group">
+                    <Button onClick={() => lbsIncrement()}>+</Button>
+                    <Button >{lbsCount}</Button>
+                    <Button onClick={() => lbsDecrement()}>-</Button>
+                  </ButtonGroup>
+                  : null
+              }
+            </div>
           </div>
 
           <div className="col-5  text-white " style={{ height: '30rem' }}>
@@ -452,7 +488,7 @@ export default function Checkout(props) {
       <div className="container-fluid" style={{ marginTop: '-4rem' }}>
         <div
           className="row d-flex justify-content-center align-items-center"
-          style={{ marginBottom: '5rem' }}
+          style={{ marginBottom: '5rem', marginTop: "2rem" }}
         >
           <Button
             onClick={() => handleCheckout()}

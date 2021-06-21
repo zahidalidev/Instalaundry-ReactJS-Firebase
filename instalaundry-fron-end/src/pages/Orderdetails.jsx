@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -34,8 +33,9 @@ export default function Orderdetails(props) {
     { id: 1, title: 'Open Load x 1', price: 0 },
     { id: 2, title: 'Subtotal', price: 0 },
     { id: 3, title: 'Tip', price: 0 },
-    { id: 4, title: 'GST (5.00%)', price: 0 },
-    { id: 5, title: 'Total', price: 0 },
+    { id: 4, title: 'Extra Lbs Price', price: 0 },
+    { id: 5, title: 'GST (5.00%)', price: 0 },
+    { id: 6, title: 'Total', price: 0 },
   ]);
 
   const [tips, setTips] = useState([
@@ -49,18 +49,21 @@ export default function Orderdetails(props) {
   };
 
   useEffect(() => {
+    let newOrderDetail;
     if (props.history.location.state.checkOutObj !== undefined) {
       setSubscribedDetail(props.history.location.state.checkOutObj);
-      const { price, planTitle } = props.history.location.state.checkOutObj;
+      const { price, planTitle, lbsPrice } = props.history.location.state.checkOutObj;
 
-      let newOrderDetail = [...orderDetail];
+      newOrderDetail = [...orderDetail];
       newOrderDetail[0].title = planTitle;
       newOrderDetail[0].price = price;
       newOrderDetail[1].price = price;
-      newOrderDetail[3].price = (price * 0.05).toFixed(2);
-      newOrderDetail[4].price = (price + price * 0.05).toFixed(2);
-      setOldTotalPrice((price + price * 0.05).toFixed(2));
-      setOrderDetails(newOrderDetail);
+      newOrderDetail[3].price = lbsPrice;
+      newOrderDetail[4].price = (price * 0.05).toFixed(2);
+
+      newOrderDetail[5].price = (lbsPrice + price + (price * 0.05)).toFixed(2);
+      setOldTotalPrice((price + (price * 0.05)).toFixed(2));
+      setOrderDetails(newOrderDetail)
 
       let newTips = [...tips];
       newTips[0].price = (price * 0.12).toFixed(2);
@@ -69,7 +72,7 @@ export default function Orderdetails(props) {
       setTips(newTips);
     }
 
-    setOrderDetails(oldOrderDetail);
+    setOrderDetails(newOrderDetail);
   }, [props.history.location.state]);
 
   const handleTip = (index) => {
@@ -78,17 +81,17 @@ export default function Orderdetails(props) {
     let newOrderDetail = [...orderDetail];
     newOrderDetail[2].price = tipPrice;
     let newTotal = parseFloat(oldTotalPrice) + parseFloat(tipPrice);
-    newOrderDetail[4].price = newTotal.toFixed(2);
-    setOrderDetails(newOrderDetail);
-  };
+    newOrderDetail[5].price = newTotal.toFixed(2);
+    setOrderDetails(newOrderDetail)
+  }
 
   const handleNoTip = () => {
     showTipButton(false);
     let newOrderDetail = [...orderDetail];
     newOrderDetail[2].price = 0;
-    newOrderDetail[4].price = oldTotalPrice;
-    setOrderDetails(newOrderDetail);
-  };
+    newOrderDetail[5].price = oldTotalPrice;
+    setOrderDetails(newOrderDetail)
+  }
 
   return (
     <div>
@@ -123,12 +126,6 @@ export default function Orderdetails(props) {
               style={{ marginTop: '2rem', height: '30rem', width: '100%' }}
               className="justify-content-start"
             >
-              {/* <DataGrid
-                rows={orderRows}
-                columns={orderDetailColumns}
-                pageSize={6}
-                checkboxSelection={false}
-              /> */}
               <table className="table" style={{ border: '1px solid #194376' }}>
                 <thead className="thead-dark">
                   <tr>
@@ -156,7 +153,7 @@ export default function Orderdetails(props) {
 
       <div
         className="container-fluid"
-        style={{ marginTop: '1rem', height: '25rem' }}
+        style={{ marginTop: '-6rem', height: '25rem' }}
       >
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-5  d-flex justify-content-center align-items-center">
@@ -292,10 +289,7 @@ export default function Orderdetails(props) {
         </div>
       </div>
       <Elements stripe={stripePromise}>
-        <Paynow
-          planDetails={subscribedDetail}
-          tipPrice={orderDetail[2].price}
-        />
+        <Paynow planDetails={subscribedDetail} extraLbs={orderDetail[3].price} extraTip={orderDetail[2].price} tipPrice={parseFloat(orderDetail[2].price) + orderDetail[3].price} />
       </Elements>
     </div>
   );

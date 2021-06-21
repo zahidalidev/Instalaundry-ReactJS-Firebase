@@ -11,16 +11,20 @@ import { makeStyles } from '@material-ui/core/styles';
 // Custom Components
 import CardInput from './CardInput';
 import { paySinglePayment, paySubscription } from '../../services/OrderServices';
+import { subscribePlan } from '../../services/UserServices';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles({
     root: {
         maxWidth: 500,
         margin: '35vh auto',
+        marginTop: '0vh'
     },
     content: {
         display: 'flex',
         flexDirection: 'column',
         alignContent: 'flex-start',
+        paddingTop: "4rem"
     },
     div: {
         display: 'flex',
@@ -36,12 +40,11 @@ const useStyles = makeStyles({
 function HomePage(props) {
     const classes = useStyles();
     // State
-    const [email, setEmail] = useState('');
 
     const stripe = useStripe();
     const elements = useElements();
 
-    const handleSubmitPay = async (event) => {
+    const handleSubmitPay = async (email) => {
 
         if (!stripe || !elements) {
             return;
@@ -65,11 +68,11 @@ function HomePage(props) {
             // The payment has been processed!
             if (result.paymentIntent.status === 'succeeded') {
                 console.log('Money is in the bank!');
-                handleSubmitSub();
+                handleSubmitSub(email);
             }
         }
     };
-    const handleSubmitSub = async (event) => {
+    const handleSubmitSub = async (email) => {
         if (!stripe || !elements) {
             return;
         }
@@ -87,7 +90,7 @@ function HomePage(props) {
         } else {
             const res = await paySubscription(result, email, props.planDetails.planStripeId);
             // eslint-disable-next-line camelcase
-            const { client_secret, status } = res.data;
+            const { client_secret, status, user_sub_id } = res.data;
 
             if (status === 'requires_action') {
                 stripe.confirmCardPayment(client_secret).then(function (result) {
@@ -97,22 +100,46 @@ function HomePage(props) {
                         // The card was declined (i.e. insufficient funds, card has expired, etc)
                     } else {
                         console.log('You got the money!');
+                        subscribePlanDb(user_sub_id)
+
                     }
                 });
             } else {
                 console.log('You got the money!');
+                subscribePlanDb(user_sub_id)
             }
         }
     };
 
+    const subscribePlanDb = async (user_sub_id) => {
+        const body = {
+            tip: props.extraTip,
+            extraLbs: props.extraLbs,
+            userSubId: user_sub_id,
+            userId: props.planDetails.userId,
+            planId: props.planDetails.planId
+        }
+
+        try {
+            let res = await subscribePlan(body)
+            if (!res) {
+                toast.error("Network Error, Contact the support")
+            } else {
+                toast.success("Payment Successfull")
+            }
+
+        } catch (error) {
+            console.log("update user error: ", error)
+        }
+    }
+
     const handleAllPayments = () => {
         let currentUser = JSON.parse(localStorage.getItem('token'));
         if (currentUser) {
-            setEmail(currentUser.email);
             if (props.tipPrice == 0) {
-                handleSubmitSub()
+                handleSubmitSub(currentUser.email)
             } else {
-                handleSubmitPay()
+                handleSubmitPay(currentUser.email)
             }
         }
 
@@ -121,18 +148,6 @@ function HomePage(props) {
     return (
         <Card className={classes.root}>
             <CardContent className={classes.content}>
-                <TextField
-                    label='Email'
-                    id='outlined-email-input'
-                    helperText={`Email you'll recive updates and receipts on`}
-                    margin='normal'
-                    variant='outlined'
-                    type='email'
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    fullWidth
-                />
                 <CardInput />
                 <div className={classes.div}>
                     <Button variant="contained" color="primary" className={classes.button} onClick={handleAllPayments}>
