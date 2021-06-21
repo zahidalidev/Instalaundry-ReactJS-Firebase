@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import Button from '@material-ui/core/Button';
 import Breadcrumbs from '../../components/common/Breadcrumbs';
 import MyTextFeild from '../../components/common/MyTextFeild';
 import SubscriptionCard from '../../components/SubscriptionCard';
 
 // config
 import { Colors } from '../../config/Colors';
+import { getAllUserSubscriptions, updateUser } from '../../services/UserServices';
 
 function Profile(props) {
-  const [showPersonal, setShowPersonal] = useState(false);
+  const [showPersonal, setShowPersonal] = useState(true);
+  const [currentUserId, setCurrentUserId] = useState('');
+  const [userInfo, setUserinfo] = useState([
+    {
+      title: 'Full Name',
+      value: ''
+    },
+    {
+      title: 'Email',
+      value: ''
+    },
+    {
+      title: 'Contact Number',
+      value: ''
+    },
+    {
+      title: 'Password',
+      value: ''
+    },
+  ])
 
   const [subscription, setSubscription] = useState([
     {
@@ -32,6 +52,62 @@ function Profile(props) {
       price: '$9.99/Week',
     },
   ]);
+
+  const handleUserInfo = async (index, value) => {
+    const tempInfo = [...userInfo];
+    tempInfo[index].value = value;
+    setUserinfo(tempInfo)
+  }
+
+  const getCurrentUserinfo = () => {
+    const tempInfo = [...userInfo];
+
+    try {
+      let currentUser = localStorage.getItem('token');
+      if (currentUser) {
+        currentUser = JSON.parse(currentUser)
+      }
+      tempInfo[0].value = currentUser.name
+      tempInfo[1].value = currentUser.email
+      tempInfo[2].value = currentUser.contactNumber
+      tempInfo[3].value = currentUser.password
+      setCurrentUserId(currentUser.id)
+      setUserinfo(tempInfo)
+
+    } catch (error) {
+      console.log("Getting Info Error: ", error)
+    }
+  }
+
+  const userSubscriptions = async () => {
+    try {
+      let res = await getAllUserSubscriptions(currentUserId)
+      console.log(res);
+    } catch (error) {
+
+    }
+  }
+
+  useEffect(() => {
+    getCurrentUserinfo()
+    userSubscriptions()
+  }, [])
+
+  // updating user
+  const handleUpdate = async () => {
+    const body = {
+      name: userInfo[0].value,
+      email: userInfo[1].value,
+      contactNumber: userInfo[2].value,
+      password: userInfo[3].value
+    }
+
+    try {
+      await updateUser(currentUserId, body)
+    } catch (error) {
+      console.log("user profile update errr: ", error)
+    }
+  }
 
   return (
     <>
@@ -86,6 +162,9 @@ function Profile(props) {
                 </div>
               </div>
 
+
+
+              {/* Personal Info start */}
               {showPersonal ? (
                 <div
                   style={{
@@ -114,55 +193,38 @@ function Profile(props) {
                         alignItems: 'center',
                       }}
                     >
-                      <div style={{ marginTop: '10rem' }} className="row">
-                        <div className="col-md-6">
-                          <MyTextFeild
-                            width={'100%'}
-                            label="First Name"
-                            onChange={(value) => console.log(value)}
-                          />
-                        </div>
-                        <div className="col-md-6">
-                          <MyTextFeild
-                            width={'100%'}
-                            label="Last Name"
-                            onChange={(value) => console.log(value)}
-                          />
-                        </div>
+                      <div style={{ marginTop: '10rem', width: "100%" }} className="row">
                       </div>
 
-                      <div style={{ marginTop: '2rem', width: '100%' }}>
-                        <MyTextFeild
-                          width={'78%'}
-                          label="Email"
-                          onChange={(value) => console.log(value)}
-                        />
-                      </div>
-                      <div style={{ marginTop: '2rem', width: '100%' }}>
-                        <MyTextFeild
-                          width={'78%'}
-                          label="Contact Number"
-                          onChange={(value) => console.log(value)}
-                        />
-                      </div>
-                      <div style={{ marginTop: '2rem', width: '100%' }}>
-                        <MyTextFeild
-                          width={'78%'}
-                          label="Address"
-                          onChange={(value) => console.log(value)}
-                        />
-                      </div>
-                      <div style={{ marginTop: '2rem', width: '100%' }}>
-                        <MyTextFeild
-                          width={'78%'}
-                          label="Password"
-                          onChange={(value) => console.log(value)}
-                        />
-                      </div>
+                      {
+                        userInfo.map((user, index) =>
+                          <div key={index} style={{ marginTop: '2rem', width: '100%' }}>
+                            <MyTextFeild
+                              width={'78%'}
+                              label={user.title}
+                              value={user.value}
+                              onChange={(value) => handleUserInfo(index, value)}
+                            />
+                          </div>
+                        )
+                      }
+
+                      <Button
+                        onClick={() => handleUpdate()}
+                        style={{
+                          backgroundColor: Colors.secondary,
+                          color: Colors.white,
+                        }}
+                        className="btn btn-primary py-md-2 px-md-4 mt-4"
+                        variant="contained"
+                      >
+                        Update
+                      </Button>
                     </div>
                   </div>
                 </div>
               ) : (
+                // subscription plan start;
                 <div className="d-flex flex-column justify-content-start col-md-8">
                   <div
                     style={{ marginTop: '-0.5rem' }}
