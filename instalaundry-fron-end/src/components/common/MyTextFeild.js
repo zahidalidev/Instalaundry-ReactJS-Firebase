@@ -17,6 +17,7 @@ export default withStyles(styles)(props => {
             InputLabelProps={{
                 shrink: true
             }}
+            value={value}
             style={{ width }}
             id="outlined-basic"
             label={label}
