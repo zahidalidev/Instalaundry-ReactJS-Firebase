@@ -16,11 +16,13 @@ const useStyles = makeStyles({
     root: {
         maxWidth: 500,
         margin: '35vh auto',
+        marginTop: '0vh'
     },
     content: {
         display: 'flex',
         flexDirection: 'column',
         alignContent: 'flex-start',
+        paddingTop: "4rem"
     },
     div: {
         display: 'flex',
@@ -36,12 +38,11 @@ const useStyles = makeStyles({
 function HomePage(props) {
     const classes = useStyles();
     // State
-    const [email, setEmail] = useState('');
 
     const stripe = useStripe();
     const elements = useElements();
 
-    const handleSubmitPay = async (event) => {
+    const handleSubmitPay = async (email) => {
 
         if (!stripe || !elements) {
             return;
@@ -65,11 +66,11 @@ function HomePage(props) {
             // The payment has been processed!
             if (result.paymentIntent.status === 'succeeded') {
                 console.log('Money is in the bank!');
-                handleSubmitSub();
+                handleSubmitSub(email);
             }
         }
     };
-    const handleSubmitSub = async (event) => {
+    const handleSubmitSub = async (email) => {
         if (!stripe || !elements) {
             return;
         }
@@ -108,11 +109,10 @@ function HomePage(props) {
     const handleAllPayments = () => {
         let currentUser = JSON.parse(localStorage.getItem('token'));
         if (currentUser) {
-            setEmail(currentUser.email);
             if (props.tipPrice == 0) {
-                handleSubmitSub()
+                handleSubmitSub(currentUser.email)
             } else {
-                handleSubmitPay()
+                handleSubmitPay(currentUser.email)
             }
         }
 
@@ -121,18 +121,6 @@ function HomePage(props) {
     return (
         <Card className={classes.root}>
             <CardContent className={classes.content}>
-                <TextField
-                    label='Email'
-                    id='outlined-email-input'
-                    helperText={`Email you'll recive updates and receipts on`}
-                    margin='normal'
-                    variant='outlined'
-                    type='email'
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    fullWidth
-                />
                 <CardInput />
                 <div className={classes.div}>
                     <Button variant="contained" color="primary" className={classes.button} onClick={handleAllPayments}>

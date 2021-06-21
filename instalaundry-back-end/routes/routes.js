@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const stripe = require('stripe')('secret_key');
+const stripe = require('stripe')('sk_test_51ISGFTLuBGwlYLhY7bog901ruBLlkTNA0yYaSdFcCIPy16swCvpQbDxovaLfDvYo4eJwseLwOIz40Auk2IqgXZBo00CK4D1bqf');
 
 
 const router = express.Router();
