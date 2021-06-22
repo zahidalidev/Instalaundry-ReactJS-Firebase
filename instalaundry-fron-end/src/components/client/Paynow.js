@@ -72,6 +72,7 @@ function HomePage(props) {
             }
         }
     };
+
     const handleSubmitSub = async (email) => {
         if (!stripe || !elements) {
             return;
@@ -136,7 +137,9 @@ function HomePage(props) {
     const handleAllPayments = () => {
         let currentUser = JSON.parse(localStorage.getItem('token'));
         if (currentUser) {
-            if (props.tipPrice == 0) {
+            if (props.onlyTip) {
+                handleSinglePay(currentUser.email)
+            } else if (props.tipPrice == 0) {
                 handleSubmitSub(currentUser.email)
             } else {
                 handleSubmitPay(currentUser.email)
@@ -144,6 +147,36 @@ function HomePage(props) {
         }
 
     }
+
+
+    const handleSinglePay = async (email) => {
+
+        if (!stripe || !elements) {
+            return;
+        }
+        const res = await paySinglePayment(email, props.tipPrice);
+
+        const clientSecret = res.data['client_secret'];
+
+        const result = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement),
+                billing_details: {
+                    email: email,
+                },
+            },
+        });
+
+        if (result.error) {
+            console.log(result.error.message);
+        } else {
+            // The payment has been processed!
+            if (result.paymentIntent.status === 'succeeded') {
+                console.log('Money is in the bank!');
+                toast.success("Successfull")
+            }
+        }
+    };
 
     return (
         <Card className={classes.root}>

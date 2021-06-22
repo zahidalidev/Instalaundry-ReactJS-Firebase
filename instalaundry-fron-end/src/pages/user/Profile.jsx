@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Paynow from '../../components/client/Paynow';
+
 import Breadcrumbs from '../../components/common/Breadcrumbs';
 import MyTextFeild from '../../components/common/MyTextFeild';
 import SubscriptionCard from '../../components/SubscriptionCard';
@@ -9,10 +14,28 @@ import { Colors } from '../../config/Colors';
 import { getAllUserSubscriptions, updateUser, deleteSubscriptionPlan } from '../../services/UserServices';
 import { getPlans } from '../../services/PricingServices';
 import { cancelUserSub } from "../../services/OrderServices";
+import configObj from '../../config/config.json';
+
+const stripePromise = loadStripe(configObj.stripPublicId);
 
 function Profile(props) {
-  const [showPersonal, setShowPersonal] = useState(true);
+  const [showPersonal, setShowPersonal] = useState('personal');
   const [currentUserId, setCurrentUserId] = useState('');
+  const [tip, setTip] = useState('');
+  const [lbsCount, setLbsCount] = useState(10);
+
+  const lbsIncrement = () => {
+    if (lbsCount < 50) {
+      setLbsCount(lbsCount + 1);
+    }
+  };
+
+  const lbsDecrement = () => {
+    if (lbsCount > 10) {
+      setLbsCount(lbsCount - 1);
+    }
+  };
+
   const [userInfo, setUserinfo] = useState([
     {
       title: 'Full Name',
@@ -138,11 +161,11 @@ function Profile(props) {
                 className="d-flex flex-column justify-content-start col-md-3"
               >
                 <div
-                  onClick={() => setShowPersonal(true)}
+                  onClick={() => setShowPersonal('personal')}
                   style={{
                     borderTopLeftRadius: 10,
                     cursor: 'pointer',
-                    backgroundColor: showPersonal ? Colors.primaryTrans : null,
+                    backgroundColor: showPersonal === 'personal' ? Colors.primaryTrans : null,
                     borderBottom: '1px solid white',
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
@@ -151,14 +174,15 @@ function Profile(props) {
                     Personal Information
                   </p>
                 </div>
+
                 <div
                   onClick={() => {
                     userSubscriptions()
-                    setShowPersonal(false)
+                    setShowPersonal('subscription')
                   }}
                   style={{
                     cursor: 'pointer',
-                    backgroundColor: !showPersonal ? Colors.primaryTrans : null,
+                    backgroundColor: showPersonal == 'subscription' ? Colors.primaryTrans : null,
                     borderBottom: '1px solid white',
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
@@ -167,12 +191,45 @@ function Profile(props) {
                     My Subscriptions
                   </p>
                 </div>
+
+                <div
+                  onClick={() => {
+                    setShowPersonal('tip')
+                  }}
+                  style={{
+                    cursor: 'pointer',
+                    backgroundColor: showPersonal == 'tip' ? Colors.primaryTrans : null,
+                    borderBottom: '1px solid white',
+                  }}
+                  className="row d-flex flex-row align-items-center p-2 justify-content-center"
+                >
+                  <p style={{ marginTop: '1rem' }} className="">
+                    Pay Tip
+                  </p>
+                </div>
+
+                <div
+                  onClick={() => {
+                    setShowPersonal('load')
+                  }}
+                  style={{
+                    cursor: 'pointer',
+                    backgroundColor: showPersonal == 'load' ? Colors.primaryTrans : null,
+                    borderBottom: '1px solid white',
+                  }}
+                  className="row d-flex flex-row align-items-center p-2 justify-content-center"
+                >
+                  <p style={{ marginTop: '1rem' }} className="">
+                    Want To Add Extra Load
+                  </p>
+                </div>
+
               </div>
 
 
 
               {/* Personal Info start */}
-              {showPersonal ? (
+              {showPersonal == 'personal' ? (
                 <div
                   style={{
                     border: '1px solid grey',
@@ -230,41 +287,115 @@ function Profile(props) {
                     </div>
                   </div>
                 </div>
-              ) : (
-                // subscription plan start;
-                <div className="d-flex flex-column justify-content-start col-md-8">
-                  <div
-                    style={{ marginTop: '-0.5rem' }}
-                    className="row d-flex flex-row align-items-center p-1 justify-content-center"
-                  >
-                    <h3 style={{ fontSize: '2rem' }}>My Subscriptions</h3>
-                  </div>
-                  <div className="row d-flex flex-row justify-content-md-start">
-                    {subscription.map((sub, index) => (
-                      <div
-                        key={index}
-                        className="col-md-6 d-flex justify-content-center"
-                        style={{
-                          marginTop: '2rem',
-                          flexDirection: 'column',
-                          flex: 1,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <div style={{ width: '100%' }}>
-                          <SubscriptionCard
-                            showCancelBtn={true}
-                            packageName={sub.packageName}
-                            price={sub.price}
-                            cancelSub={() => handleCancelSub(sub.userSubId, sub.docId)}
-                          />
+              ) : null}
+
+              {
+                showPersonal == 'subscription' ?
+                  // subscription plan start;
+                  <div className="d-flex flex-column justify-content-start col-md-8">
+                    <div
+                      style={{ marginTop: '-0.5rem' }}
+                      className="row d-flex flex-row align-items-center p-1 justify-content-center"
+                    >
+                      <h3 style={{ fontSize: '2rem' }}>My Subscriptions</h3>
+                    </div>
+                    <div className="row d-flex flex-row justify-content-md-start">
+                      {subscription.map((sub, index) => (
+                        <div
+                          key={index}
+                          className="col-md-6 d-flex justify-content-center"
+                          style={{
+                            marginTop: '2rem',
+                            flexDirection: 'column',
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <div style={{ width: '100%' }}>
+                            <SubscriptionCard
+                              showCancelBtn={true}
+                              packageName={sub.packageName}
+                              price={sub.price}
+                              cancelSub={() => handleCancelSub(sub.userSubId, sub.docId)}
+                            />
+                          </div>
                         </div>
+                      ))}
+                    </div>
+                  </div> : null
+              }
+
+              {
+                showPersonal == 'tip' ?
+                  // subscription plan start;
+                  <div className="d-flex flex-column justify-content-start col-md-8">
+                    <div
+                      style={{ marginTop: '-0.5rem' }}
+                      className="row d-flex flex-row align-items-center p-1 justify-content-center"
+                    >
+                      <h3 style={{ fontSize: '2rem' }}>Pay Tip</h3>
+                    </div>
+                    <div className="row d-flex mt-5 flex-row justify-content-md-start">
+
+                      <div style={{ marginTop: '2rem', width: '100%' }}>
+                        <MyTextFeild
+                          width={'60%'}
+                          label={"Pay Tip (In Dollar), Enter Only Number For example 5, 10..."}
+                          value={tip}
+                          onChange={(value) => setTip(value)}
+                        />
                       </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+
+                    </div>
+                    <div className="contaienr-fluid mt-4" >
+
+                      <Elements stripe={stripePromise}>
+                        <Paynow
+                          onlyTip={true}
+                          tipPrice={parseFloat(tip.match(/(\d+)/))}
+                        />
+                      </Elements>
+                    </div>
+                  </div> : null
+              }
+              {
+                showPersonal == 'load' ?
+                  // subscription plan start;
+                  <div className="d-flex flex-column justify-content-start col-md-8">
+                    <div
+                      style={{ marginTop: '-0.5rem' }}
+                      className="row d-flex flex-row align-items-center p-1 justify-content-center"
+                    >
+                      <h3 style={{ fontSize: '2rem' }}>Pay for Extra Load</h3>
+                    </div>
+                    <div className="row d-flex mt-5 flex-row justify-content-md-start">
+
+                      <div style={{ marginTop: '2rem', width: '100%' }}>
+                        <h6>Add Extra Load in LBS from 10 to 50lbs</h6>
+                        <ButtonGroup
+                          style={{ marginTop: "2rem" }}
+                          size="small"
+                          aria-label="small outlined button group"
+                        >
+                          <Button onClick={() => lbsIncrement()}>+</Button>
+                          <Button>{lbsCount}</Button>
+                          <Button onClick={() => lbsDecrement()}>-</Button>
+                        </ButtonGroup>
+                      </div>
+
+                    </div>
+                    <div className="contaienr-fluid mt-4" >
+
+                      <Elements stripe={stripePromise}>
+                        <Paynow
+                          onlyTip={true}
+                          tipPrice={parseFloat(lbsCount)}
+                        />
+                      </Elements>
+                    </div>
+                  </div> : null
+              }
             </div>
           </div>
         </div>
