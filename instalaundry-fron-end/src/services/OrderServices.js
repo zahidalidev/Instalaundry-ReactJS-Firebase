@@ -24,3 +24,8 @@ export const paySubscription = async (result, email, stripSubscriptionId) => {
 export const addPlan = async (body) => {
     return await planRef.add(body);
 }
+
+
+export const cancelUserSub = async (id) => {
+    return await axios.post('http://localhost:5000/api/cancel', { subscriptionId: id });
+}

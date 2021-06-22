@@ -18,10 +18,10 @@ function Breadcrumbs({ title, previousPages = [], currentPage }) {
                     <div className="col-md-6 text-center text-md-right">
                         <div className="d-inline-flex align-items-center">
                             {previousPages.map((item, index) =>
-                                <>
+                                <div key={index} >
                                     <a className="btn text-white">{item}</a>
                                     <i className="fas fa-angle-right text-white"></i>
-                                </>
+                                </div>
                             )}
                             <a className="btn text-white disabled">{currentPage}</a>
                         </div>

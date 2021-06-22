@@ -6,7 +6,9 @@ import SubscriptionCard from '../../components/SubscriptionCard';
 
 // config
 import { Colors } from '../../config/Colors';
-import { getAllUserSubscriptions, updateUser } from '../../services/UserServices';
+import { getAllUserSubscriptions, updateUser, deleteSubscriptionPlan } from '../../services/UserServices';
+import { getPlans } from '../../services/PricingServices';
+import { cancelUserSub } from "../../services/OrderServices";
 
 function Profile(props) {
   const [showPersonal, setShowPersonal] = useState(true);
@@ -30,28 +32,7 @@ function Profile(props) {
     },
   ])
 
-  const [subscription, setSubscription] = useState([
-    {
-      packageName: 'Individual',
-      price: '$9.99/Week',
-    },
-    {
-      packageName: 'Individual',
-      price: '$9.99/Week',
-    },
-    {
-      packageName: 'Individual',
-      price: '$9.99/Week',
-    },
-    {
-      packageName: 'Individual',
-      price: '$9.99/Week',
-    },
-    {
-      packageName: 'Individual',
-      price: '$9.99/Week',
-    },
-  ]);
+  const [subscription, setSubscription] = useState([]);
 
   const handleUserInfo = async (index, value) => {
     const tempInfo = [...userInfo];
@@ -81,8 +62,21 @@ function Profile(props) {
 
   const userSubscriptions = async () => {
     try {
+
+      let allPlans = await getPlans()
       let res = await getAllUserSubscriptions(currentUserId)
-      console.log(res);
+      if (res) {
+        for (let i = 0; i < res.length; i++) {
+          for (let j = 0; j < allPlans.length; j++) {
+            if (res[i].planId === allPlans[j].id) {
+              res[i].packageName = allPlans[j].name;
+              res[i].price = allPlans[j].price;
+            }
+          }
+        }
+
+        setSubscription(res);
+      }
     } catch (error) {
 
     }
@@ -90,7 +84,6 @@ function Profile(props) {
 
   useEffect(() => {
     getCurrentUserinfo()
-    userSubscriptions()
   }, [])
 
   // updating user
@@ -106,6 +99,17 @@ function Profile(props) {
       await updateUser(currentUserId, body)
     } catch (error) {
       console.log("user profile update errr: ", error)
+    }
+  }
+
+  const handleCancelSub = async (id, docId) => {
+    try {
+      let res = await cancelUserSub(id);
+      await deleteSubscriptionPlan(docId)
+      await userSubscriptions()
+      console.log(res);
+    } catch (error) {
+      console.log("sub cancel erro: ", error)
     }
   }
 
@@ -148,7 +152,10 @@ function Profile(props) {
                   </p>
                 </div>
                 <div
-                  onClick={() => setShowPersonal(false)}
+                  onClick={() => {
+                    userSubscriptions()
+                    setShowPersonal(false)
+                  }}
                   style={{
                     cursor: 'pointer',
                     backgroundColor: !showPersonal ? Colors.primaryTrans : null,
@@ -250,6 +257,7 @@ function Profile(props) {
                             showCancelBtn={true}
                             packageName={sub.packageName}
                             price={sub.price}
+                            cancelSub={() => handleCancelSub(sub.userSubId, sub.docId)}
                           />
                         </div>
                       </div>

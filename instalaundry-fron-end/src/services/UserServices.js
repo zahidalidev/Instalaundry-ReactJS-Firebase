@@ -50,6 +50,15 @@ export const getAllUserSubscriptions = async (id) => {
     return res
 }
 
+export const deleteSubscriptionPlan = async (id) => {
+    try {
+        await planRef.doc(id).delete();
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
 export const updateUser = async (id, userInfo) => {
     try {
         await userRef.doc(id).update(userInfo)

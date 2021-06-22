@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 import { Colors } from '../config/Colors';
-function SubscriptionCard({ packageName, price, showCancelBtn = false, subscribedBy }) {
+function SubscriptionCard({ packageName, price, showCancelBtn = false, subscribedBy, cancelSub }) {
     return (
         <div className="container" style={{ borderRadius: 6, width: "25rem", height: showCancelBtn ? "10rem" : " 9rem", backgroundColor: Colors.secondary }} >
             <div style={{ paddingTop: "1rem", marginLeft: "1rem" }} className="d-flex flex-column justify-content-center align-items-start " >
@@ -15,7 +15,7 @@ function SubscriptionCard({ packageName, price, showCancelBtn = false, subscribe
                     <p style={{ fontSize: "1rem", color: Colors.white }} >{price}</p>
                 </div>
                 {showCancelBtn ?
-                    <Button style={{ width: "6rem" }} variant="contained" color="secondary">
+                    <Button onClick={() => cancelSub()} style={{ width: "6rem" }} variant="contained" color="secondary">
                         Cancel
                     </Button>
                     : <div className="d-flex flex-row justify-content-start" >
