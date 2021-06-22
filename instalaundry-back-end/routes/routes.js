@@ -51,4 +51,15 @@ router.post('/sub', async (req, res) => {
     // res.send("hi")
 })
 
+router.post('/cancel', async (req, res) => {
+    try {
+        const subscriptionId = req.body.subscriptionId;
+        const da = await stripe.subscriptions.del(subscriptionId);
+        res.send(da)
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+
 module.exports = router;
