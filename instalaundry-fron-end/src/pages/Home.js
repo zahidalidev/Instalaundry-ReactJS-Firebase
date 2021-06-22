@@ -44,7 +44,7 @@ export default function Home() {
                 fontWeight: 'bold',
               }}
             >
-              Check whether we are operating in your area or not!
+              Check whether we are available in your area or not!
             </div>
           </div>
           <div
@@ -80,21 +80,6 @@ export default function Home() {
         <Services />
 
         {show ? <About removeHeader={true} /> : null}
-        {/* <div className="row d-flex justify-content-start align-items-start">
-          <div className="col-6 d-flex justify-content-start align-items-start"> */}
-        {/* <div className="row d-flex justify-content-start align-items-start">
-          <div className="col-5 d-flex justify-content-start align-items-start">
-            Check if we are available in your area!{' '}
-            <MyTextFeild
-              width={'60%'}
-              label="Postal Code"
-              onChange={(value) => console.log(value)}
-            />
-          </div>
-        </div> */}
-
-        {/* </div> */}
-        {/* </div> */}
 
         <Testimonial />
       </Suspense>
