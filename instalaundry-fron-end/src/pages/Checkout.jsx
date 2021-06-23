@@ -155,6 +155,41 @@ export default function Checkout(props) {
         },
       ],
     },
+    {
+      id: 3,
+      label: 'Pickup Day',
+      value: '',
+      dropItems: [
+        {
+          label: 'Monday',
+          value: 'monday',
+        },
+        {
+          label: 'Tuesday',
+          value: 'tuesday',
+        },
+        {
+          label: 'Wednesday',
+          value: 'wednesday',
+        },
+        {
+          label: 'Thursday',
+          value: 'thursday',
+        },
+        {
+          label: 'Friday',
+          value: 'friday',
+        },
+        {
+          label: 'Saturday',
+          value: 'saturday',
+        },
+        {
+          label: 'Sunday',
+          value: 'sunday',
+        },
+      ],
+    },
   ]);
 
   const [apartmentSuit, setApartmentSuit] = useState('');
@@ -207,6 +242,7 @@ export default function Checkout(props) {
       countary: pickupDropFeild[0].value,
       province: pickupDropFeild[1].value,
       timing: pickupDropFeild[2].value,
+      pickupDay: pickupDropFeild[3].value,
       lbsPrice: extraLoad ? lbsCount : 0,
     };
 
@@ -326,6 +362,7 @@ export default function Checkout(props) {
                 <MyTextFeild
                   width="78%"
                   label={item.label}
+                  value={item.value}
                   onChange={(value) => infoFieldChange(index, value)}
                 ></MyTextFeild>
               </div>
@@ -416,6 +453,7 @@ export default function Checkout(props) {
                 <MyTextFeild
                   width="78%"
                   label={item.label}
+                  value={item.value}
                   onChange={(value) => pickupFieldChange(index, value)}
                 ></MyTextFeild>
               </div>
@@ -482,6 +520,7 @@ export default function Checkout(props) {
             >
               <MyTextFeild
                 width="78%"
+                value={apartmentSuit}
                 label="Apartment, Suite, unit etc(Optional)"
                 onChange={(value) => setApartmentSuit(value)}
                 style={{ fontSize: '5rem' }}
