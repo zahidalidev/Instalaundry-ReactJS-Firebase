@@ -3,22 +3,40 @@ import Button from '@material-ui/core/Button';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Paynow from '../../components/client/Paynow';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import { makeStyles } from '@material-ui/core/styles';
 
+import Paynow from '../../components/client/Paynow';
 import Breadcrumbs from '../../components/common/Breadcrumbs';
 import MyTextFeild from '../../components/common/MyTextFeild';
 import SubscriptionCard from '../../components/SubscriptionCard';
 
 // config
 import { Colors } from '../../config/Colors';
-import { getAllUserSubscriptions, updateUser, deleteSubscriptionPlan } from '../../services/UserServices';
+import { getAllUserSubscriptions, updateUser, deleteSubscriptionPlan, updatPickupInfo } from '../../services/UserServices';
 import { getPlans } from '../../services/PricingServices';
 import { cancelUserSub } from "../../services/OrderServices";
 import configObj from '../../config/config.json';
+import { toast } from 'react-toastify';
 
 const stripePromise = loadStripe(configObj.stripPublicId);
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
+
 function Profile(props) {
+  const classes = useStyles();
   const [showPersonal, setShowPersonal] = useState('personal');
   const [currentUserId, setCurrentUserId] = useState('');
   const [tip, setTip] = useState('');
@@ -54,6 +72,49 @@ function Profile(props) {
       value: ''
     },
   ])
+
+  const [daysDrop, setDaysDrop] = useState(
+    {
+      label: 'Pickup Day',
+      value: '',
+      dropItems: [
+        {
+          label: 'Monday',
+          value: 'monday',
+        },
+        {
+          label: 'Tuesday',
+          value: 'tuesday',
+        },
+        {
+          label: 'Wednesday',
+          value: 'wednesday',
+        },
+        {
+          label: 'Thursday',
+          value: 'thursday',
+        },
+        {
+          label: 'Friday',
+          value: 'friday',
+        },
+        {
+          label: 'Saturday',
+          value: 'saturday',
+        },
+        {
+          label: 'Sunday',
+          value: 'sunday',
+        },
+      ],
+    },
+  );
+
+  const dropPickupChange = (value) => {
+    let tempDays = { ...daysDrop };
+    tempDays.value = value;
+    setDaysDrop(tempDays);
+  };
 
   const [subscription, setSubscription] = useState([]);
 
@@ -136,6 +197,18 @@ function Profile(props) {
     }
   }
 
+  const handlePickuDay = async () => {
+    let newPickupDay = daysDrop.value;
+    if (newPickupDay == '') {
+      toast.error("Please Select the Day")
+    }
+    try {
+      await updatPickupInfo(currentUserId, { pickupDay: newPickupDay })
+    } catch (error) {
+      console.log("Update day error: ", error)
+    }
+  }
+
   return (
     <>
       <Breadcrumbs
@@ -172,6 +245,21 @@ function Profile(props) {
                 >
                   <p style={{ marginTop: '1rem' }} className="">
                     Personal Information
+                  </p>
+                </div>
+
+                <div
+                  onClick={() => setShowPersonal('day')}
+                  style={{
+                    borderTopLeftRadius: 10,
+                    cursor: 'pointer',
+                    backgroundColor: showPersonal === 'day' ? Colors.primaryTrans : null,
+                    borderBottom: '1px solid white',
+                  }}
+                  className="row d-flex flex-row align-items-center p-2 justify-content-center"
+                >
+                  <p style={{ marginTop: '1rem' }} className="">
+                    Change Pickup Day
                   </p>
                 </div>
 
@@ -393,6 +481,65 @@ function Profile(props) {
                           tipPrice={parseFloat(lbsCount)}
                         />
                       </Elements>
+                    </div>
+                  </div> : null
+              }
+              {
+                showPersonal == 'day' ?
+                  // subscription plan start;
+                  <div className="d-flex flex-column justify-content-start col-md-8">
+                    <div
+                      style={{ marginTop: '-0.5rem' }}
+                      className="row d-flex flex-row align-items-center p-1 justify-content-center"
+                    >
+                      <h3 style={{ fontSize: '2rem' }}>Pay for Extra Load</h3>
+                    </div>
+                    <div className="row d-flex mt-5 flex-row justify-content-md-start">
+
+                      <div style={{ marginTop: '2rem', width: '100%' }}>
+                        <div
+                          className="row d-flex justify-content-center align-items-center"
+                          style={{ marginTop: '1.4rem' }}
+                        >
+                          <FormControl
+                            variant="outlined"
+                            className={classes.formControl}
+                            style={{ width: '60%' }}
+                          >
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Select Day
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              value={daysDrop.value}
+                              onChange={(e) => dropPickupChange(e.target.value)}
+                              label="Status"
+                            >
+                              {daysDrop.dropItems.map((drop, i) => (
+                                <MenuItem key={i} value={drop.value}>
+                                  {drop.label}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div className="contaienr-fluid mt-4" >
+                      <Button
+                        onClick={() => handlePickuDay()}
+                        style={{
+                          backgroundColor: Colors.secondary,
+                          color: Colors.white,
+                        }}
+                        className="btn btn-primary py-md-2 px-md-4 mt-4"
+                        variant="contained"
+                      >
+                        Update Day
+                      </Button>
+
                     </div>
                   </div> : null
               }

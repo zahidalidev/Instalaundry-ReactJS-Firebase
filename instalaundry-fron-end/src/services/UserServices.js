@@ -68,6 +68,28 @@ export const updateUser = async (id, userInfo) => {
     }
 }
 
+export const updatPickupInfo = async (id, body) => {
+    try {
+        const snapshot = await pickupInfoRef.where('userId', '==', id).get();
+        if (snapshot.empty) {
+            return false;
+        }
+
+        let pickUpId = []
+        snapshot.forEach(doc => {
+            pickUpId.push(doc.id)
+        });
+
+        for (let i = 0; i < pickUpId.length; i++) {
+            await pickupInfoRef.doc(pickUpId[i]).update(body)
+        }
+
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
 export const subscribePlan = async (body) => {
     try {
         await planRef.add(body)
