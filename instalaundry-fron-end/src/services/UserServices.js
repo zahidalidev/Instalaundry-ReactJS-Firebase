@@ -62,7 +62,20 @@ export const deleteSubscriptionPlan = async (id) => {
 export const updateUser = async (id, userInfo) => {
     try {
         await userRef.doc(id).update(userInfo)
-        return true;
+
+        const snapshot = await userRef.where('email', '==', userInfo.email).where('password', '==', userInfo.password).get();
+        if (snapshot.empty) {
+            return false;
+        }
+
+        let res = {}
+        snapshot.forEach(doc => {
+            res = doc.data()
+            res.id = doc.id
+        });
+
+        return res
+
     } catch (error) {
         return false
     }

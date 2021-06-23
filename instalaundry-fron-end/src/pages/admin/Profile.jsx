@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
+import Button from '@material-ui/core/Button';
 
 // Compoentns
 import Breadcrumbs from '../../components/common/Breadcrumbs';
@@ -8,6 +9,10 @@ import SubscriptionCard from '../../components/SubscriptionCard';
 
 // config
 import { Colors } from '../../config/Colors';
+
+//services
+import { getAllUserSubscriptions, updateUser, deleteSubscriptionPlan, updatPickupInfo } from '../../services/UserServices';
+
 
 const userColumns = [
     { field: 'name', headerName: 'Name', width: 130 },
@@ -25,6 +30,7 @@ const postalColumns = [
 function Profile(props) {
 
     const [showComponent, setShowComponent] = useState("information")
+    const [currentUserId, setCurrentUserId] = useState('');
 
     const [subscription, setSubscription] = useState([
         {
@@ -78,6 +84,74 @@ function Profile(props) {
         { id: 9, name: 'Lahore', code: "52250" },
     ];
 
+    const [userInfo, setUserinfo] = useState([
+        {
+            title: 'Full Name',
+            value: ''
+        },
+        {
+            title: 'Email',
+            value: ''
+        },
+        {
+            title: 'Contact Number',
+            value: ''
+        },
+        {
+            title: 'Password',
+            value: ''
+        },
+    ])
+
+    const getCurrentUserinfo = () => {
+        const tempInfo = [...userInfo];
+
+        try {
+            let currentUser = localStorage.getItem('token');
+            if (currentUser) {
+                currentUser = JSON.parse(currentUser)
+            }
+            tempInfo[0].value = currentUser.name
+            tempInfo[1].value = currentUser.email
+            tempInfo[2].value = currentUser.contactNumber
+            tempInfo[3].value = currentUser.password
+            setCurrentUserId(currentUser.id)
+            setUserinfo(tempInfo)
+
+        } catch (error) {
+            console.log("Getting Info Error: ", error)
+        }
+    }
+
+    const handleUserInfo = async (index, value) => {
+        const tempInfo = [...userInfo];
+        tempInfo[index].value = value;
+        setUserinfo(tempInfo)
+    }
+
+
+    useEffect(() => {
+        getCurrentUserinfo()
+    }, [])
+
+    // updating user
+    const handleUpdate = async () => {
+        const body = {
+            name: userInfo[0].value,
+            email: userInfo[1].value,
+            contactNumber: userInfo[2].value,
+            password: userInfo[3].value
+        }
+
+        try {
+            let res = await updateUser(currentUserId, body);
+            localStorage.removeItem('token');
+            localStorage.setItem('token', JSON.stringify(res));
+        } catch (error) {
+            console.log("user profile update errr: ", error)
+        }
+    }
+
     return (
         <>
             <Breadcrumbs title="Admin" currentPage="Admin" previousPages={['Home']} />
@@ -115,27 +189,33 @@ function Profile(props) {
                                     <div className="row d-flex flex-row justify-content-md-center" >
                                         <div className="col-md-12 d-flex justify-content-center align-self-center" style={{ flexDirection: "column", height: 300, flex: 1, justifyContent: "center", alignItems: "center" }}  >
 
-                                            <div style={{ marginTop: "10rem", width: "82%" }} className="row">
-                                                <div className="col-md-6">
-                                                    <MyTextFeild width={"100%"} label="First Name" onChange={(value) => console.log(value)} />
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <MyTextFeild width={"100%"} label="Last Name" onChange={(value) => console.log(value)} />
-                                                </div>
+                                            <div style={{ marginTop: '10rem', width: "100%" }} className="row">
                                             </div>
 
-                                            <div style={{ marginTop: '2rem', width: "100%" }} >
-                                                <MyTextFeild width={"78%"} label="Email" onChange={(value) => console.log(value)} />
-                                            </div>
-                                            <div style={{ marginTop: '2rem', width: "100%" }} >
-                                                <MyTextFeild width={"78%"} label="Contact Number" onChange={(value) => console.log(value)} />
-                                            </div>
-                                            <div style={{ marginTop: '2rem', width: "100%" }} >
-                                                <MyTextFeild width={"78%"} label="Address" onChange={(value) => console.log(value)} />
-                                            </div>
-                                            <div style={{ marginTop: '2rem', width: "100%" }} >
-                                                <MyTextFeild width={"78%"} label="Password" onChange={(value) => console.log(value)} />
-                                            </div>
+                                            {
+                                                userInfo.map((user, index) =>
+                                                    <div key={index} style={{ marginTop: '2rem', width: '100%' }}>
+                                                        <MyTextFeild
+                                                            width={'78%'}
+                                                            label={user.title}
+                                                            value={user.value}
+                                                            onChange={(value) => handleUserInfo(index, value)}
+                                                        />
+                                                    </div>
+                                                )
+                                            }
+
+                                            <Button
+                                                onClick={() => handleUpdate()}
+                                                style={{
+                                                    backgroundColor: Colors.secondary,
+                                                    color: Colors.white,
+                                                }}
+                                                className="btn btn-primary py-md-2 px-md-4 mt-4"
+                                                variant="contained"
+                                            >
+                                                Update
+                                            </Button>
                                         </div>
                                     </div>
                                 </div>

@@ -44,7 +44,6 @@ class Login extends Component {
     }
 
     try {
-      console.log(email, password)
       const res = await loginUser(email, password)
       localStorage.setItem('token', JSON.stringify(res));
       window.location.reload()
