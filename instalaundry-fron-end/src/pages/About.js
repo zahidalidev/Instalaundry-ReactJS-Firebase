@@ -163,7 +163,10 @@ export default function About(props) {
                     marginTop: '7rem',
                   }}
                 ></img> */}
-                <i className="fa fa-5x fa-certificate text-white mb-5"></i>
+                <i
+                  className="fa fa-5x fa-certificate  mb-5"
+                  style={{ color: '#FF8C00' }}
+                ></i>
                 <h1
                   className="display-100 text-white mb-3"
                   style={{ textAlign: 'center' }}
