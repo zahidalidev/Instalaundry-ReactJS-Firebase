@@ -75,6 +75,7 @@ function MyAppbar(props) {
             <div className="col-md-6 text-center text-lg-right">
               <div className="d-inline-flex align-items-center">
                 <a
+                  target="_blank"
                   style={{ cursor: 'pointer' }}
                   className="text-white px-3"
                   href="https://m.facebook.com/instalaundrycanada/"
@@ -88,6 +89,7 @@ function MyAppbar(props) {
                   <i className="fab fa-linkedin-in"></i>
                 </a> */}
                 <a
+                  target="_blank"
                   style={{ cursor: 'pointer' }}
                   className="text-white px-1"
                   href="http://instagram.com/instalaundrycanada"

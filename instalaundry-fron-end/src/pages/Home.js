@@ -5,6 +5,8 @@ import Slider from '../components/Slider/Slider';
 import MyTextFeild from '../components/common/MyTextFeild';
 import Button from '@material-ui/core/Button';
 import { Colors } from '../config/Colors';
+import { getAllPostalCodes } from '../services/UserServices';
+import { toast } from 'react-toastify';
 
 // lazy pages
 const About = React.lazy(() => import('./About'));
@@ -15,13 +17,48 @@ const Testimonial = React.lazy(() => import('../components/Testimonial'));
 
 export default function Home() {
   const [show, setShow] = useState(false);
+  const [code, setCode] = useState([]);
+  const [postalCodes, setPostalCodes] = useState([]);
+
+
+  const handlePostalCodes = async () => {
+    try {
+      let res = await getAllPostalCodes()
+      if (res) {
+        setPostalCodes(res)
+      } else {
+        setPostalCodes([])
+      }
+    } catch (error) {
+      console.log("getting all users error: ", error)
+    }
+  }
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+    handlePostalCodes()
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleCodeCheck = () => {
+    let tempCode = code.substr(0, 3)
+
+    let ava = false;
+    postalCodes.map((item => {
+      if (item.code === tempCode) {
+        ava = true;
+      }
+    }))
+
+    if (ava) {
+      toast.success("Congratulations we are available in you area")
+    } else {
+      toast.error("Sorry we are not available in you area")
+    }
+    console.log(postalCodes, tempCode)
+  }
 
   const handleScroll = function (event) {
     // let scrollTop = event.srcElement.body.scrollTop,
@@ -55,7 +92,8 @@ export default function Home() {
               <MyTextFeild
                 width={'50%'}
                 label="Postal Code"
-                onChange={(value) => console.log(value)}
+                value={code}
+                onChange={(value) => setCode(value)}
               />
             </div>
           </div>
@@ -71,6 +109,7 @@ export default function Home() {
                 }}
                 className="btn btn-primary py-md-2 px-md-4 mt-2"
                 variant="contained"
+                onClick={() => handleCodeCheck()}
               >
                 Check
               </Button>

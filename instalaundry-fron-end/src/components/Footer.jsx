@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom"
 import Button from '@material-ui/core/Button';
 
@@ -8,6 +9,22 @@ import logo from '../assets/img/logo1.png';
 
 export default function Footer() {
   const history = useHistory()
+  const [currentUser, setCurrentUser] = useState({});
+
+
+  const getCurrentUser = async () => {
+    const user = JSON.parse(localStorage.getItem('token'));
+    if (user) {
+      setCurrentUser(user);
+    } else {
+      setCurrentUser({});
+    }
+  };
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
   return (
     <div>
       <div className="container-fluid bg-primary text-white pt-5 px-sm-3 px-md-5">
@@ -96,7 +113,7 @@ export default function Footer() {
                 fontSize: '0.9rem',
               }}
             >
-              <i className="fa fa-envelope mr-2"></i>info@example.com
+              <i className="fa fa-envelope mr-2"></i>support@instalaundry.ca
             </p>
           </div>
           <div className="col-lg-3 col-md-6 mb-5">
@@ -157,9 +174,13 @@ export default function Footer() {
               >
                 <i className="fa fa-angle-right mr-2"></i>Contact Us
               </a>
-              <a onClick={() => history.push('/admin')} style={{ fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white">
-                <i className="fa fa-angle-right mr-2"></i>Admin
-              </a>
+              {currentUser.role === 'admin' ?
+                <a onClick={() => history.push('/admin')} style={{ marginTop: "0.6rem", fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white">
+                  <i className="fa fa-angle-right mr-2"></i>Admin
+                </a>
+                : null
+              }
+
             </div>
           </div>
           <div className="col-lg-3 col-md-6 mb-5">

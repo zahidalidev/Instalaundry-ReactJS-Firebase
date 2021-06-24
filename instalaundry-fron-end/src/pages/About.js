@@ -165,7 +165,7 @@ export default function About(props) {
                 ></img> */}
                 <i
                   className="fa fa-5x fa-certificate  mb-5"
-                  style={{ color: '#FF8C00' }}
+                  style={{ color: '#ffc244' }}
                 ></i>
                 <h1
                   className="display-100 text-white mb-3"
