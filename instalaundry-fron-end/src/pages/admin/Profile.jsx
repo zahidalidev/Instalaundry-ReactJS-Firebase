@@ -11,18 +11,16 @@ import SubscriptionCard from '../../components/SubscriptionCard';
 import { Colors } from '../../config/Colors';
 
 //services
-import { getAllUserSubscriptions, updateUser, deleteSubscriptionPlan, updatPickupInfo } from '../../services/UserServices';
+import { getAllUserSubscriptions, updateUser, deleteSubscriptionPlan, updatPickupInfo, getAllUsers, getAllSubscription, getAllPostalCodes } from '../../services/UserServices';
 
 
 const userColumns = [
     { field: 'name', headerName: 'Name', width: 130 },
-    { field: 'contactNumber', headerName: 'Contact', width: 160 },
-    { field: 'email', headerName: 'Email', width: 180 },
-    { field: 'address', headerName: 'Address', width: 200 },
+    { field: 'contactNumber', headerName: 'Contact', width: 180 },
+    { field: 'email', headerName: 'Email', width: 300 },
 ];
 
 const postalColumns = [
-    { field: 'name', headerName: 'Name', width: 130 },
     { field: 'code', headerName: 'Postal Code', width: 180 },
 ];
 
@@ -32,57 +30,11 @@ function Profile(props) {
     const [showComponent, setShowComponent] = useState("information")
     const [currentUserId, setCurrentUserId] = useState('');
 
-    const [subscription, setSubscription] = useState([
-        {
-            packageName: "Individual",
-            price: "$9.99/Week",
-            subscribedBy: "Zahid Ali"
-        },
-        {
-            packageName: "Individual",
-            price: "$9.99/Week",
-            subscribedBy: "Zahid Ali"
-        },
-        {
-            packageName: "Individual",
-            price: "$9.99/Week",
-            subscribedBy: "Zahid Ali"
-        },
-        {
-            packageName: "Individual",
-            price: "$9.99/Week",
-            subscribedBy: "Zahid Ali"
-        },
-        {
-            packageName: "Individual",
-            price: "$9.99/Week",
-            subscribedBy: "Zahid Ali"
-        },
-    ])
+    const [subscription, setSubscription] = useState([])
 
-    const users = [
-        { id: 1, name: 'Snow', contactNumber: '+923367088018', email: "m.zahidalidev@gmail.com", address: "Qasim Town GRW Punjab" },
-        { id: 2, name: 'Lannister', contactNumber: '+923367088018', email: "m.zahidalidev@gmail.com", address: "Qasim Town GRW Punjab" },
-        { id: 3, name: 'Lannister', contactNumber: '+923367088018', email: "m.zahidalidev@gmail.com", address: "Qasim Town GRW Punjab" },
-        { id: 4, name: 'Stark', contactNumber: '+923367088018', email: "m.zahidalidev@gmail.com", address: "Qasim Town GRW Punjab" },
-        { id: 5, name: 'Targaryen', contactNumber: '+923367088018', email: "m.zahidalidev@gmail.com", address: "Qasim Town GRW Punjab" },
-        { id: 6, name: 'Melisandre', contactNumber: '+923367088018', email: "m.zahidalidev@gmail.com", address: "Qasim Town GRW Punjab" },
-        { id: 7, name: 'Clifford', contactNumber: '+923367088018', email: "m.zahidalidev@gmail.com", address: "Qasim Town GRW Punjab" },
-        { id: 8, name: 'Frances', contactNumber: '+923367088018', email: "m.zahidalidev@gmail.com", address: "Qasim Town GRW Punjab" },
-        { id: 9, name: 'Roxie', contactNumber: '+923367088018', email: "m.zahidalidev@gmail.com", address: "Qasim Town GRW Punjab" },
-    ];
+    const [users, setAllUsers] = useState([]);
 
-    const postalCodes = [
-        { id: 1, name: 'Lahore', code: "52250" },
-        { id: 2, name: 'Gujranwala', code: "52250" },
-        { id: 3, name: 'Lahore', code: "52250" },
-        { id: 4, name: 'Gujranwaa', code: "52250" },
-        { id: 5, name: 'Lahore', code: "52250" },
-        { id: 6, name: 'Melisandre', code: "52250" },
-        { id: 7, name: 'Lahore', code: "52250" },
-        { id: 8, name: 'Frances', code: "52250" },
-        { id: 9, name: 'Lahore', code: "52250" },
-    ];
+    const [postalCodes, setPostalCodes] = useState([]);
 
     const [userInfo, setUserinfo] = useState([
         {
@@ -102,6 +54,45 @@ function Profile(props) {
             value: ''
         },
     ])
+
+    const handleGetAllUsers = async () => {
+        try {
+            let res = await getAllUsers()
+            if (res) {
+                setAllUsers(res)
+            } else {
+                setAllUsers([])
+            }
+        } catch (error) {
+            console.log("getting all users error: ", error)
+        }
+    }
+
+    const handleGetAllSubscription = async () => {
+        try {
+            let res = await getAllSubscription()
+            if (res) {
+                setSubscription(res)
+            } else {
+                setSubscription([])
+            }
+        } catch (error) {
+            console.log("getting all users error: ", error)
+        }
+    }
+
+    const handlePostalCodes = async () => {
+        try {
+            let res = await getAllPostalCodes()
+            if (res) {
+                setPostalCodes(res)
+            } else {
+                setPostalCodes([])
+            }
+        } catch (error) {
+            console.log("getting all users error: ", error)
+        }
+    }
 
     const getCurrentUserinfo = () => {
         const tempInfo = [...userInfo];
@@ -164,17 +155,23 @@ function Profile(props) {
                                 <div onClick={() => setShowComponent('information')} style={{ borderTopLeftRadius: 10, cursor: "pointer", backgroundColor: showComponent === "information" ? Colors.primaryTrans : null, borderBottom: "1px solid white", }} className="row d-flex flex-row align-items-center p-2 justify-content-center" >
                                     <p style={{ marginTop: "1rem" }} className="" >Personal Information</p>
                                 </div>
-                                <div onClick={() => setShowComponent('users')} style={{ cursor: "pointer", backgroundColor: showComponent === "users" ? Colors.primaryTrans : null, borderBottom: "1px solid white", }} className="row d-flex flex-row align-items-center p-2 justify-content-center" >
+                                <div onClick={() => {
+                                    setShowComponent('users')
+                                    handleGetAllUsers()
+                                }} style={{ cursor: "pointer", backgroundColor: showComponent === "users" ? Colors.primaryTrans : null, borderBottom: "1px solid white", }} className="row d-flex flex-row align-items-center p-2 justify-content-center" >
                                     <p style={{ marginTop: "1rem" }} className="" >All Users</p>
                                 </div>
-                                <div onClick={() => setShowComponent('subscriptions')} style={{ cursor: "pointer", backgroundColor: showComponent === "subscriptions" ? Colors.primaryTrans : null, borderBottom: "1px solid white", }} className="row d-flex flex-row align-items-center p-2 justify-content-center" >
+                                <div onClick={() => {
+                                    handleGetAllSubscription()
+                                    setShowComponent('subscriptions');
+                                }} style={{ cursor: "pointer", backgroundColor: showComponent === "subscriptions" ? Colors.primaryTrans : null, borderBottom: "1px solid white", }} className="row d-flex flex-row align-items-center p-2 justify-content-center" >
                                     <p style={{ marginTop: "1rem" }} className="" >All Subscriptions</p>
                                 </div>
-                                <div onClick={() => setShowComponent('postalCodes')} style={{ cursor: "pointer", backgroundColor: showComponent === "postalCodes" ? Colors.primaryTrans : null, borderBottom: "1px solid white", }} className="row d-flex flex-row align-items-center p-2 justify-content-center" >
+                                <div onClick={() => {
+                                    setShowComponent('postalCodes')
+                                    handlePostalCodes()
+                                }} style={{ cursor: "pointer", backgroundColor: showComponent === "postalCodes" ? Colors.primaryTrans : null, borderBottom: "1px solid white", }} className="row d-flex flex-row align-items-center p-2 justify-content-center" >
                                     <p style={{ marginTop: "1rem" }} className="" >Postal Codes</p>
-                                </div>
-                                <div onClick={() => setShowComponent('testimonials')} style={{ cursor: "pointer", backgroundColor: showComponent === "testimonials" ? Colors.primaryTrans : null, borderBottom: "1px solid white", }} className="row d-flex flex-row align-items-center p-2 justify-content-center" >
-                                    <p style={{ marginTop: "1rem" }} className="" >All Testimonials</p>
                                 </div>
                             </div>
 
