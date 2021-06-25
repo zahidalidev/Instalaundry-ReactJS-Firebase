@@ -16,13 +16,13 @@ class Login extends Component {
         label: 'Email',
         name: 'email',
         type: 'email',
-        value: ''
+        value: '',
       },
       {
         label: 'Password',
         name: 'password',
         type: 'password',
-        value: ''
+        value: '',
       },
     ],
   };
@@ -30,7 +30,7 @@ class Login extends Component {
   handleChange = (value, index) => {
     let loginFeilds = [...this.state.loginFeilds];
     loginFeilds[index].value = value;
-    this.setState({ loginFeilds })
+    this.setState({ loginFeilds });
   };
 
   handleLogin = async () => {
@@ -44,12 +44,12 @@ class Login extends Component {
     }
 
     try {
-      const res = await loginUser(email, password)
+      const res = await loginUser(email, password);
       localStorage.setItem('token', JSON.stringify(res));
-      window.location.reload()
+      window.location.reload();
       // this.props.onHandleLogin(this.props.history);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error('User Login Error: Email or password in invalid ');
     }
   };
@@ -95,16 +95,16 @@ class Login extends Component {
         >
           <div
             className="container-fluid"
-          // style={{
-          //   position: 'absolute',
-          //   top: '21rem',
-          //   left: 0,
-          //   bottom: '100rem',
-          //   right: 0,
-          //   backgroundColor: 'black',
-          //   width: '100%',
-          //   height: '100%',
-          // }}
+            // style={{
+            //   position: 'absolute',
+            //   top: '21rem',
+            //   left: 0,
+            //   bottom: '100rem',
+            //   right: 0,
+            //   backgroundColor: 'black',
+            //   width: '100%',
+            //   height: '100%',
+            // }}
           >
             {/* <img src={img1} style={{ width: '100%', height: '100%' }}></img> */}
             <div className="container loginContainer">
@@ -161,11 +161,29 @@ class Login extends Component {
                       </Button>
                     </div>
                   </div>
-                  {/* <div className="col-md-12" >
-                                <Button className="forgetButton" onClick={this.handleLogin} variant="contained" color="primary">
-                                    Forget Password
-                                </Button>
-                            </div> */}
+                </div>
+                <div
+                  className="row d-flex justify-content-start align-items-start"
+                  style={{ marginTop: '-1.5rem' }}
+                >
+                  <div className="col-10 d-flex justify-content-start align-items-start">
+                    <a
+                      className="loginButton"
+                      onClick={() => this.props.history.push('/forget')}
+                      style={{
+                        backgroundColor: Colors.white,
+                        fontSize: '1.1rem',
+                        width: '14rem',
+                        color: Colors.primary,
+                        cursor: 'pointer',
+                        marginRight: '1.1rem',
+                      }}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Forget Password?
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
