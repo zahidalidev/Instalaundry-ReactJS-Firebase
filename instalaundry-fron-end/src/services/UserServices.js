@@ -31,7 +31,6 @@ export const getForegtCodes = async () => {
         tempObj.name = temp.code;
         users.push(tempObj)
     });
-
     return users
 }
 
