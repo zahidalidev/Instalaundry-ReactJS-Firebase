@@ -13,7 +13,8 @@ import axios from 'axios';
 export default function Footer() {
   const history = useHistory()
   const [currentUser, setCurrentUser] = useState({});
-
+  const [name, setName] = useState({});
+  const [email, setEmail] = useState({});
 
   const getCurrentUser = async () => {
     const user = JSON.parse(localStorage.getItem('token'));
@@ -34,9 +35,9 @@ export default function Footer() {
       template_id: 'template_0bvfsqc',
       user_id: 'user_ef7lljg2cLfLEVyVsoysv',
       template_params: {
-        'to_name': 'ali',
-        'message': 'engrzahid612@gmail.com',
-        'user_email': 'this is message'
+        'message': `Customer Email: ${email}
+        Customer Name: ${name}`,
+        'to_email': email
       }
     };
     try {
@@ -45,7 +46,7 @@ export default function Footer() {
           'Content-Type': 'application/json',
         }
       })
-      console.log("don")
+      alert("Subscribed")
     } catch (error) {
       console.log("error: ", error)
     }
@@ -219,6 +220,7 @@ export default function Footer() {
                   className="form-control border-0"
                   placeholder="Your Name"
                   required="required"
+                  onChange={(e) => setName(e.target.value)}
                   style={{ borderRadius: '0.5rem' }}
                 />
               </div>
@@ -228,6 +230,7 @@ export default function Footer() {
                   className="form-control border-0"
                   placeholder="Your Email"
                   required="required"
+                  onChange={(e) => setEmail(e.target.value)}
                   style={{ borderRadius: '0.5rem' }}
                 />
               </div>

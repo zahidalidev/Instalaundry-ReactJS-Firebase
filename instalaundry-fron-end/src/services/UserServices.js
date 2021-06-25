@@ -1,5 +1,6 @@
 import firebase from "firebase"
 import "firebase/firestore"
+import { random } from "lodash";
 
 import { firebaseConfig } from "../config/db"
 
@@ -14,9 +15,30 @@ const pickupInfoRef = firestore.collection('pickUpInfo')
 const planRef = firestore.collection('subscriptionPlan')
 const pricingPlanRef = firestore.collection('plan')
 const postalCodesRef = firestore.collection('postalCodes')
+const forgerRef = firestore.collection('forgetCodes')
 
 export const addUser = async (body) => {
     return await userRef.add(body);
+}
+
+export const getForegtCodes = async () => {
+
+    const snapshot = await forgerRef.get()
+    let users = []
+    snapshot.docs.map((doc, index) => {
+        let temp = doc.data();
+        let tempObj = {}
+        tempObj.name = temp.code;
+        users.push(tempObj)
+    });
+
+    return users
+}
+
+export const generateCode = async () => {
+    let code = `${random(0, 4)}${random(4, 8)}${random(7, 9)}${random(0, 8)}`;
+    await forgerRef.add({ code });
+    return code;
 }
 
 export const loginUser = async (email, password) => {
@@ -32,7 +54,6 @@ export const loginUser = async (email, password) => {
     });
 
     return res
-
 }
 
 export const getAllUserSubscriptions = async (id) => {

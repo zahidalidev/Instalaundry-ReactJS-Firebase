@@ -7,55 +7,50 @@ import img1 from '../../assets/img/2.jpg';
 import './Login.css';
 import { Colors } from '../../config/Colors';
 import { toast } from 'react-toastify';
-import { loginUser } from '../../services/UserServices';
+import { generateCode, loginUser } from '../../services/UserServices';
+import axios from 'axios';
 
 function Forget() {
-  // state = {
-  //   loginFeilds: [
-  //     {
-  //       label: 'Email',
-  //       name: 'email',
-  //       type: 'email',
-  //       value: '',
-  //     },
-  //     {
-  //       label: 'Password',
-  //       name: 'password',
-  //       type: 'password',
-  //       value: '',
-  //     },
-  //   ],
-  // };
-
-  // handleChange = (value, index) => {
-  //   let loginFeilds = [...this.state.loginFeilds];
-  //   loginFeilds[index].value = value;
-  //   this.setState({ loginFeilds });
-  // };
-
-  // handleLogin = async () => {
-  //   let loginFeilds = [...this.state.loginFeilds];
-  //   const email = loginFeilds[0].value.trim();
-  //   const password = loginFeilds[1].value.trim();
-
-  //   if (email === '' || password === '') {
-  //     toast.error('Please fill all the feilds');
-  //     return;
-  //   }
-
-  //   try {
-  //     const res = await loginUser(email, password);
-  //     localStorage.setItem('token', JSON.stringify(res));
-  //     window.location.reload();
-  //     // this.props.onHandleLogin(this.props.history);
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error('User Login Error: Email or password in invalid ');
-  //   }
-  // };
 
   const [showCodeInput, setShowCodeInput] = useState('1');
+  const [email, setEmail] = useState('');
+  const [confirmCode, setConfirmCode] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const history = useHistory();
+
+  const handleForgetCode = async (code) => {
+    var data = {
+      service_id: 'service_siowrj7',
+      template_id: 'template_0bvfsqc',
+      user_id: 'user_ef7lljg2cLfLEVyVsoysv',
+      template_params: {
+        'message': `your varification code is ${code}`,
+        'to_email': email
+      }
+    };
+    try {
+      await axios.post('https://api.emailjs.com/api/v1.0/email/send', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      alert("Check Your Email address")
+    } catch (error) {
+      console.log("error: ", error)
+    }
+
+  }
+
+  const handleEmailSentCode = async () => {
+    try {
+      let code = await generateCode()
+
+      handleForgetCode(code)
+
+    } catch (error) {
+
+    }
+  }
 
   return (
     <>
@@ -101,6 +96,7 @@ function Forget() {
                       label="Email"
                       variant="outlined"
                       size="medium"
+                      onChange={(e) => setEmail(e.target.value)}
                       style={{ marginBottom: '5rem' }}
                     />
                   ) : null}
@@ -110,6 +106,7 @@ function Forget() {
                       label="Put Code here"
                       variant="outlined"
                       size="medium"
+                      onChange={(e) => setConfirmCode(e.target.value)}
                       style={{ marginBottom: '5rem' }}
                     />
                   ) : null}
@@ -120,6 +117,7 @@ function Forget() {
                       label="New Password"
                       variant="outlined"
                       size="medium"
+                      onChange={(e) => setNewPassword(e.target.value)}
                       style={{ marginBottom: '5rem' }}
                     />
                   ) : null}
@@ -129,7 +127,10 @@ function Forget() {
                   <div className="d-flex flex-row align-items-center justify-content-center">
                     {showCodeInput == '1' ? (
                       <Button
-                        onClick={() => setShowCodeInput('2')}
+                        onClick={() => {
+                          setShowCodeInput('2')
+                          handleEmailSentCode()
+                        }}
                         className="loginButton"
                         style={{
                           backgroundColor: Colors.secondary,
