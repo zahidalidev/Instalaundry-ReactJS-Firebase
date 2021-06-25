@@ -34,7 +34,8 @@ router.post('/sub', async (req, res) => {
     const subscription = await stripe.subscriptions.create({
         customer: customer.id,
         items: [{ plan: stripSubscriptionId }],
-        expand: ['latest_invoice.payment_intent']
+        expand: ['latest_invoice.payment_intent'],
+        coupon: 'Vtrbr9Pi'
     });
 
     const status = subscription['latest_invoice']['payment_intent']['status']
