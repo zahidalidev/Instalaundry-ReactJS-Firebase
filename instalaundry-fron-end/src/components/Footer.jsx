@@ -6,6 +6,9 @@ import Button from '@material-ui/core/Button';
 import { Colors } from './../config/Colors';
 
 import logo from '../assets/img/logo1.png';
+// import Form from './common/Form';
+// import DefaultFormEmail from './common/DefaultFormEmail';
+import axios from 'axios';
 
 export default function Footer() {
   const history = useHistory()
@@ -24,6 +27,26 @@ export default function Footer() {
   useEffect(() => {
     getCurrentUser();
   }, []);
+
+  const handleSubscribeEmail = async () => {
+    // var data = {
+    //   service_id: 'service_siowrj7',
+    //   template_id: 'template_uyzc059',
+    //   user_id: 'user_ef7lljg2cLfLEVyVsoysv',
+
+    // };
+    // try {
+    //   await axios.post('https://api.emailjs.com/api/v1.0/email/send', JSON.stringify(data), {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     }
+    //   })
+    //   console.log("don")
+    // } catch (error) {
+    //   console.log("error: ", error)
+    // }
+
+  }
 
   return (
     <div>
@@ -212,6 +235,7 @@ export default function Footer() {
                   }}
                   className="btn btn-primary py-md-2 px-md-4 mt-2"
                   variant="contained"
+                  onClick={() => handleSubscribeEmail()}
                 >
                   Submitt Now
                 </Button>
@@ -227,6 +251,7 @@ export default function Footer() {
           All Rights Reserved.
         </p>
       </div>
+      {/* <DefaultFormEmail /> */}
     </div>
   );
 }
