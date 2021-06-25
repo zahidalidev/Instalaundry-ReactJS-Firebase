@@ -25,6 +25,7 @@ export default function Orderdetails(props) {
   const [value, setValue] = useState('');
   const [tipButton, showTipButton] = useState(false);
   const [tipValue, showTipValue] = useState('');
+  const [coupen, setCoupen] = useState('');
 
   const [oldTotalPrice, setOldTotalPrice] = useState(0);
   const [subscribedDetail, setSubscribedDetail] = useState();
@@ -271,23 +272,9 @@ export default function Orderdetails(props) {
               <MyTextFeild
                 width={'55%'}
                 label="Coupon"
-                onChange={(value) => console.log(value)}
+                value={coupen}
+                onChange={(value) => setCoupen(value)}
               />
-            </div>
-            <div
-              className="row d-flex justify-content-center align-items-center"
-              style={{ marginTop: '1.3rem' }}
-            >
-              <Button
-                style={{
-                  backgroundColor: Colors.primary,
-                  color: Colors.white,
-                }}
-                className="btn btn-primary py-md-2 px-md-4 mt-2"
-                variant="contained"
-              >
-                Apply Coupon
-              </Button>
             </div>
           </div>
         </div>
@@ -297,6 +284,7 @@ export default function Orderdetails(props) {
           planDetails={subscribedDetail}
           extraLbs={orderDetail[3].price}
           extraTip={orderDetail[2].price}
+          coupen={coupen}
           tipPrice={parseFloat(orderDetail[2].price) + orderDetail[3].price}
         />
       </Elements>

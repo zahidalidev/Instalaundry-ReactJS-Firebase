@@ -89,7 +89,7 @@ function HomePage(props) {
         if (result.error) {
             console.log(result.error.message);
         } else {
-            const res = await paySubscription(result, email, props.planDetails.planStripeId);
+            const res = await paySubscription(result, email, props.planDetails.planStripeId, props.coupen);
             // eslint-disable-next-line camelcase
             const { client_secret, status, user_sub_id } = res.data;
 
@@ -118,7 +118,7 @@ function HomePage(props) {
             extraLbs: props.extraLbs,
             userSubId: user_sub_id,
             userId: props.planDetails.userId,
-            planId: props.planDetails.planId
+            planId: props.planDetails.planId,
         }
 
         try {

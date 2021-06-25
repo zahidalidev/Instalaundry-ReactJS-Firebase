@@ -267,9 +267,12 @@ export default function Checkout(props) {
       }
 
       let userId = currentUser.id;
+      userInfo.email = currentUser.email;
+      userInfo.password = currentUser.password;
       pickupInof.userId = userId;
 
       const res = await updateUser(userId, userInfo);
+      console.log("res: ", res)
       if (res) {
         const pickUpres = await addPickUpInfo(userId, pickupInof);
         if (pickUpres) {
@@ -290,13 +293,13 @@ export default function Checkout(props) {
 
           history.push('/orderdetails', { checkOutObj });
         } else {
-          toast.error('Something went wrong please try again');
+          toast.error('Something went wrong please try again1');
         }
       } else {
-        toast.error('Something went wrong please try again');
+        toast.error('Something went wrong please try again2');
       }
     } catch (error) {
-      toast.error('Something went wrong please try again');
+      toast.error('Something went wrong please try again3');
     }
   };
 
