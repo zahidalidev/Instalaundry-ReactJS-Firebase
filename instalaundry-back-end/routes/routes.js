@@ -8,8 +8,10 @@ const router = express.Router();
 
 router.post('/pay', async (req, res) => {
     const { email, price } = req.body;
-    let intPrice = parseFloat(price)
-    intPrice = intPrice * 100;
+    let intPrice = parseFloat(price) * 100
+    intPrice = intPrice.toFixed(2)
+    intPrice = parseFloat(intPrice)
+    console.log(intPrice)
     const paymentIntent = await stripe.paymentIntents.create({
         amount: intPrice,
         currency: 'usd',
@@ -22,7 +24,7 @@ router.post('/pay', async (req, res) => {
 });
 
 router.post('/sub', async (req, res) => {
-    const { email, payment_method, stripSubscriptionId } = req.body;
+    const { email, payment_method, stripSubscriptionId, coupon } = req.body;
     const customer = await stripe.customers.create({
         payment_method: payment_method,
         email: email,
@@ -31,24 +33,28 @@ router.post('/sub', async (req, res) => {
         },
     });
 
-    const subscription = await stripe.subscriptions.create({
-        customer: customer.id,
-        items: [{ plan: stripSubscriptionId }],
-        expand: ['latest_invoice.payment_intent']
-    });
+    let subscription;
+    if (coupon) {
+        console.log("coupon: ", coupon)
+        subscription = await stripe.subscriptions.create({
+            customer: customer.id,
+            items: [{ plan: stripSubscriptionId }],
+            expand: ['latest_invoice.payment_intent'],
+            coupon
+        });
+    } else {
+        console.log("coupon: not ")
+        subscription = await stripe.subscriptions.create({
+            customer: customer.id,
+            items: [{ plan: stripSubscriptionId }],
+            expand: ['latest_invoice.payment_intent'],
+        });
+    }
 
     const status = subscription['latest_invoice']['payment_intent']['status']
     const client_secret = subscription['latest_invoice']['payment_intent']['client_secret']
     const new1 = subscription['latest_invoice'];
     res.json({ 'client_secret': client_secret, 'status': status, 'user_sub_id': new1.subscription });
-
-    // cancel
-    // const da = await stripe.subscriptions.del('sub_Jh7cAvdRlaQL93');
-
-    // const da = await stripe.subscriptions.retrieve('sub_Jh7Kd4Du9WNr8A'); //to get subscription
-    // console.log(da)
-
-    // res.send("hi")
 })
 
 router.post('/cancel', async (req, res) => {

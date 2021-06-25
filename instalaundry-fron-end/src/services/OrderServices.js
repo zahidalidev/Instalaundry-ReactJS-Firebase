@@ -17,8 +17,8 @@ export const paySinglePayment = async (email, price) => {
     return await axios.post('http://localhost:5000/api/pay', { email: email, price: price });
 }
 
-export const paySubscription = async (result, email, stripSubscriptionId) => {
-    return await axios.post('http://localhost:5000/api/sub', { 'payment_method': result.paymentMethod.id, 'email': email, 'stripSubscriptionId': stripSubscriptionId });
+export const paySubscription = async (result, email, stripSubscriptionId, coupon) => {
+    return await axios.post('http://localhost:5000/api/sub', { coupon: coupon, 'payment_method': result.paymentMethod.id, 'email': email, 'stripSubscriptionId': stripSubscriptionId });
 }
 
 export const addPlan = async (body) => {

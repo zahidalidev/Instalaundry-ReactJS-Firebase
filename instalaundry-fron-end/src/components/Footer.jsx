@@ -29,22 +29,26 @@ export default function Footer() {
   }, []);
 
   const handleSubscribeEmail = async () => {
-    // var data = {
-    //   service_id: 'service_siowrj7',
-    //   template_id: 'template_uyzc059',
-    //   user_id: 'user_ef7lljg2cLfLEVyVsoysv',
-
-    // };
-    // try {
-    //   await axios.post('https://api.emailjs.com/api/v1.0/email/send', JSON.stringify(data), {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     }
-    //   })
-    //   console.log("don")
-    // } catch (error) {
-    //   console.log("error: ", error)
-    // }
+    var data = {
+      service_id: 'service_siowrj7',
+      template_id: 'template_0bvfsqc',
+      user_id: 'user_ef7lljg2cLfLEVyVsoysv',
+      template_params: {
+        'to_name': 'ali',
+        'message': 'engrzahid612@gmail.com',
+        'user_email': 'this is message'
+      }
+    };
+    try {
+      await axios.post('https://api.emailjs.com/api/v1.0/email/send', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      console.log("don")
+    } catch (error) {
+      console.log("error: ", error)
+    }
 
   }
 
