@@ -34,11 +34,69 @@ export const getForegtCodes = async () => {
     return users
 }
 
-export const generateCode = async () => {
-    let code = `${random(0, 4)}${random(4, 8)}${random(7, 9)}${random(0, 8)}`;
-    await forgerRef.add({ code });
-    return code;
+export const generateCode = async (email) => {
+    const snapshot = await userRef.where('email', '==', email).get();
+    if (snapshot.empty) {
+        return false;
+    }
+
+    let res = {}
+    snapshot.forEach(doc => {
+        res = doc.data()
+        res.id = doc.id
+    });
+
+    if (res) {
+        let code = `${random(0, 4)}${random(4, 8)}${random(7, 9)}${random(0, 8)}`;
+        await forgerRef.add({ code });
+        return code;
+    }
+
 }
+
+export const varifyCode = async (code) => {
+    let snapshot = await forgerRef.where('code', '==', code).get();
+    if (snapshot.empty) {
+        return false;
+    }
+
+    let res = {}
+    snapshot.forEach(doc => {
+        res = doc.data()
+        res.id = doc.id
+    });
+
+    try {
+        await forgerRef.doc(res.id).delete();
+        return true;
+    } catch (error) {
+        return false;
+    }
+
+}
+
+export const updateUserPassword = async (email, password) => {
+    try {
+        const snapshot = await userRef.where('email', '==', email).get();
+        if (snapshot.empty) {
+            return false;
+        }
+
+        let res = {}
+        snapshot.forEach(doc => {
+            res = doc.data()
+            res.id = doc.id
+        });
+
+        await userRef.doc(res.id).update({ password })
+
+        return true
+
+    } catch (error) {
+        return false
+    }
+}
+
 
 export const loginUser = async (email, password) => {
     const snapshot = await userRef.where('email', '==', email).where('password', '==', password).get();

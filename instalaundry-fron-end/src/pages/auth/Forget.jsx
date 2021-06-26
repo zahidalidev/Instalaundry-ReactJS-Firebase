@@ -7,10 +7,10 @@ import img1 from '../../assets/img/2.jpg';
 import './Login.css';
 import { Colors } from '../../config/Colors';
 import { toast } from 'react-toastify';
-import { generateCode, loginUser } from '../../services/UserServices';
+import { generateCode, loginUser, updateUserPassword, varifyCode } from '../../services/UserServices';
 import axios from 'axios';
 
-function Forget() {
+function Forget(props) {
   const [showCodeInput, setShowCodeInput] = useState('1');
   const [email, setEmail] = useState('');
   const [confirmCode, setConfirmCode] = useState('');
@@ -45,11 +45,43 @@ function Forget() {
 
   const handleEmailSentCode = async () => {
     try {
-      let code = await generateCode();
-
-      handleForgetCode(code);
-    } catch (error) {}
+      let code = await generateCode(email);
+      if (code) {
+        handleForgetCode(code);
+        setShowCodeInput('2');
+      } else {
+        alert("Email is not correct")
+      }
+    } catch (error) {
+      alert("Email is not correct")
+    }
   };
+
+  const handleConfirmCode = async () => {
+    try {
+      let code = await varifyCode(confirmCode)
+      if (code) {
+        setShowCodeInput('3')
+      } else {
+        alert("Code is not Correct!")
+      }
+    } catch (error) {
+      alert("Code is not Correct!")
+    }
+  }
+
+  const handleChangePassword = async () => {
+    try {
+      let upda = await updateUserPassword(email, newPassword)
+      if (upda) {
+        alert("Password Updated")
+        history.push('/login')
+      } else {
+        alert("updation Error")
+      }
+    } catch (error) {
+    }
+  }
 
   return (
     <>
@@ -126,10 +158,7 @@ function Forget() {
                   <div className="d-flex flex-row align-items-center justify-content-center">
                     {showCodeInput == '1' ? (
                       <Button
-                        onClick={() => {
-                          setShowCodeInput('2');
-                          handleEmailSentCode();
-                        }}
+                        onClick={() => handleEmailSentCode()}
                         className="loginButton"
                         style={{
                           backgroundColor: Colors.secondary,
@@ -143,7 +172,7 @@ function Forget() {
                     ) : null}
                     {showCodeInput == '2' ? (
                       <Button
-                        onClick={() => setShowCodeInput('3')}
+                        onClick={() => handleConfirmCode()}
                         className="loginButton"
                         style={{
                           backgroundColor: Colors.secondary,
@@ -157,7 +186,7 @@ function Forget() {
                     ) : null}
                     {showCodeInput == '3' ? (
                       <Button
-                        onClick={() => history.push('/home')}
+                        onClick={() => handleChangePassword()}
                         className="loginButton"
                         style={{
                           backgroundColor: Colors.secondary,
