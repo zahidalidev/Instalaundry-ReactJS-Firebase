@@ -7,6 +7,7 @@ import { addUser } from '../../services/UserServices';
 import { Colors } from '../../config/Colors';
 import './Login.css';
 import img1 from '../../assets/img/2.jpg';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Register extends Component {
   state = {
@@ -16,40 +17,41 @@ class Register extends Component {
         label: 'Name',
         name: 'name',
         type: 'text',
-        value: ''
+        value: '',
       },
       {
         id: 1,
         label: 'Email',
         name: 'email',
         type: 'email',
-        value: ''
+        value: '',
       },
       {
         id: 2,
         label: 'Password',
         name: 'password',
         type: 'password',
-        value: ''
+        value: '',
       },
       {
         id: 3,
         label: 'Confirm Password',
         name: 'confirmPassword',
         type: 'password',
-        value: ''
+        value: '',
       },
-    ]
+    ],
+    loading: false,
   };
 
   handleChange = (value, index) => {
     let loginFeilds = [...this.state.loginFeilds];
     loginFeilds[index].value = value;
-    this.setState({ loginFeilds })
+    this.setState({ loginFeilds });
   };
 
   handSignUp = async () => {
-    console.log('hi')
+    this.setState({ loading: true });
     let loginFeilds = [...this.state.loginFeilds];
     let name = loginFeilds[0].value;
     let email = loginFeilds[1].value;
@@ -57,12 +59,13 @@ class Register extends Component {
     let confirmPassword = loginFeilds[3].value;
 
     if (password !== confirmPassword) {
-      toast.error("Password an Confirm password are not same !")
+      toast.error('Password an Confirm password are not same !');
       return;
     }
 
     if (name === '' || email === '' || password === '') {
       toast.error('Please fill all the feilds');
+      this.setState({ loading: false });
       return;
     }
 
@@ -74,12 +77,11 @@ class Register extends Component {
 
     try {
       await addUser(body);
-      toast.success("Reistration Successfull")
-      this.props.history.push('/login')
+      toast.success('Reistration Successfull');
+      this.props.history.push('/login');
     } catch (error) {
       toast.error('User Login Error: Email or password in invalid ');
     }
-
   };
 
   render() {
@@ -121,7 +123,7 @@ class Register extends Component {
             opacity: '0.9',
           }}
         >
-          <div className="container-fluid" >
+          <div className="container-fluid">
             <div
               className="container loginContainer"
               style={{ height: '50rem ', width: '38rem' }}
@@ -134,7 +136,6 @@ class Register extends Component {
                   Sign Up
                 </h1>
                 <div className="col-md-12">
-
                   {/* inpuit feilds */}
                   {loginFeilds.map((item, i) => (
                     <div className="col-md-12" key={i}>
