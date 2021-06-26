@@ -82,12 +82,7 @@ function MyAppbar(props) {
                 >
                   <i className="fab fa-facebook-f"></i>
                 </a>
-                {/* <a style={{ cursor: 'pointer' }} className="text-white px-3">
-                  <i className="fab fa-twitter"></i>
-                </a> */}
-                {/* <a style={{ cursor: 'pointer' }} className="text-white px-3">
-                  <i className="fab fa-linkedin-in"></i>
-                </a> */}
+
                 <a
                   target="_blank"
                   style={{ cursor: 'pointer' }}
@@ -96,9 +91,6 @@ function MyAppbar(props) {
                 >
                   <i className="fab fa-instagram"></i>
                 </a>
-                {/* <a style={{ cursor: 'pointer' }} className="text-white pl-3">
-                  <i className="fab fa-youtube"></i>
-                </a> */}
               </div>
             </div>
           </div>
