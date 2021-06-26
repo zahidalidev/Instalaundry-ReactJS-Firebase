@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // Custom Components
 import CardInput from './CardInput';
 import { paySinglePayment, paySubscription } from '../../services/OrderServices';
-import { subscribePlan } from '../../services/UserServices';
+import { subscribePlan, getSubscriptionDetails } from '../../services/UserServices';
 import { toast } from 'react-toastify';
 
 const useStyles = makeStyles({
@@ -126,7 +126,10 @@ function HomePage(props) {
             if (!res) {
                 toast.error("Network Error, Contact the support")
             } else {
+
+                let res2 = await getSubscriptionDetails(body.userId, body.tip, body.extraLbs, body.planId)
                 toast.success("Payment Successfull")
+
             }
 
         } catch (error) {

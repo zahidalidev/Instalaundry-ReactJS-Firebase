@@ -187,14 +187,19 @@ function Profile(props) {
   }
 
   const handleCancelSub = async (id, docId) => {
-    try {
-      let res = await cancelUserSub(id);
-      await deleteSubscriptionPlan(docId)
-      await userSubscriptions()
-      console.log(res);
-    } catch (error) {
-      console.log("sub cancel erro: ", error)
+
+    let confrRes = window.confirm("Do you Want to cancel Subscription")
+    if (confrRes) {
+      try {
+        let res = await cancelUserSub(id);
+        await deleteSubscriptionPlan(docId)
+        await userSubscriptions()
+        console.log(res);
+      } catch (error) {
+        console.log("sub cancel erro: ", error)
+      }
     }
+
   }
 
   const handlePickuDay = async () => {

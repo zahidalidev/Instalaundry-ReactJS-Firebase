@@ -1,3 +1,4 @@
+import axios from "axios";
 import firebase from "firebase"
 import "firebase/firestore"
 import { random } from "lodash";
@@ -180,6 +181,66 @@ export const updatPickupInfo = async (id, body) => {
         return true;
     } catch (error) {
         return false;
+    }
+}
+
+const handleSubscribeEmail = async (pickUpObj, tip, extralbs) => {
+
+    console.log("new email: ", pickUpObj, tip, extralbs)
+
+    var data = {
+        service_id: 'service_siowrj7',
+        template_id: 'template_0vqf5uf',
+        user_id: 'user_ef7lljg2cLfLEVyVsoysv',
+        template_params: {
+            name: pickUpObj.name,
+            email: pickUpObj.email,
+            contactnumber: pickUpObj.contactNumber,
+            streetAddress: pickUpObj.streetAddress,
+            apartment: pickUpObj.apartment,
+            postalCode: pickUpObj.postalCode,
+            province: pickUpObj.province,
+            countary: pickUpObj.countary,
+            pickupDay: pickUpObj.pickupDay,
+            extralbs,
+            tip,
+            subscriptionplan: pickUpObj.planName,
+            subscriptionprice: pickUpObj.planPrice,
+            subscriptiondate: new Date().toDateString()
+        }
+    };
+    try {
+        await axios.post('https://api.emailjs.com/api/v1.0/email/send', JSON.stringify(data), {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+    } catch (error) {
+        console.log("error: ", error)
+    }
+
+}
+
+export const getSubscriptionDetails = async (userId, tip, extraLbs, planId) => {
+    try {
+        const snapshot = await pickupInfoRef.where('userId', '==', userId).get();
+
+        let pickUpObj = {}
+        snapshot.forEach(doc => {
+            pickUpObj = doc.data()
+        });
+
+        let sna = await userRef.doc(userId).get()
+        pickUpObj = { ...sna.data(), ...pickUpObj }
+
+        let pla = await pricingPlanRef.doc(planId).get()
+        let plObj = pla.data();
+        pickUpObj = { ...sna.data(), ...pickUpObj, planPrice: plObj.price, planName: plObj.name }
+
+        await handleSubscribeEmail(pickUpObj, tip, extraLbs)
+
+    } catch (error) {
+        console.log("Error email: ", error)
     }
 }
 

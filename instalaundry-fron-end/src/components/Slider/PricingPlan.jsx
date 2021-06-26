@@ -25,7 +25,19 @@ export default function PricingPlan() {
   }, []);
 
   const handleSelectPlans = (planObj) => {
-    history.push('/checkout', { planObj })
+    try {
+      let user = localStorage.getItem('token');
+      user = JSON.parse(user)
+      if (user.email) {
+        history.push('/checkout', { planObj })
+        return;
+      }
+      history.push('/login')
+      alert("login first")
+    } catch (error) {
+
+      alert("login first")
+    }
   }
 
   return (
