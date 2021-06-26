@@ -1,5 +1,5 @@
 import Button from '@material-ui/core/Button';
-import img1 from '../assets/img/contact.png';
+import img1 from '../assets/img/contact.jpg';
 
 export default function Contact() {
   return (

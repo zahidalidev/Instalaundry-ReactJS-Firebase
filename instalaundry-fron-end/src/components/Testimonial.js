@@ -5,7 +5,6 @@ import 'react-multi-carousel/lib/styles.css';
 import testimonial_1 from '../assets/img/testimonial-1.jpg';
 import testimonial_2 from '../assets/img/testimonial-2.jpg';
 import testimonial_3 from '../assets/img/testimonial-3.jpg';
-import testimonial_4 from '../assets/img/testimonial-4.jpg';
 
 const responsive = {
   superLargeDesktop: {
