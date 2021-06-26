@@ -11,7 +11,6 @@ import { generateCode, loginUser } from '../../services/UserServices';
 import axios from 'axios';
 
 function Forget() {
-
   const [showCodeInput, setShowCodeInput] = useState('1');
   const [email, setEmail] = useState('');
   const [confirmCode, setConfirmCode] = useState('');
@@ -24,33 +23,33 @@ function Forget() {
       template_id: 'template_0bvfsqc',
       user_id: 'user_ef7lljg2cLfLEVyVsoysv',
       template_params: {
-        'message': `your varification code is ${code}`,
-        'to_email': email
-      }
+        message: `your varification code is ${code}`,
+        to_email: email,
+      },
     };
     try {
-      await axios.post('https://api.emailjs.com/api/v1.0/email/send', JSON.stringify(data), {
-        headers: {
-          'Content-Type': 'application/json',
+      await axios.post(
+        'https://api.emailjs.com/api/v1.0/email/send',
+        JSON.stringify(data),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
-      })
-      alert("Check Your Email address")
+      );
+      alert('Check Your Email address');
     } catch (error) {
-      console.log("error: ", error)
+      console.log('error: ', error);
     }
-
-  }
+  };
 
   const handleEmailSentCode = async () => {
     try {
-      let code = await generateCode()
+      let code = await generateCode();
 
-      handleForgetCode(code)
-
-    } catch (error) {
-
-    }
-  }
+      handleForgetCode(code);
+    } catch (error) {}
+  };
 
   return (
     <>
@@ -128,8 +127,8 @@ function Forget() {
                     {showCodeInput == '1' ? (
                       <Button
                         onClick={() => {
-                          setShowCodeInput('2')
-                          handleEmailSentCode()
+                          setShowCodeInput('2');
+                          handleEmailSentCode();
                         }}
                         className="loginButton"
                         style={{
