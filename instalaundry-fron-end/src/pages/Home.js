@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import { Colors } from '../config/Colors';
 import { getAllPostalCodes } from '../services/UserServices';
 import { toast } from 'react-toastify';
+import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // lazy pages
 const About = React.lazy(() => import('./About'));
@@ -20,45 +22,44 @@ export default function Home() {
   const [code, setCode] = useState([]);
   const [postalCodes, setPostalCodes] = useState([]);
 
-
   const handlePostalCodes = async () => {
     try {
-      let res = await getAllPostalCodes()
+      let res = await getAllPostalCodes();
       if (res) {
-        setPostalCodes(res)
+        setPostalCodes(res);
       } else {
-        setPostalCodes([])
+        setPostalCodes([]);
       }
     } catch (error) {
-      console.log("getting all users error: ", error)
+      console.log('getting all users error: ', error);
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    handlePostalCodes()
+    handlePostalCodes();
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   const handleCodeCheck = () => {
-    let tempCode = code.substr(0, 3)
+    let tempCode = code.substr(0, 3);
 
     let ava = false;
-    postalCodes.map((item => {
+    postalCodes.map((item) => {
       if (item.code === tempCode) {
         ava = true;
       }
-    }))
+    });
 
     if (ava) {
-      toast.success("Congratulations we are available in you area")
+      toast.success('Congratulations we are available in you area');
     } else {
-      toast.error("Sorry we are not available in you area")
+      toast.error('Sorry we are not available in you area');
     }
-    console.log(postalCodes, tempCode)
-  }
+    console.log(postalCodes, tempCode);
+  };
 
   const handleScroll = function (event) {
     // let scrollTop = event.srcElement.body.scrollTop,
