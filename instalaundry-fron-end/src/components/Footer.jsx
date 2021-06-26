@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 // config
@@ -11,7 +11,7 @@ import logo from '../assets/img/logo1.png';
 import axios from 'axios';
 
 export default function Footer() {
-  const history = useHistory()
+  const history = useHistory();
   const [currentUser, setCurrentUser] = useState({});
   const [name, setName] = useState({});
   const [email, setEmail] = useState({});
@@ -35,23 +35,26 @@ export default function Footer() {
       template_id: 'template_0bvfsqc',
       user_id: 'user_ef7lljg2cLfLEVyVsoysv',
       template_params: {
-        'message': `Customer Email: ${email}
+        message: `Customer Email: ${email}
         Customer Name: ${name}`,
-        'to_email': email
-      }
+        to_email: email,
+      },
     };
     try {
-      await axios.post('https://api.emailjs.com/api/v1.0/email/send', JSON.stringify(data), {
-        headers: {
-          'Content-Type': 'application/json',
+      await axios.post(
+        'https://api.emailjs.com/api/v1.0/email/send',
+        JSON.stringify(data),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
-      })
-      alert("Subscribed")
+      );
+      alert('Subscribed');
     } catch (error) {
-      console.log("error: ", error)
+      console.log('error: ', error);
     }
-
-  }
+  };
 
   return (
     <div>
@@ -73,33 +76,31 @@ export default function Footer() {
                 fontSize: '0.9rem',
               }}
             >
-              Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem
-              lorem sit sed elitr sit no, sed kasd et ipsum dolor duo dolor
+              Our team consists of dedicated individuals working hard to ensure
+              every item of clothing is clean and folded back in your hamper and
+              delivered at your doorstep.
             </p>
             <div className="d-flex justify-content-start mt-4">
               <a
                 className="btn btn-outline-light rounded-circle text-center mr-2 px-0"
                 style={{ width: '38px', height: '38px' }}
               >
-                <i className="fab fa-twitter"></i>
+                <i
+                  className="fab fa-facebook-f"
+                  href="https://m.facebook.com/instalaundrycanada/"
+                  target="_blank"
+                ></i>
               </a>
+
               <a
                 className="btn btn-outline-light rounded-circle text-center mr-2 px-0"
                 style={{ width: '38px', height: '38px' }}
               >
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a
-                className="btn btn-outline-light rounded-circle text-center mr-2 px-0"
-                style={{ width: '38px', height: '38px' }}
-              >
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-              <a
-                className="btn btn-outline-light rounded-circle text-center mr-2 px-0"
-                style={{ width: '38px', height: '38px' }}
-              >
-                <i className="fab fa-instagram"></i>
+                <i
+                  className="fab fa-instagram"
+                  href="http://instagram.com/instalaundrycanada"
+                  target="_blank"
+                ></i>
               </a>
             </div>
           </div>
@@ -112,8 +113,7 @@ export default function Footer() {
                 fontSize: '0.9rem',
               }}
             >
-              Lorem Ipsum clita stet nonumy clita diam vero, et et ipsum diam
-              labore
+              You can contact us on the following platforms or links!
             </p>
             <p
               style={{
@@ -155,8 +155,10 @@ export default function Footer() {
                   cursor: 'pointer',
                 }}
                 className="text-white mb-2"
+                onClick={() => history.push('/home')}
               >
-                <i className="fa fa-angle-right mr-2"></i>Home
+                <i className="fa fa-angle-right mr-2"></i>
+                Home
               </a>
               <a
                 style={{
@@ -166,9 +168,12 @@ export default function Footer() {
                   cursor: 'pointer',
                 }}
                 className="text-white mb-2"
+                onClick={() => history.push('/about')}
               >
-                <i className="fa fa-angle-right mr-2"></i>About Us
+                <i className="fa fa-angle-right mr-2"></i>
+                About Us
               </a>
+
               <a
                 style={{
                   fontFamily: 'Courier',
@@ -177,19 +182,10 @@ export default function Footer() {
                   cursor: 'pointer',
                 }}
                 className="text-white mb-2"
+                onClick={() => history.push('/pricing')}
               >
-                <i className="fa fa-angle-right mr-2"></i>Services
-              </a>
-              <a
-                style={{
-                  fontFamily: 'Courier',
-                  wordSpacing: -4,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                }}
-                className="text-white mb-2"
-              >
-                <i className="fa fa-angle-right mr-2"></i>Pricing
+                <i className="fa fa-angle-right mr-2"></i>
+                Pricing
               </a>
               <a
                 style={{
@@ -199,16 +195,26 @@ export default function Footer() {
                   cursor: 'pointer',
                 }}
                 className="text-white"
+                onClick={() => history.push('/contact')}
               >
-                <i className="fa fa-angle-right mr-2"></i>Contact Us
+                <i className="fa fa-angle-right mr-2"></i>
+                Contact Us
               </a>
-              {currentUser.role === 'admin' ?
-                <a onClick={() => history.push('/admin')} style={{ marginTop: "0.6rem", fontFamily: 'Courier', wordSpacing: -4, fontSize: '0.9rem', cursor: "pointer" }} className="text-white">
+              {currentUser.role === 'admin' ? (
+                <a
+                  onClick={() => history.push('/admin')}
+                  style={{
+                    marginTop: '0.6rem',
+                    fontFamily: 'Courier',
+                    wordSpacing: -4,
+                    fontSize: '0.9rem',
+                    cursor: 'pointer',
+                  }}
+                  className="text-white"
+                >
                   <i className="fa fa-angle-right mr-2"></i>Admin
                 </a>
-                : null
-              }
-
+              ) : null}
             </div>
           </div>
           <div className="col-lg-3 col-md-6 mb-5">
