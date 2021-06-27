@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Paynow from '../../components/client/Paynow';
 import Breadcrumbs from '../../components/common/Breadcrumbs';
@@ -41,6 +42,7 @@ function Profile(props) {
   const [currentUserId, setCurrentUserId] = useState('');
   const [tip, setTip] = useState('');
   const [lbsCount, setLbsCount] = useState(10);
+  const [loading, setLoading] = useState(false);
 
   const lbsIncrement = () => {
     if (lbsCount < 50) {
@@ -145,8 +147,8 @@ function Profile(props) {
   }
 
   const userSubscriptions = async () => {
+    setLoading(true)
     try {
-
       let allPlans = await getPlans()
       let res = await getAllUserSubscriptions(currentUserId)
       if (res) {
@@ -164,6 +166,7 @@ function Profile(props) {
     } catch (error) {
 
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -392,30 +395,39 @@ function Profile(props) {
                     >
                       <h3 style={{ fontSize: '2rem' }}>My Subscriptions</h3>
                     </div>
-                    <div className="row d-flex flex-row justify-content-md-start">
-                      {subscription.map((sub, index) => (
+                    {loading ?
+                      <div className="container-fluid">
                         <div
-                          key={index}
-                          className="col-md-6 d-flex justify-content-center"
-                          style={{
-                            marginTop: '2rem',
-                            flexDirection: 'column',
-                            flex: 1,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}
+                          className="d-flex justify-content-center align-items-center"
+                          style={{ height: '30rem' }}
                         >
-                          <div style={{ width: '100%' }}>
-                            <SubscriptionCard
-                              showCancelBtn={true}
-                              packageName={sub.packageName}
-                              price={sub.price}
-                              cancelSub={() => handleCancelSub(sub.userSubId, sub.docId)}
-                            />
-                          </div>
+                          <CircularProgress disableShrink />
                         </div>
-                      ))}
-                    </div>
+                      </div> :
+                      <div className="row d-flex flex-row justify-content-md-start">
+                        {subscription.map((sub, index) => (
+                          <div
+                            key={index}
+                            className="col-md-6 d-flex justify-content-center"
+                            style={{
+                              marginTop: '2rem',
+                              flexDirection: 'column',
+                              flex: 1,
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <div style={{ width: '100%' }}>
+                              <SubscriptionCard
+                                showCancelBtn={true}
+                                packageName={sub.packageName}
+                                price={sub.price}
+                                cancelSub={() => handleCancelSub(sub.userSubId, sub.docId)}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>}
                   </div> : null
               }
 
