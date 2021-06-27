@@ -24,37 +24,44 @@ router.post('/pay', async (req, res) => {
 });
 
 router.post('/sub', async (req, res) => {
-    const { email, payment_method, stripSubscriptionId, coupon } = req.body;
-    const customer = await stripe.customers.create({
-        payment_method: payment_method,
-        email: email,
-        invoice_settings: {
-            default_payment_method: payment_method,
-        },
-    });
+    try {
 
-    let subscription;
-    if (coupon) {
-        console.log("coupon: ", coupon)
-        subscription = await stripe.subscriptions.create({
-            customer: customer.id,
-            items: [{ plan: stripSubscriptionId }],
-            expand: ['latest_invoice.payment_intent'],
-            coupon
+
+        const { email, payment_method, stripSubscriptionId, coupon } = req.body;
+        const customer = await stripe.customers.create({
+            payment_method: payment_method,
+            email: email,
+            invoice_settings: {
+                default_payment_method: payment_method,
+            },
         });
-    } else {
-        console.log("coupon: not ")
-        subscription = await stripe.subscriptions.create({
-            customer: customer.id,
-            items: [{ plan: stripSubscriptionId }],
-            expand: ['latest_invoice.payment_intent'],
-        });
+
+        let subscription;
+        if (coupon) {
+            console.log("coupon: ", coupon)
+            subscription = await stripe.subscriptions.create({
+                customer: customer.id,
+                items: [{ plan: stripSubscriptionId }],
+                expand: ['latest_invoice.payment_intent'],
+                coupon
+            });
+        } else {
+            console.log("coupon: not ")
+            subscription = await stripe.subscriptions.create({
+                customer: customer.id,
+                items: [{ plan: stripSubscriptionId }],
+                expand: ['latest_invoice.payment_intent'],
+            });
+        }
+
+        const status = subscription['latest_invoice']['payment_intent']['status']
+        const client_secret = subscription['latest_invoice']['payment_intent']['client_secret']
+        const new1 = subscription['latest_invoice'];
+        res.json({ 'client_secret': client_secret, 'status': status, 'user_sub_id': new1.subscription, "subscription": subscription });
+
+    } catch (error) {
+        res.json({ 'fail': true, 'error': error })
     }
-
-    const status = subscription['latest_invoice']['payment_intent']['status']
-    const client_secret = subscription['latest_invoice']['payment_intent']['client_secret']
-    const new1 = subscription['latest_invoice'];
-    res.json({ 'client_secret': client_secret, 'status': status, 'user_sub_id': new1.subscription });
 })
 
 router.post('/cancel', async (req, res) => {

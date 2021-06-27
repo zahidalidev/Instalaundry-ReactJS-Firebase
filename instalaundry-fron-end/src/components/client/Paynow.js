@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 // stripe
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 // Util imports
@@ -43,40 +44,49 @@ function HomePage(props) {
 
     const stripe = useStripe();
     const elements = useElements();
+    const [loading, setLoading] = useState(false);
 
     const handleSubmitPay = async (email) => {
+        setLoading(true)
+        let subRes = await handleSubmitSub(email);
+        if (subRes) {
 
-        if (!stripe || !elements) {
-            return;
-        }
-        const res = await paySinglePayment(email, props.tipPrice);
-
-        const clientSecret = res.data['client_secret'];
-
-        const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: elements.getElement(CardElement),
-                billing_details: {
-                    email: email,
-                },
-            },
-        });
-
-        if (result.error) {
-            console.log(result.error.message);
-        } else {
-            // The payment has been processed!
-            if (result.paymentIntent.status === 'succeeded') {
-                console.log('Money is in the bank!');
-                handleSubmitSub(email);
+            if (!stripe || !elements) {
+                setLoading(false)
+                return;
             }
+            const res = await paySinglePayment(email, props.tipPrice);
+
+            const clientSecret = res.data['client_secret'];
+
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardElement),
+                    billing_details: {
+                        email: email,
+                    },
+                },
+            });
+
+            if (result.error) {
+                console.log(result.error.message);
+            } else {
+                // The payment has been processed!
+                if (result.paymentIntent.status === 'succeeded') {
+                    console.log('Money is in the bank!');
+                }
+            }
+        } else {
+            toast.error('Something went wrong!')
         }
+        setLoading(false)
     };
 
     const handleSubmitSub = async (email) => {
         if (!stripe || !elements) {
-            return;
+            return false;
         }
+        setLoading(true)
 
         const result = await stripe.createPaymentMethod({
             type: 'card',
@@ -91,25 +101,38 @@ function HomePage(props) {
         } else {
             const res = await paySubscription(result, email, props.planDetails.planStripeId, props.coupen);
             // eslint-disable-next-line camelcase
-            const { client_secret, status, user_sub_id } = res.data;
+            if (!res.data.fail) {
+                const { client_secret, status, user_sub_id } = res.data;
+                console.log("res.data: ", res.data)
 
-            if (status === 'requires_action') {
-                stripe.confirmCardPayment(client_secret).then(function (result) {
-                    if (result.error) {
-                        console.log('There was an issue!');
-                        console.log(result.error);
-                        // The card was declined (i.e. insufficient funds, card has expired, etc)
-                    } else {
-                        console.log('You got the money!');
-                        subscribePlanDb(user_sub_id)
-
-                    }
-                });
+                if (status === 'requires_action') {
+                    stripe.confirmCardPayment(client_secret).then(function (result) {
+                        if (result.error) {
+                            console.log('Something went wrong!: ', result.error);
+                            toast.error('Something went wrong!')
+                            setLoading(false)
+                            return false;
+                            // The card was declined (i.e. insufficient funds, card has expired, etc)
+                        } else {
+                            console.log('You got the money!');
+                            subscribePlanDb(user_sub_id)
+                            setLoading(false)
+                            return true;
+                        }
+                    });
+                } else {
+                    console.log('You got the money!');
+                    subscribePlanDb(user_sub_id)
+                    setLoading(false)
+                    return true;
+                }
             } else {
-                console.log('You got the money!');
-                subscribePlanDb(user_sub_id)
+                setLoading(false)
+                return false;
             }
+
         }
+        setLoading(false)
     };
 
     const subscribePlanDb = async (user_sub_id) => {
@@ -138,6 +161,7 @@ function HomePage(props) {
     }
 
     const handleAllPayments = () => {
+
         let currentUser = JSON.parse(localStorage.getItem('token'));
         if (currentUser) {
             if (props.onlyTip) {
@@ -157,6 +181,7 @@ function HomePage(props) {
         if (!stripe || !elements) {
             return;
         }
+        setLoading(true)
         const res = await paySinglePayment(email, props.tipPrice);
 
         const clientSecret = res.data['client_secret'];
@@ -179,6 +204,7 @@ function HomePage(props) {
                 toast.success("Successfull")
             }
         }
+        setLoading(false)
     };
 
     return (
@@ -190,6 +216,11 @@ function HomePage(props) {
                         Pay Now
                     </Button>
                 </div>
+                {loading ?
+                    <div className="d-flex align-items-center justify-content-center" >
+                        <CircularProgress disableShrink />
+                    </div>
+                    : null}
             </CardContent>
         </Card>
     );

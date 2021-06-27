@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { toast } from 'react-toastify';
+
+import { loginUser } from '../../services/UserServices';
 
 import img1 from '../../assets/img/2.jpg';
 import './Login.css';
 import { Colors } from '../../config/Colors';
-import { toast } from 'react-toastify';
-import { loginUser } from '../../services/UserServices';
-import CircularProgress from '@material-ui/core/CircularProgress';
-// import { login } from '../../http/api';
+
 
 class Login extends Component {
   state = {
@@ -114,16 +115,16 @@ class Login extends Component {
             >
               <div
                 className="container-fluid"
-                // style={{
-                //   position: 'absolute',
-                //   top: '21rem',
-                //   left: 0,
-                //   bottom: '100rem',
-                //   right: 0,
-                //   backgroundColor: 'black',
-                //   width: '100%',
-                //   height: '100%',
-                // }}
+              // style={{
+              //   position: 'absolute',
+              //   top: '21rem',
+              //   left: 0,
+              //   bottom: '100rem',
+              //   right: 0,
+              //   backgroundColor: 'black',
+              //   width: '100%',
+              //   height: '100%',
+              // }}
               >
                 {/* <img src={img1} style={{ width: '100%', height: '100%' }}></img> */}
                 <div className="container loginContainer">

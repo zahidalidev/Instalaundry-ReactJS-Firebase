@@ -28,11 +28,3 @@ export const getPlans = async () => {
 
     return res
 }
-
-
-// return await planRef.where('name', "==", "zahid").onSnapshot((querySnapshot) => {
-//     let groups = querySnapshot.docChanges().map(({ doc }) => {
-//         const group = doc.data();
-//         console.log(group);
-//     })
-// })

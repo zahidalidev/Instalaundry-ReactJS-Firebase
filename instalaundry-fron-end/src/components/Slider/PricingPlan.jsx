@@ -32,10 +32,11 @@ export default function PricingPlan() {
         history.push('/checkout', { planObj })
         return;
       }
-      history.push('/login')
       alert("login first")
+      history.push('/login')
     } catch (error) {
 
+      history.push('/login')
       alert("login first")
     }
   }
@@ -56,8 +57,7 @@ export default function PricingPlan() {
                   style={{ borderRadius: '1rem', height: '35rem' }}
                 >
                   <div
-                    className={`d-inline-flex flex-column align-items-center justify-content-center ${item.id === 2 ? 'bg-primary' : 'bg-secondary'
-                      } rounded-circle shadow mt-2 mb-4`}
+                    className={`d-inline-flex flex-column align-items-center justify-content-center ${index == 1 ? 'bg-primary' : 'bg-secondary'} rounded-circle shadow mt-2 mb-4`}
                     style={{
                       width: '255px',
                       height: '250px',
@@ -116,7 +116,7 @@ export default function PricingPlan() {
                     })}
                     style={{
                       backgroundColor:
-                        item.id === 2 ? Colors.secondary : Colors.primaryBlue,
+                        index === 1 ? Colors.secondary : Colors.primaryBlue,
                       color: Colors.white,
                       height: '2.6rem',
                       width: '9rem',

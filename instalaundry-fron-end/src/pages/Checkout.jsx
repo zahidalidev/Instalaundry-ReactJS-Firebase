@@ -9,6 +9,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useHistory } from 'react-router';
 import 'date-fns';
 import _ from 'lodash';
@@ -36,8 +37,8 @@ export default function Checkout(props) {
   const history = useHistory();
   const [selectedPlan, setSelectedPlan] = useState({});
   const [lbsCount, setLbsCount] = useState(10);
-  const [radio, setRadio] = useState(false);
   const [extraLoad, showExtraLoad] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -113,7 +114,7 @@ export default function Checkout(props) {
   const [pickupDropFeild, setPickupDropFeild] = useState([
     {
       id: 0,
-      label: 'Countary',
+      label: 'Country',
       value: '',
       dropItems: [
         {
@@ -260,9 +261,12 @@ export default function Checkout(props) {
     pickupInof.companyName = pickupFeild[0].value;
     pickupInof.apartment = apartmentSuit;
 
+    setLoading(true)
     try {
       const currentUser = JSON.parse(localStorage.getItem('token'));
       if (!currentUser) {
+
+        setLoading(false)
         return;
       }
 
@@ -301,6 +305,7 @@ export default function Checkout(props) {
     } catch (error) {
       toast.error('Something went wrong please try again3');
     }
+    setLoading(false)
   };
 
   const lbsIncrement = () => {
@@ -502,7 +507,6 @@ export default function Checkout(props) {
                     id="demo-simple-select-outlined"
                     value={item.value}
                     onChange={(e) => dropPickupChange(index, e.target.value)}
-                    label="Status"
                   >
                     {item.dropItems.map((drop, i) => (
                       <MenuItem key={i} value={drop.value}>
@@ -535,20 +539,24 @@ export default function Checkout(props) {
           className="row d-flex justify-content-center align-items-center"
           style={{ marginBottom: '5rem', marginTop: '2rem' }}
         >
-          <Button
-            onClick={() => handleCheckout()}
-            style={{
-              backgroundColor: Colors.secondary,
-              color: Colors.white,
-              height: '2.6rem',
-              width: '9rem',
-              borderRadius: '0.5rem',
-            }}
-            className="btn btn-primary py-md-3 px-md-2 mt-2"
-            variant="contained"
-          >
-            Checkout
-          </Button>
+          {loading ?
+            <CircularProgress disableShrink />
+            :
+            <Button
+              onClick={() => handleCheckout()}
+              style={{
+                backgroundColor: Colors.secondary,
+                color: Colors.white,
+                height: '2.6rem',
+                width: '9rem',
+                borderRadius: '0.5rem',
+              }}
+              className="btn btn-primary py-md-3 px-md-2 mt-2"
+              variant="contained"
+            >
+              Checkout
+            </Button>
+          }
         </div>
       </div>
     </>
