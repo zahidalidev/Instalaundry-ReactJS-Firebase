@@ -57,7 +57,7 @@ router.post('/sub', async (req, res) => {
         const status = subscription['latest_invoice']['payment_intent']['status']
         const client_secret = subscription['latest_invoice']['payment_intent']['client_secret']
         const new1 = subscription['latest_invoice'];
-        res.json({ 'client_secret': client_secret, 'status': status, 'user_sub_id': new1.subscription, "subscription": subscription });
+        res.json({ 'client_secret': client_secret, 'status': status, 'user_sub_id': new1.subscription, "latest_invoice": subscription['latest_invoice'] });
 
     } catch (error) {
         res.json({ 'fail': true, 'error': error })

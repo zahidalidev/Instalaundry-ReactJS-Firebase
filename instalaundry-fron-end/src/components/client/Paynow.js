@@ -102,8 +102,8 @@ function HomePage(props) {
             const res = await paySubscription(result, email, props.planDetails.planStripeId, props.coupen);
             // eslint-disable-next-line camelcase
             if (!res.data.fail) {
-                const { client_secret, status, user_sub_id } = res.data;
-                console.log("res.data: ", res.data)
+                const { client_secret, status, user_sub_id, latest_invoice } = res.data;
+                console.log("client_secret: ", latest_invoice)
 
                 if (status === 'requires_action') {
                     stripe.confirmCardPayment(client_secret).then(function (result) {
@@ -115,14 +115,14 @@ function HomePage(props) {
                             // The card was declined (i.e. insufficient funds, card has expired, etc)
                         } else {
                             console.log('You got the money!');
-                            subscribePlanDb(user_sub_id)
+                            subscribePlanDb(user_sub_id, latest_invoice.total, latest_invoice.subtotal)
                             setLoading(false)
                             return true;
                         }
                     });
                 } else {
                     console.log('You got the money!');
-                    subscribePlanDb(user_sub_id)
+                    subscribePlanDb(user_sub_id, latest_invoice.total, latest_invoice.subtotal)
                     setLoading(false)
                     return true;
                 }
@@ -135,7 +135,7 @@ function HomePage(props) {
         setLoading(false)
     };
 
-    const subscribePlanDb = async (user_sub_id) => {
+    const subscribePlanDb = async (user_sub_id, total, subtotal) => {
         const body = {
             tip: props.extraTip,
             extraLbs: props.extraLbs,
@@ -152,7 +152,10 @@ function HomePage(props) {
 
                 let res2 = await getSubscriptionDetails(body.userId, body.tip, body.extraLbs, body.planId)
                 toast.success("Payment Successfull")
-
+                if (total != subtotal) {
+                    let dis = 100 - parseInt((total / subtotal) * 100);
+                    toast.success(`You Got ${dis}% Discount`)
+                }
             }
 
         } catch (error) {
