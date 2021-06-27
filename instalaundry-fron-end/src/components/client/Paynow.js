@@ -153,7 +153,7 @@ function HomePage(props) {
                 let res2 = await getSubscriptionDetails(body.userId, body.tip, body.extraLbs, body.planId)
                 toast.success("Payment Successfull")
                 if (total != subtotal) {
-                    let dis = 100 - parseInt((total / subtotal) * 100);
+                    let dis = 100 - Math.round((total / subtotal) * 100);
                     toast.success(`You Got ${dis}% Discount`)
                 }
             }

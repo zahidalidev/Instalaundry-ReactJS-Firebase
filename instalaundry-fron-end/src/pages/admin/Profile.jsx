@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Compoentns
 import Breadcrumbs from '../../components/common/Breadcrumbs';
@@ -29,6 +30,7 @@ function Profile(props) {
 
     const [showComponent, setShowComponent] = useState("information")
     const [currentUserId, setCurrentUserId] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const [subscription, setSubscription] = useState([])
 
@@ -69,6 +71,7 @@ function Profile(props) {
     }
 
     const handleGetAllSubscription = async () => {
+        setLoading(true)
         try {
             let res = await getAllSubscription()
             if (res) {
@@ -79,6 +82,7 @@ function Profile(props) {
         } catch (error) {
             console.log("getting all users error: ", error)
         }
+        setLoading(false)
     }
 
     const handlePostalCodes = async () => {
@@ -225,15 +229,24 @@ function Profile(props) {
                                         <div style={{ marginTop: "-0.5rem" }} className="row d-flex flex-row align-items-center p-1 justify-content-center" >
                                             <h3 style={{ fontSize: "2rem" }} >All Subscriptions</h3>
                                         </div>
-                                        <div className="row d-flex flex-row justify-content-md-start" >
-                                            {subscription.map((sub, index) =>
-                                                <div key={index} className="col-md-6 d-flex justify-content-center" style={{ marginTop: "2rem", flexDirection: "column", flex: 1, justifyContent: "center", alignItems: "center" }}  >
-                                                    <div style={{ width: "100%" }} >
-                                                        <SubscriptionCard subscribedBy={sub.subscribedBy} packageName={sub.packageName} price={sub.price} />
-                                                    </div>
+                                        {loading ?
+                                            <div className="container-fluid">
+                                                <div
+                                                    className="d-flex justify-content-center align-items-center"
+                                                    style={{ height: '30rem' }}
+                                                >
+                                                    <CircularProgress disableShrink />
                                                 </div>
-                                            )}
-                                        </div>
+                                            </div> :
+                                            <div className="row d-flex flex-row justify-content-md-start" >
+                                                {subscription.map((sub, index) =>
+                                                    <div key={index} className="col-md-6 d-flex justify-content-center" style={{ marginTop: "2rem", flexDirection: "column", flex: 1, justifyContent: "center", alignItems: "center" }}  >
+                                                        <div style={{ width: "100%" }} >
+                                                            <SubscriptionCard subscribedBy={sub.subscribedBy} packageName={sub.packageName} price={sub.price} />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>}
                                     </div> : null
                             }
                             {
