@@ -6,6 +6,10 @@ const stripe = require('stripe')('sk_test_51ISGFTLuBGwlYLhY7bog901ruBLlkTNA0yYaS
 
 const router = express.Router();
 
+router.post('/test', async (req, res) => {
+    res.send("Assalam o Alaikum")
+});
+
 router.post('/pay', async (req, res) => {
     const { email, price } = req.body;
     let intPrice = parseFloat(price) * 100
