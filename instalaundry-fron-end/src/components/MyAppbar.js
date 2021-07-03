@@ -110,11 +110,11 @@ function MyAppbar(props) {
             />
             <button
               type="button"
-              className="navbar-toggler"
+              class="navbar-toggler"
               data-toggle="collapse"
               data-target="#navbarCollapse"
             >
-              <span className="navbar-toggler-icon"></span>
+              <span class="navbar-toggler-icon"></span>
             </button>
             <div
               className="collapse navbar-collapse justify-content-between px-3"
