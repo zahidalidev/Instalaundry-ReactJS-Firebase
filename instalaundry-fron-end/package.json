@@ -18,6 +18,7 @@
     "@types/stripe": "^8.0.417",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
+    "clsx": "^1.1.1",
     "date-fns": "^2.16.1",
     "emailjs-com": "^3.1.0",
     "firebase": "^8.3.2",
