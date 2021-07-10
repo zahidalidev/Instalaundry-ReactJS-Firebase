@@ -11,7 +11,6 @@ import logo from '../assets/img/logo1.png';
 //config
 import { Colors } from './../config/Colors';
 
-
 const useStyles = makeStyles({
   list: {
     width: 250,
