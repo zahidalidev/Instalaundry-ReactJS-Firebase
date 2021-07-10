@@ -1,15 +1,14 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const config = require('config');
 
-const stripe = require('stripe')(config.get('pstPivateKey'));
+const stripe = require('stripe')(process.env.pstPivateKey);
 
 
 const router = express.Router();
 
-router.post('/test', async (req, res) => {
-    res.send("Assalam o Alaikum")
+router.get('/test', async (req, res) => {
+    res.send(`Assalam o Alaikum`)
 });
 
 router.post('/pay', async (req, res) => {

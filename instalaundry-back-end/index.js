@@ -2,7 +2,6 @@ const express = require('express');
 const apiRouter = require('./routes/routes');
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const config = require('config');
 
 const app = express();
 
@@ -14,11 +13,12 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(express.json());
 
-if (!config.get('pstPivateKey')) {
+if (!process.env.pstPivateKey) {
     throw new Error('FATAL ERROR: pstPivateKey is not defined. ');
 }
 
 app.set('port', (process.env.PORT || 3000));
+
 
 app.use('/app/api', apiRouter);
 
