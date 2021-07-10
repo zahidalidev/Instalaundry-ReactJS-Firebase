@@ -83,54 +83,64 @@ function HomePage(props) {
     };
 
     const handleSubmitSub = async (email) => {
-        if (!stripe || !elements) {
-            return false;
-        }
-        setLoading(true)
+        try {
 
-        const result = await stripe.createPaymentMethod({
-            type: 'card',
-            card: elements.getElement(CardElement),
-            billing_details: {
-                email: email,
-            },
-        });
 
-        if (result.error) {
-            console.log(result.error.message);
-        } else {
-            const res = await paySubscription(result, email, props.planDetails.planStripeId, props.coupen);
-            // eslint-disable-next-line camelcase
-            if (!res.data.fail) {
-                const { client_secret, status, user_sub_id, latest_invoice } = res.data;
-                console.log("client_secret: ", latest_invoice)
-
-                if (status === 'requires_action') {
-                    stripe.confirmCardPayment(client_secret).then(function (result) {
-                        if (result.error) {
-                            console.log('Something went wrong!: ', result.error);
-                            toast.error('Something went wrong!')
-                            setLoading(false)
-                            return false;
-                            // The card was declined (i.e. insufficient funds, card has expired, etc)
-                        } else {
-                            console.log('You got the money!');
-                            subscribePlanDb(user_sub_id, latest_invoice.total, latest_invoice.subtotal)
-                            setLoading(false)
-                            return true;
-                        }
-                    });
-                } else {
-                    console.log('You got the money!');
-                    subscribePlanDb(user_sub_id, latest_invoice.total, latest_invoice.subtotal)
-                    setLoading(false)
-                    return true;
-                }
-            } else {
-                setLoading(false)
+            if (!stripe || !elements) {
                 return false;
             }
+            setLoading(true)
 
+            const result = await stripe.createPaymentMethod({
+                type: 'card',
+                card: elements.getElement(CardElement),
+                billing_details: {
+                    email: email,
+                },
+            });
+
+            if (result.error) {
+                console.log(result.error.message);
+            } else {
+                const res = await paySubscription(result, email, props.planDetails.planStripeId, props.coupen);
+                // eslint-disable-next-line camelcase
+                if (!res.data.fail) {
+                    const { client_secret, status, user_sub_id, latest_invoice } = res.data;
+                    console.log("client_secret: ", latest_invoice)
+
+                    if (status === 'requires_action') {
+                        stripe.confirmCardPayment(client_secret).then(function (result) {
+                            if (result.error) {
+                                console.log('Something went wrong!: ', result.error);
+                                toast.error('Something went wrong!')
+                                setLoading(false)
+                                return false;
+                                // The card was declined (i.e. insufficient funds, card has expired, etc)
+                            } else {
+                                console.log('You got the money!');
+                                console.log("latest_invoice: ", latest_invoice)
+                                subscribePlanDb(user_sub_id, latest_invoice.total, latest_invoice.subtotal)
+                                setLoading(false)
+                                return true;
+                            }
+                        });
+                    } else {
+                        console.log('You got the money!');
+                        subscribePlanDb(user_sub_id, latest_invoice.total, latest_invoice.subtotal)
+                        setLoading(false)
+                        return true;
+                    }
+                } else {
+                    setLoading(false)
+                    return false;
+                }
+
+            }
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            console.log("latest error: ", error)
+            toast.error('Something went wrong!')
         }
         setLoading(false)
     };

@@ -14,11 +14,11 @@ const firestore = firebase.firestore();
 const planRef = firestore.collection('subscribedPlan')
 
 export const paySinglePayment = async (email, price) => {
-    return await axios.post('https://instalaundry.ca/app/api/pay', { email: email, price: price });
+    return await axios.post('https://v3.instalaundry.ca/nodeapp/api/pay', { email: email, price: price });
 }
 
 export const paySubscription = async (result, email, stripSubscriptionId, coupon) => {
-    return await axios.post('https://instalaundry.ca/app/api/sub', { coupon: coupon, 'payment_method': result.paymentMethod.id, 'email': email, 'stripSubscriptionId': stripSubscriptionId });
+    return await axios.post('https://v3.instalaundry.ca/nodeapp/api/sub', { coupon: coupon, 'payment_method': result.paymentMethod.id, 'email': email, 'stripSubscriptionId': stripSubscriptionId });
 }
 
 export const addPlan = async (body) => {
@@ -27,5 +27,5 @@ export const addPlan = async (body) => {
 
 
 export const cancelUserSub = async (id) => {
-    return await axios.post('https://instalaundry.ca/app/api/cancel', { subscriptionId: id });
+    return await axios.post('https://v3.instalaundry.ca/nodeapp/api/cancel', { subscriptionId: id });
 }
