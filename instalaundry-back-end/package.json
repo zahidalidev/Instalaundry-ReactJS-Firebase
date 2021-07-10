@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "stripe": "^8.155.0"
