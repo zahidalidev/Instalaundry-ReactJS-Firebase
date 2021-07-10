@@ -18,11 +18,10 @@ if (!config.get('pstPivateKey')) {
     throw new Error('FATAL ERROR: pstPivateKey is not defined. ');
 }
 
-app.get('/test1', (req, res) => {
-    return res.send("hi test1")
-})
+app.set('port', (process.env.PORT || 3000));
 
-app.use('/api', apiRouter);
+app.use('/app/api', apiRouter);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+app.listen(app.get("port"), function () {
+    console.log("Node app is running on port " + app.get('port'));
+});
