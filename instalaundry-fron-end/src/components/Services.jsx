@@ -35,10 +35,15 @@ function Services(props) {
   return (
     <div className="container-fluid pt-5 pb-3" style={{ marginTop: '5rem' }}>
       <div className="container">
-        <h6 className="text-secondary text-uppercase text-center font-weight-medium mb-3">
+        {/* <h6 className="text-secondary text-uppercase text-center font-weight-medium mb-3">
           Our Services
-        </h6>
-        <h1 className="display-4 text-center mb-5">What We Offer</h1>
+        </h6> */}
+        <h1
+          className="display-4 text-center mb-5"
+          style={{ marginBottom: '3rem' }}
+        >
+          Our Services
+        </h1>
         <div className="row">
           {cards.map((card, index) => (
             <div

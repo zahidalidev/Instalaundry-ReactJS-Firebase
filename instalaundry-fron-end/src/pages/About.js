@@ -7,17 +7,11 @@ export default function About(props) {
   return (
     <>
       {props.removeHeader ? null : (
-        <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-2 mb-5">
-          <div className="container py-1">
+        <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-5 mb-5">
+          <div className="container py-1" style={{ marginTop: '3rem' }}>
             <div className="row  align-items-center py-4">
               <div className="col-md-6 text-center text-md-left">
-                <h1
-                  className="mb-4 mb-md-0 text-white"
-                  className="sliderMainHeading"
-                  style={{ fontSize: '2.5rem', marginTop: '6rem' }}
-                >
-                  About Us
-                </h1>
+                <h1 className="mb-6 mb-md-0 text-white">About Us</h1>
               </div>
               <div className="col-md-6 text-center text-md-right">
                 <div className="d-inline-flex align-items-center">
@@ -116,16 +110,22 @@ export default function About(props) {
                 Our Features
               </h6> */}
               <h1 className="mb-4">Why Instalaundary</h1>
-              <p>
-                Invidunt lorem justo sanctus clita. Erat lorem labore ea, justo
-                dolor lorem ipsum ut sed eos, ipsum et dolor kasd sit ea justo.
-                Erat justo sed sed diam. Ea et erat ut sed diam sea ipsum est
-                dolor
+              <p style={{ marginTop: '2.5rem' }}>
+                We are not a specialty dry cleaner, we are a simple laundry wash
+                and delivery service supporting every day families, couples, and
+                individuals. We have a team of professional staff who are always
+                ready to support you, whether it is th rough email, online chat
+                or our direct phone line. We are starting in select
+                neighbourhoods to ensure we provide you with the best service,
+                check our location bar to see if we are in your neighbourhood or
+                drop us an email to let us kno w you're waiting for us! Simple
+                Service, no hidden fees Professional Staff Instant Support
               </p>
               <div className="row">
                 <div className="col-sm-6 mb-4">
                   <h1 className="text-secondary" data-toggle="counter-up">
-                    <CountUp end={12} duration={20}></CountUp>
+                    <CountUp end={12} duration={20}></CountUp>{' '}
+                    <span style={{ fontSize: '1.5rem' }}>Years</span>
                   </h1>
 
                   <h5 className="font-weight-bold">Experience</h5>

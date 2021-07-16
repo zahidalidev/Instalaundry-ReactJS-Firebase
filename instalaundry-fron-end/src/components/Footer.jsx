@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import AndroidTwoToneIcon from '@material-ui/icons/AndroidTwoTone';
+import AppleIcon from '@material-ui/icons/Apple';
 
 // config
 import { Colors } from './../config/Colors';
 
 import logo from '../assets/img/logo1.png';
+import candalogo from '../assets/img/canadian.png';
 // import Form from './common/Form';
 // import DefaultFormEmail from './common/DefaultFormEmail';
 import axios from 'axios';
@@ -76,31 +79,31 @@ export default function Footer() {
                 fontSize: '0.9rem',
               }}
             >
-              Our team consists of dedicated individuals working hard to ensure
-              every item of clothing is clean and folded back in your hamper and
-              delivered at your doorstep.
+              Our vision and goal is to push the boundaries of traditional
+              laundromat services and provide our customers with the ease of
+              staying home
             </p>
             <div className="d-flex justify-content-start mt-4">
               <a
-                className="btn btn-outline-light rounded-circle text-center mr-2 px-0"
-                style={{ width: '38px', height: '38px' }}
+                target="_blank"
+                style={{ fontSize: '2.2rem' }}
+                className="text-white px-3"
+                href="https://m.facebook.com/instalaundrycanada/"
               >
-                <i
-                  className="fab fa-facebook-f"
-                  href="https://m.facebook.com/instalaundrycanada/"
-                  target="_blank"
-                ></i>
+                <i className="fab fa-facebook-f"></i>
               </a>
 
               <a
-                className="btn btn-outline-light rounded-circle text-center mr-2 px-0"
-                style={{ width: '38px', height: '38px' }}
+                target="_blank"
+                style={{ cursor: 'pointer', fontSize: '2.2rem' }}
+                className="text-white px-1"
+                href="http://instagram.com/instalaundrycanada"
               >
-                <i
-                  className="fab fa-instagram"
-                  href="http://instagram.com/instalaundrycanada"
-                  target="_blank"
-                ></i>
+                <i className="fab fa-instagram"></i>
+              </a>
+
+              <a style={{ marginLeft: '2.2rem' }}>
+                <img style={{ width: '8.5rem' }} src={candalogo} />
               </a>
             </div>
           </div>
@@ -252,6 +255,25 @@ export default function Footer() {
                 >
                   Submitt Now
                 </Button>
+              </div>
+              <div style={{ marginTop: '2rem' }}>
+                <p style={{ fontSize: '1rem' }}>
+                  Connect with Us On IOS and Android !
+                </p>
+                <div className="row">
+                  <div className="col-2" style={{ marginTop: '0.2rem' }}>
+                    <a style={{ cursor: 'pointer' }}>
+                      <AndroidTwoToneIcon
+                        style={{ fontSize: '2rem' }}
+                      ></AndroidTwoToneIcon>
+                    </a>
+                  </div>
+                  <div className="col-2">
+                    <a style={{ cursor: 'pointer' }}>
+                      <AppleIcon style={{ fontSize: '2.3rem' }}></AppleIcon>
+                    </a>
+                  </div>
+                </div>
               </div>
             </form>
           </div>

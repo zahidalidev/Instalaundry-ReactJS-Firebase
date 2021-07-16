@@ -39,7 +39,7 @@ function Slider(props) {
                   </h1>
                   {/* <a className="btn btn-primary py-md-3 px-md-5 mt-2">GET STARTED</a> */}
                   <Button
-                    onClick={() => history.push('/pricing')}
+                    onClick={() => history.push('/register')}
                     style={{
                       backgroundColor: Colors.secondary,
                       color: Colors.white,
