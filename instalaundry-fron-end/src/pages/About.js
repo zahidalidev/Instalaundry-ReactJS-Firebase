@@ -36,19 +36,18 @@ export default function About(props) {
             <div className="col-lg-5">
               <img
                 className="img-fluid"
-                className="sliderMainHeading"
                 src={img1}
                 style={{
                   borderRadius: '1.5rem',
                   width: '25rem',
-                  marginTop: '7rem',
+                  marginTop: '2rem',
                 }}
               ></img>
             </div>
             <div className="col-lg-7 mt-5 mt-lg-0 pl-lg-5">
-              <h6 className="text-secondary text-uppercase font-weight-medium mb-3">
+              {/* <h6 className="text-secondary text-uppercase font-weight-medium mb-3">
                 Learn About Us
-              </h6>
+              </h6> */}
               <h1 className="mb-4">
                 We Are Quality Laundry Provider In Your City
               </h1>
@@ -56,14 +55,18 @@ export default function About(props) {
                 InstaLaundry is a revolutionary, eco-friendly valet service
               </h5>
               <p className="mb-2">
-                Lower Mainland, B.C. based company with over 10 years of
-                experience with cleaners and providing laundry services. Coming
-                together to push the boundaries of traditional laundromat
-                cleaners. Offering a service to eliminate the need for families
-                and individuals to step out of their home for laundry cleaning.
-                Our team consists of dedicated individuals working hard to
-                ensure every item of clothing is clean and folded back in your
-                hamper and delivered at your doorstep.
+                A Quality Laundry Service Provider In The Community A locally
+                inspired and home grown business in British Columbia. Our vision
+                and goal is to push the boundaries of tr aditional laundromat
+                services. We want to take out the stress of carrying your
+                laundry outdoors and the time it takes to watch over your load
+                in a creaky fluorescent store. Making a trip to your local
+                laundromat is just not necessary. A t Instalaundry we offer a
+                subscription based model to eliminate the need for families and
+                individuals to step out of th eir home. Our team consists of
+                dedicated individuals working hard to ensure every item of
+                clothing is washed and fo lded back in your hamper then
+                delivered to your doorstep.
               </p>
               <div className="row">
                 <div className="col-sm-6 pt-3">
@@ -109,10 +112,10 @@ export default function About(props) {
         <div className="container">
           <div className="row">
             <div className="col-lg-7 m-0 my-lg-5 pt-0 pt-lg-5 pr-lg-5">
-              <h6 className="text-secondary text-uppercase font-weight-medium mb-3">
+              {/* <h6 className="text-secondary text-uppercase font-weight-medium mb-3">
                 Our Features
-              </h6>
-              <h1 className="mb-4">Why Choose Us</h1>
+              </h6> */}
+              <h1 className="mb-4">Why Instalaundary</h1>
               <p>
                 Invidunt lorem justo sanctus clita. Erat lorem labore ea, justo
                 dolor lorem ipsum ut sed eos, ipsum et dolor kasd sit ea justo.
@@ -122,27 +125,29 @@ export default function About(props) {
               <div className="row">
                 <div className="col-sm-6 mb-4">
                   <h1 className="text-secondary" data-toggle="counter-up">
-                    <CountUp end={10} duration={20}></CountUp>
+                    <CountUp end={12} duration={20}></CountUp>
                   </h1>
-                  <h5 className="font-weight-bold">Years Expereince</h5>
+
+                  <h5 className="font-weight-bold">Experience</h5>
                 </div>
                 <div className="col-sm-6 mb-4">
                   <h1 className="text-secondary" data-toggle="counter-up">
-                    <CountUp end={200} duration={10}></CountUp>
+                    <CountUp end={20} duration={20}></CountUp> +
                   </h1>
-                  <h5 className="font-weight-bold">Expert Worker</h5>
+
+                  <h5 className="font-weight-bold">Employees</h5>
                 </div>
                 <div className="col-sm-6 mb-4">
                   <h1 className="text-secondary" data-toggle="counter-up">
-                    <CountUp end={1370} duration={10}></CountUp>
+                    <CountUp end={100} duration={10}></CountUp> +
                   </h1>
-                  <h5 className="font-weight-bold">Happy Clients</h5>
+                  <h5 className="font-weight-bold">Subscribers</h5>
                 </div>
                 <div className="col-sm-6 mb-4">
                   <h1 className="text-secondary" data-toggle="counter-up">
-                    <CountUp end={6242} duration={10}></CountUp>
+                    <CountUp end={2800} duration={10}></CountUp>
                   </h1>
-                  <h5 className="font-weight-bold">Dry Cleaning</h5>
+                  <h5 className="font-weight-bold">Loads Done</h5>
                 </div>
               </div>
             </div>
