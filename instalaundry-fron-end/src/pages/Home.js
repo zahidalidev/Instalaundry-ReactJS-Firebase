@@ -72,7 +72,7 @@ export default function Home() {
     <div>
       <Slider />
       <Suspense fallback={<div></div>}>
-        <div className="container-fluid" style={{ marginTop: '7rem' }}>
+        <div className="container-fluid" style={{ marginTop: '12rem' }}>
           <div className="row d-flex justify-content-center align-items-center">
             <div
               className="col-8 d-flex justify-content-center align-items-center"

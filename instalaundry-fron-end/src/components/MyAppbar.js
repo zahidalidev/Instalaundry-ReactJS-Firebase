@@ -44,7 +44,10 @@ function MyAppbar(props) {
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
       return;
     }
 
@@ -279,7 +282,7 @@ function MyAppbar(props) {
 
   return (
     <>
-      <div className="container-fluid bg-primary py-3">
+      {/* <div className="container-fluid bg-primary py-3">
         <div className="container">
           <div className="row">
             <div className="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
@@ -332,15 +335,18 @@ function MyAppbar(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="container-fluid position-relative nav-bar p-0">
         <div
           className="container-lg position-relative p-0 px-lg-3"
           style={{ zIndex: 9 }}
         >
-
-          <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
+          <Drawer
+            anchor={'right'}
+            open={state['right']}
+            onClose={toggleDrawer('right', false)}
+          >
             {list('right')}
           </Drawer>
 
@@ -556,7 +562,7 @@ function MyAppbar(props) {
                   }}
                   className="nav-item nav-link"
                 >
-                  Profile
+                  Account
                 </a>
               </div>
             </div>

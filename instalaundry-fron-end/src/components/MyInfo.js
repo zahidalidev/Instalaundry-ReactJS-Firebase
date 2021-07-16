@@ -4,7 +4,7 @@ import { Colors } from './../config/Colors';
 function MyInfo(props) {
   return (
     <div className="container-fluid contact-info mt-5 mb-4">
-      <div className="container" style={{ paddingLeft: 0 }}>
+      {/* <div className="container" style={{ paddingLeft: 0 }}>
         <div className="row">
           <div
             className="col-md-4 d-flex align-items-center justify-content-center bg-secondary mb-4 mb-lg-0"
@@ -57,7 +57,7 @@ function MyInfo(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
