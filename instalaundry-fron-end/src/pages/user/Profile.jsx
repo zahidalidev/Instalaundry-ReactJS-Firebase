@@ -17,9 +17,14 @@ import SubscriptionCard from '../../components/SubscriptionCard';
 
 // config
 import { Colors } from '../../config/Colors';
-import { getAllUserSubscriptions, updateUser, deleteSubscriptionPlan, updatPickupInfo } from '../../services/UserServices';
+import {
+  getAllUserSubscriptions,
+  updateUser,
+  deleteSubscriptionPlan,
+  updatPickupInfo,
+} from '../../services/UserServices';
 import { getPlans } from '../../services/PricingServices';
-import { cancelUserSub } from "../../services/OrderServices";
+import { cancelUserSub } from '../../services/OrderServices';
 import configObj from '../../config/config.json';
 import { toast } from 'react-toastify';
 
@@ -34,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
 }));
-
 
 function Profile(props) {
   const classes = useStyles();
@@ -59,58 +63,56 @@ function Profile(props) {
   const [userInfo, setUserinfo] = useState([
     {
       title: 'Full Name',
-      value: ''
+      value: '',
     },
     {
       title: 'Email',
-      value: ''
+      value: '',
     },
     {
       title: 'Contact Number',
-      value: ''
+      value: '',
     },
     {
       title: 'Password',
-      value: ''
-    },
-  ])
-
-  const [daysDrop, setDaysDrop] = useState(
-    {
-      label: 'Pickup Day',
       value: '',
-      dropItems: [
-        {
-          label: 'Monday',
-          value: 'monday',
-        },
-        {
-          label: 'Tuesday',
-          value: 'tuesday',
-        },
-        {
-          label: 'Wednesday',
-          value: 'wednesday',
-        },
-        {
-          label: 'Thursday',
-          value: 'thursday',
-        },
-        {
-          label: 'Friday',
-          value: 'friday',
-        },
-        {
-          label: 'Saturday',
-          value: 'saturday',
-        },
-        {
-          label: 'Sunday',
-          value: 'sunday',
-        },
-      ],
     },
-  );
+  ]);
+
+  const [daysDrop, setDaysDrop] = useState({
+    label: 'Pickup Day',
+    value: '',
+    dropItems: [
+      {
+        label: 'Monday',
+        value: 'monday',
+      },
+      {
+        label: 'Tuesday',
+        value: 'tuesday',
+      },
+      {
+        label: 'Wednesday',
+        value: 'wednesday',
+      },
+      {
+        label: 'Thursday',
+        value: 'thursday',
+      },
+      {
+        label: 'Friday',
+        value: 'friday',
+      },
+      {
+        label: 'Saturday',
+        value: 'saturday',
+      },
+      {
+        label: 'Sunday',
+        value: 'sunday',
+      },
+    ],
+  });
 
   const dropPickupChange = (value) => {
     let tempDays = { ...daysDrop };
@@ -123,8 +125,8 @@ function Profile(props) {
   const handleUserInfo = async (index, value) => {
     const tempInfo = [...userInfo];
     tempInfo[index].value = value;
-    setUserinfo(tempInfo)
-  }
+    setUserinfo(tempInfo);
+  };
 
   const getCurrentUserinfo = () => {
     const tempInfo = [...userInfo];
@@ -132,25 +134,24 @@ function Profile(props) {
     try {
       let currentUser = localStorage.getItem('token');
       if (currentUser) {
-        currentUser = JSON.parse(currentUser)
+        currentUser = JSON.parse(currentUser);
       }
-      tempInfo[0].value = currentUser.name
-      tempInfo[1].value = currentUser.email
-      tempInfo[2].value = currentUser.contactNumber
-      tempInfo[3].value = currentUser.password
-      setCurrentUserId(currentUser.id)
-      setUserinfo(tempInfo)
-
+      tempInfo[0].value = currentUser.name;
+      tempInfo[1].value = currentUser.email;
+      tempInfo[2].value = currentUser.contactNumber;
+      tempInfo[3].value = currentUser.password;
+      setCurrentUserId(currentUser.id);
+      setUserinfo(tempInfo);
     } catch (error) {
-      console.log("Getting Info Error: ", error)
+      console.log('Getting Info Error: ', error);
     }
-  }
+  };
 
   const userSubscriptions = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      let allPlans = await getPlans()
-      let res = await getAllUserSubscriptions(currentUserId)
+      let allPlans = await getPlans();
+      let res = await getAllUserSubscriptions(currentUserId);
       if (res) {
         for (let i = 0; i < res.length; i++) {
           for (let j = 0; j < allPlans.length; j++) {
@@ -163,15 +164,13 @@ function Profile(props) {
 
         setSubscription(res);
       }
-    } catch (error) {
-
-    }
-    setLoading(false)
-  }
+    } catch (error) {}
+    setLoading(false);
+  };
 
   useEffect(() => {
-    getCurrentUserinfo()
-  }, [])
+    getCurrentUserinfo();
+  }, []);
 
   // updating user
   const handleUpdate = async () => {
@@ -179,43 +178,41 @@ function Profile(props) {
       name: userInfo[0].value,
       email: userInfo[1].value,
       contactNumber: userInfo[2].value,
-      password: userInfo[3].value
-    }
+      password: userInfo[3].value,
+    };
 
     try {
-      await updateUser(currentUserId, body)
+      await updateUser(currentUserId, body);
     } catch (error) {
-      console.log("user profile update errr: ", error)
+      console.log('user profile update errr: ', error);
     }
-  }
+  };
 
   const handleCancelSub = async (id, docId) => {
-
-    let confrRes = window.confirm("Do you Want to cancel Subscription")
+    let confrRes = window.confirm('Do you Want to cancel Subscription');
     if (confrRes) {
       try {
         let res = await cancelUserSub(id);
-        await deleteSubscriptionPlan(docId)
-        await userSubscriptions()
+        await deleteSubscriptionPlan(docId);
+        await userSubscriptions();
         console.log(res);
       } catch (error) {
-        console.log("sub cancel erro: ", error)
+        console.log('sub cancel erro: ', error);
       }
     }
-
-  }
+  };
 
   const handlePickuDay = async () => {
     let newPickupDay = daysDrop.value;
     if (newPickupDay == '') {
-      toast.error("Please Select the Day")
+      toast.error('Please Select the Day');
     }
     try {
-      await updatPickupInfo(currentUserId, { pickupDay: newPickupDay })
+      await updatPickupInfo(currentUserId, { pickupDay: newPickupDay });
     } catch (error) {
-      console.log("Update day error: ", error)
+      console.log('Update day error: ', error);
     }
-  }
+  };
 
   return (
     <>
@@ -246,7 +243,8 @@ function Profile(props) {
                   style={{
                     borderTopLeftRadius: 10,
                     cursor: 'pointer',
-                    backgroundColor: showPersonal === 'personal' ? Colors.primaryTrans : null,
+                    backgroundColor:
+                      showPersonal === 'personal' ? Colors.primaryTrans : null,
                     borderBottom: '1px solid white',
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
@@ -261,7 +259,8 @@ function Profile(props) {
                   style={{
                     borderTopLeftRadius: 10,
                     cursor: 'pointer',
-                    backgroundColor: showPersonal === 'day' ? Colors.primaryTrans : null,
+                    backgroundColor:
+                      showPersonal === 'day' ? Colors.primaryTrans : null,
                     borderBottom: '1px solid white',
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
@@ -273,12 +272,15 @@ function Profile(props) {
 
                 <div
                   onClick={() => {
-                    userSubscriptions()
-                    setShowPersonal('subscription')
+                    userSubscriptions();
+                    setShowPersonal('subscription');
                   }}
                   style={{
                     cursor: 'pointer',
-                    backgroundColor: showPersonal == 'subscription' ? Colors.primaryTrans : null,
+                    backgroundColor:
+                      showPersonal == 'subscription'
+                        ? Colors.primaryTrans
+                        : null,
                     borderBottom: '1px solid white',
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
@@ -290,11 +292,12 @@ function Profile(props) {
 
                 <div
                   onClick={() => {
-                    setShowPersonal('tip')
+                    setShowPersonal('tip');
                   }}
                   style={{
                     cursor: 'pointer',
-                    backgroundColor: showPersonal == 'tip' ? Colors.primaryTrans : null,
+                    backgroundColor:
+                      showPersonal == 'tip' ? Colors.primaryTrans : null,
                     borderBottom: '1px solid white',
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
@@ -306,11 +309,12 @@ function Profile(props) {
 
                 <div
                   onClick={() => {
-                    setShowPersonal('load')
+                    setShowPersonal('load');
                   }}
                   style={{
                     cursor: 'pointer',
-                    backgroundColor: showPersonal == 'load' ? Colors.primaryTrans : null,
+                    backgroundColor:
+                      showPersonal == 'load' ? Colors.primaryTrans : null,
                     borderBottom: '1px solid white',
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
@@ -319,10 +323,7 @@ function Profile(props) {
                     Want To Add Extra Load
                   </p>
                 </div>
-
               </div>
-
-
 
               {/* Personal Info start */}
               {showPersonal == 'personal' ? (
@@ -353,21 +354,24 @@ function Profile(props) {
                         alignItems: 'center',
                       }}
                     >
-                      <div style={{ marginTop: '10rem', width: "100%" }} className="row">
-                      </div>
+                      <div
+                        style={{ marginTop: '10rem', width: '100%' }}
+                        className="row"
+                      ></div>
 
-                      {
-                        userInfo.map((user, index) =>
-                          <div key={index} style={{ marginTop: '2rem', width: '100%' }}>
-                            <MyTextFeild
-                              width={'78%'}
-                              label={user.title}
-                              value={user.value}
-                              onChange={(value) => handleUserInfo(index, value)}
-                            />
-                          </div>
-                        )
-                      }
+                      {userInfo.map((user, index) => (
+                        <div
+                          key={index}
+                          style={{ marginTop: '2rem', width: '100%' }}
+                        >
+                          <MyTextFeild
+                            width={'78%'}
+                            label={user.title}
+                            value={user.value}
+                            onChange={(value) => handleUserInfo(index, value)}
+                          />
+                        </div>
+                      ))}
 
                       <Button
                         onClick={() => handleUpdate()}
@@ -385,181 +389,173 @@ function Profile(props) {
                 </div>
               ) : null}
 
-              {
-                showPersonal == 'subscription' ?
-                  // subscription plan start;
-                  <div className="d-flex flex-column justify-content-start col-md-8">
-                    <div
-                      style={{ marginTop: '-0.5rem' }}
-                      className="row d-flex flex-row align-items-center p-1 justify-content-center"
-                    >
-                      <h3 style={{ fontSize: '2rem' }}>My Subscriptions</h3>
-                    </div>
-                    {loading ?
-                      <div className="container-fluid">
-                        <div
-                          className="d-flex justify-content-center align-items-center"
-                          style={{ height: '30rem' }}
-                        >
-                          <CircularProgress disableShrink />
-                        </div>
-                      </div> :
-                      <div className="row d-flex flex-row justify-content-md-start">
-                        {subscription.map((sub, index) => (
-                          <div
-                            key={index}
-                            className="col-md-6 d-flex justify-content-center"
-                            style={{
-                              marginTop: '2rem',
-                              flexDirection: 'column',
-                              flex: 1,
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                            }}
-                          >
-                            <div style={{ width: '100%' }}>
-                              <SubscriptionCard
-                                showCancelBtn={true}
-                                packageName={sub.packageName}
-                                price={sub.price}
-                                cancelSub={() => handleCancelSub(sub.userSubId, sub.docId)}
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </div>}
-                  </div> : null
-              }
-
-              {
-                showPersonal == 'tip' ?
-                  // subscription plan start;
-                  <div className="d-flex flex-column justify-content-start col-md-8">
-                    <div
-                      style={{ marginTop: '-0.5rem' }}
-                      className="row d-flex flex-row align-items-center p-1 justify-content-center"
-                    >
-                      <h3 style={{ fontSize: '2rem' }}>Pay Tip</h3>
-                    </div>
-                    <div className="row d-flex mt-5 flex-row justify-content-md-start">
-
-                      <div style={{ marginTop: '2rem', width: '100%' }}>
-                        <MyTextFeild
-                          width={'60%'}
-                          label={"Pay Tip (In Dollar), Enter Only Number For example 5, 10..."}
-                          value={tip}
-                          onChange={(value) => setTip(value)}
-                        />
-                      </div>
-
-                    </div>
-                    <div className="contaienr-fluid mt-4" >
-
-                      <Elements stripe={stripePromise}>
-                        <Paynow
-                          onlyTip={true}
-                          tipPrice={parseFloat(tip.match(/(\d+)/))}
-                        />
-                      </Elements>
-                    </div>
-                  </div> : null
-              }
-              {
-                showPersonal == 'load' ?
-                  // subscription plan start;
-                  <div className="d-flex flex-column justify-content-start col-md-8">
-                    <div
-                      style={{ marginTop: '-0.5rem' }}
-                      className="row d-flex flex-row align-items-center p-1 justify-content-center"
-                    >
-                      <h3 style={{ fontSize: '2rem' }}>Pay for Extra Load</h3>
-                    </div>
-                    <div className="row d-flex mt-5 flex-row justify-content-md-start">
-
-                      <div style={{ marginTop: '2rem', width: '100%' }}>
-                        <h6>Add Extra Load in LBS from 10 to 50lbs</h6>
-                        <ButtonGroup
-                          style={{ marginTop: "2rem" }}
-                          size="small"
-                          aria-label="small outlined button group"
-                        >
-                          <Button onClick={() => lbsIncrement()}>+</Button>
-                          <Button>{lbsCount}</Button>
-                          <Button onClick={() => lbsDecrement()}>-</Button>
-                        </ButtonGroup>
-                      </div>
-
-                    </div>
-                    <div className="contaienr-fluid mt-4" >
-
-                      <Elements stripe={stripePromise}>
-                        <Paynow
-                          onlyTip={true}
-                          tipPrice={parseFloat(lbsCount)}
-                        />
-                      </Elements>
-                    </div>
-                  </div> : null
-              }
-              {
-                showPersonal == 'day' ?
-                  // subscription plan start;
-                  <div className="d-flex flex-column justify-content-start col-md-8">
-                    <div
-                      style={{ marginTop: '-0.5rem' }}
-                      className="row d-flex flex-row align-items-center p-1 justify-content-center"
-                    >
-                      <h3 style={{ fontSize: '2rem' }}>Pay for Extra Load</h3>
-                    </div>
-                    <div className="row d-flex mt-5 flex-row justify-content-md-start">
-
-                      <div style={{ marginTop: '2rem', width: '100%' }}>
-                        <div
-                          className="row d-flex justify-content-center align-items-center"
-                          style={{ marginTop: '1.4rem' }}
-                        >
-                          <FormControl
-                            variant="outlined"
-                            className={classes.formControl}
-                            style={{ width: '60%' }}
-                          >
-                            <InputLabel id="demo-simple-select-outlined-label">
-                              Select Day
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              value={daysDrop.value}
-                              onChange={(e) => dropPickupChange(e.target.value)}
-                              label="Status"
-                            >
-                              {daysDrop.dropItems.map((drop, i) => (
-                                <MenuItem key={i} value={drop.value}>
-                                  {drop.label}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                        </div>
-                      </div>
-
-                    </div>
-                    <div className="contaienr-fluid mt-4" >
-                      <Button
-                        onClick={() => handlePickuDay()}
-                        style={{
-                          backgroundColor: Colors.secondary,
-                          color: Colors.white,
-                        }}
-                        className="btn btn-primary py-md-2 px-md-4 mt-4"
-                        variant="contained"
+              {showPersonal == 'subscription' ? (
+                // subscription plan start;
+                <div className="d-flex flex-column justify-content-start col-md-8">
+                  <div
+                    style={{ marginTop: '-0.5rem' }}
+                    className="row d-flex flex-row align-items-center p-1 justify-content-center"
+                  >
+                    <h3 style={{ fontSize: '2rem' }}>My Subscriptions</h3>
+                  </div>
+                  {loading ? (
+                    <div className="container-fluid">
+                      <div
+                        className="d-flex justify-content-center align-items-center"
+                        style={{ height: '30rem' }}
                       >
-                        Update Day
-                      </Button>
-
+                        <CircularProgress disableShrink />
+                      </div>
                     </div>
-                  </div> : null
-              }
+                  ) : (
+                    <div className="row d-flex flex-row justify-content-md-start">
+                      {subscription.map((sub, index) => (
+                        <div
+                          key={index}
+                          className="col-md-6 d-flex justify-content-center"
+                          style={{
+                            marginTop: '2rem',
+                            flexDirection: 'column',
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <div style={{ width: '100%' }}>
+                            <SubscriptionCard
+                              showCancelBtn={true}
+                              packageName={sub.packageName}
+                              price={sub.price}
+                              cancelSub={() =>
+                                handleCancelSub(sub.userSubId, sub.docId)
+                              }
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : null}
+
+              {showPersonal == 'tip' ? (
+                // subscription plan start;
+                <div className="d-flex flex-column justify-content-start col-md-8">
+                  <div
+                    style={{ marginTop: '-0.5rem' }}
+                    className="row d-flex flex-row align-items-center p-1 justify-content-center"
+                  >
+                    <h3 style={{ fontSize: '2rem' }}>Pay Tip</h3>
+                  </div>
+                  <div className="row d-flex mt-5 flex-row justify-content-md-start">
+                    <div style={{ marginTop: '2rem', width: '100%' }}>
+                      <MyTextFeild
+                        width={'60%'}
+                        label={
+                          'Pay Tip (In Dollar), Enter Only Number For example 5, 10...'
+                        }
+                        value={tip}
+                        onChange={(value) => setTip(value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="contaienr-fluid mt-4">
+                    <Elements stripe={stripePromise}>
+                      <Paynow
+                        onlyTip={true}
+                        tipPrice={parseFloat(tip.match(/(\d+)/))}
+                      />
+                    </Elements>
+                  </div>
+                </div>
+              ) : null}
+              {showPersonal == 'load' ? (
+                // subscription plan start;
+                <div className="d-flex flex-column justify-content-start col-md-8">
+                  <div
+                    style={{ marginTop: '-0.5rem' }}
+                    className="row d-flex flex-row align-items-center p-1 justify-content-center"
+                  >
+                    <h3 style={{ fontSize: '2rem' }}>Pay for Extra Load</h3>
+                  </div>
+                  <div className="row d-flex mt-5 flex-row justify-content-md-start">
+                    <div style={{ marginTop: '2rem', width: '100%' }}>
+                      <h6>Add Extra Load in LBS from 10 to 50lbs</h6>
+                      <ButtonGroup
+                        style={{ marginTop: '2rem' }}
+                        size="small"
+                        aria-label="small outlined button group"
+                      >
+                        <Button onClick={() => lbsIncrement()}>+</Button>
+                        <Button>{lbsCount}</Button>
+                        <Button onClick={() => lbsDecrement()}>-</Button>
+                      </ButtonGroup>
+                    </div>
+                  </div>
+                  <div className="contaienr-fluid mt-4">
+                    <Elements stripe={stripePromise}>
+                      <Paynow onlyTip={true} tipPrice={parseFloat(lbsCount)} />
+                    </Elements>
+                  </div>
+                </div>
+              ) : null}
+              {showPersonal == 'day' ? (
+                // subscription plan start;
+                <div className="d-flex flex-column justify-content-start col-md-8">
+                  <div
+                    style={{ marginTop: '-0.5rem' }}
+                    className="row d-flex flex-row align-items-center p-1 justify-content-center"
+                  >
+                    <h3 style={{ fontSize: '2rem' }}>
+                      Change Pickup Day / Time
+                    </h3>
+                  </div>
+                  <div className="row d-flex mt-5 flex-row justify-content-md-start">
+                    <div style={{ marginTop: '2rem', width: '100%' }}>
+                      <div
+                        className="row d-flex justify-content-center align-items-center"
+                        style={{ marginTop: '1.4rem' }}
+                      >
+                        <FormControl
+                          variant="outlined"
+                          className={classes.formControl}
+                          style={{ width: '60%' }}
+                        >
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Select Day
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            value={daysDrop.value}
+                            onChange={(e) => dropPickupChange(e.target.value)}
+                            label="Status"
+                          >
+                            {daysDrop.dropItems.map((drop, i) => (
+                              <MenuItem key={i} value={drop.value}>
+                                {drop.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="contaienr-fluid mt-4">
+                    <Button
+                      onClick={() => handlePickuDay()}
+                      style={{
+                        backgroundColor: Colors.secondary,
+                        color: Colors.white,
+                      }}
+                      className="btn btn-primary py-md-2 px-md-4 mt-4"
+                      variant="contained"
+                    >
+                      Update Day
+                    </Button>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

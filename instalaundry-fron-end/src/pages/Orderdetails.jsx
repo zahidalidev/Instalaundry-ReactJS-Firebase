@@ -248,7 +248,7 @@ export default function Orderdetails(props) {
               className="row d-flex justify-content-center align-items-center"
               style={{
                 color: Colors.secondary,
-                fontSize: '1.5rem',
+                fontSize: '2rem',
                 fontWeight: 'bold',
                 marginTop: '1rem',
               }}

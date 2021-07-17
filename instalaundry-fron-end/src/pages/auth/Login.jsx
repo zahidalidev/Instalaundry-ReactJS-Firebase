@@ -177,6 +177,26 @@ class Login extends Component {
                         </div>
                       </div>
                     </div>
+                    <div className="row d-flex justify-content-start align-items-start">
+                      <div className="col-12 d-flex justify-content-start align-items-start">
+                        <a
+                          className="loginButton"
+                          onClick={() => this.props.history.push('/register')}
+                          style={{
+                            backgroundColor: Colors.white,
+                            fontSize: '1rem',
+                            width: '14rem',
+                            color: Colors.secondary,
+                            cursor: 'pointer',
+                            marginRight: '3rem',
+                          }}
+                          variant="contained"
+                          color="primary"
+                        >
+                          Don't have an account ?
+                        </a>
+                      </div>
+                    </div>
                     <div
                       className="row d-flex justify-content-start align-items-start"
                       style={{ marginTop: '-1.5rem' }}

@@ -6,7 +6,10 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -101,7 +104,7 @@ export default function Checkout(props) {
     },
     {
       id: 2,
-      label: 'Town City',
+      label: 'City',
       value: '',
     },
     {
@@ -144,11 +147,11 @@ export default function Checkout(props) {
       value: '',
       dropItems: [
         {
-          label: 'Morning',
+          label: 'Morning (8-11)',
           value: 'morning',
         },
         {
-          label: 'Evening',
+          label: 'Evening (6-9)',
           value: 'evening',
         },
       ],
@@ -246,14 +249,14 @@ export default function Checkout(props) {
 
     for (const property in userInfo) {
       if (userInfo[property] === '') {
-        toast.error('Please fill all the value');
+        toast.error('Please fill the values');
         return;
       }
     }
 
     for (const property in pickupInof) {
       if (pickupInof[property] === '') {
-        toast.error('Please fill all the value');
+        toast.error('Please fill the values');
         return;
       }
     }
@@ -261,12 +264,11 @@ export default function Checkout(props) {
     pickupInof.companyName = pickupFeild[0].value;
     pickupInof.apartment = apartmentSuit;
 
-    setLoading(true)
+    setLoading(true);
     try {
       const currentUser = JSON.parse(localStorage.getItem('token'));
       if (!currentUser) {
-
-        setLoading(false)
+        setLoading(false);
         return;
       }
 
@@ -276,7 +278,7 @@ export default function Checkout(props) {
       pickupInof.userId = userId;
 
       const res = await updateUser(userId, userInfo);
-      console.log("res: ", res)
+      console.log('res: ', res);
       if (res) {
         const pickUpres = await addPickUpInfo(userId, pickupInof);
         if (pickUpres) {
@@ -305,7 +307,7 @@ export default function Checkout(props) {
     } catch (error) {
       toast.error('Something went wrong please try again3');
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   const lbsIncrement = () => {
@@ -537,26 +539,26 @@ export default function Checkout(props) {
       <div className="container-fluid" style={{ marginTop: '-4rem' }}>
         <div
           className="row d-flex justify-content-center align-items-center"
-          style={{ marginBottom: '5rem', marginTop: '2rem' }}
+          style={{ marginBottom: '5rem', marginTop: '4rem' }}
         >
-          {loading ?
+          {loading ? (
             <CircularProgress disableShrink />
-            :
+          ) : (
             <Button
               onClick={() => handleCheckout()}
               style={{
                 backgroundColor: Colors.secondary,
                 color: Colors.white,
-                height: '2.6rem',
-                width: '9rem',
+                height: '3rem',
+                width: '13rem',
                 borderRadius: '0.5rem',
               }}
               className="btn btn-primary py-md-3 px-md-2 mt-2"
               variant="contained"
             >
-              Checkout
+              Proceed To Payment
             </Button>
-          }
+          )}
         </div>
       </div>
     </>

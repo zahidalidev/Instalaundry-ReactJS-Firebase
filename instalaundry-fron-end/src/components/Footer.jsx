@@ -125,8 +125,8 @@ export default function Footer() {
                 fontSize: '0.9rem',
               }}
             >
-              <i class="fa fa-map-marker" aria-hidden="true"></i> 123 Street,
-              New York, USA
+              <i class="fa fa-map-marker" aria-hidden="true"></i> Lower Mainland
+              604 Laundary
             </p>
             <p
               style={{
@@ -135,7 +135,7 @@ export default function Footer() {
                 fontSize: '0.9rem',
               }}
             >
-              <i class="fa fa-phone" aria-hidden="true"></i> +012 345 67890
+              <i class="fa fa-phone" aria-hidden="true"></i> 604-528-6379
             </p>
             <p
               style={{
