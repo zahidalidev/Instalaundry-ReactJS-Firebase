@@ -1,5 +1,6 @@
 import { Colors } from '../config/Colors';
 import img1 from '../assets/img/about.jpg';
+import img2 from '../assets/img/about2.jpg';
 
 import CountUp from 'react-countup';
 
@@ -153,33 +154,20 @@ export default function About(props) {
             </div>
             <div className="col-lg-5">
               <div
-                className="d-flex flex-column align-items-center justify-content-center bg-secondary h-100 py-1 px-3"
+                className="d-flex flex-column align-items-center justify-content-center  h-100 py-1 px-3"
                 style={{
                   borderRadius: '2rem',
                 }}
               >
-                {/* <img
+                <img
                   className="img-fluid"
-                  className="sliderMainHeading"
-                  src={img1}
+                  src={img2}
                   style={{
                     borderRadius: '1.5rem',
                     width: '25rem',
                     marginTop: '7rem',
                   }}
-                ></img> */}
-                <i
-                  className="fa fa-5x fa-certificate  mb-5"
-                  style={{ color: '#ffc244' }}
-                ></i>
-                <h1
-                  className="display-100 text-white mb-3"
-                  style={{ textAlign: 'center' }}
-                >
-                  {/* <CountUp end={10} duration={12}></CountUp>+ */}Company
-                  Acheivemnts
-                </h1>
-                <h1 className="text-white m-0"> </h1>
+                ></img>
               </div>
             </div>
           </div>

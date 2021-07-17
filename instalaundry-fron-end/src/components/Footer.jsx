@@ -81,7 +81,7 @@ export default function Footer() {
             >
               Our vision and goal is to push the boundaries of traditional
               laundromat services and provide our customers with the ease of
-              staying home
+              staying home.
             </p>
             <div className="d-flex justify-content-start mt-4">
               <a
