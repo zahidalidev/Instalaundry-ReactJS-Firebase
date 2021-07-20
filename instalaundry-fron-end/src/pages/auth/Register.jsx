@@ -28,13 +28,20 @@ class Register extends Component {
       },
       {
         id: 2,
+        label: 'Full Address',
+        name: 'address',
+        type: 'email',
+        value: '',
+      },
+      {
+        id: 3,
         label: 'Password',
         name: 'password',
         type: 'password',
         value: '',
       },
       {
-        id: 3,
+        id: 4,
         label: 'Confirm Password',
         name: 'confirmPassword',
         type: 'password',
@@ -55,15 +62,16 @@ class Register extends Component {
     let loginFeilds = [...this.state.loginFeilds];
     let name = loginFeilds[0].value;
     let email = loginFeilds[1].value;
-    let password = loginFeilds[2].value;
-    let confirmPassword = loginFeilds[3].value;
+    let address = loginFeilds[2].value;
+    let password = loginFeilds[3].value;
+    let confirmPassword = loginFeilds[4].value;
 
     if (password !== confirmPassword) {
       toast.error('Password an Confirm password are not same !');
       return;
     }
 
-    if (name === '' || email === '' || password === '') {
+    if (name === '' || email === '' || password === '' || address === '') {
       toast.error('Please fill all the feilds');
       this.setState({ loading: false });
       return;
@@ -72,6 +80,7 @@ class Register extends Component {
     const body = {
       name,
       email,
+      address,
       password,
     };
 

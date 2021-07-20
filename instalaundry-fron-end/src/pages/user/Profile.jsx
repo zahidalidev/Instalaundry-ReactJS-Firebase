@@ -74,6 +74,10 @@ function Profile(props) {
       value: '',
     },
     {
+      title: 'Full Address',
+      value: '',
+    },
+    {
       title: 'Password',
       value: '',
     },
@@ -136,10 +140,12 @@ function Profile(props) {
       if (currentUser) {
         currentUser = JSON.parse(currentUser);
       }
+      console.log("cure: ", currentUser)
       tempInfo[0].value = currentUser.name;
       tempInfo[1].value = currentUser.email;
       tempInfo[2].value = currentUser.contactNumber;
-      tempInfo[3].value = currentUser.password;
+      tempInfo[3].value = currentUser.address;
+      tempInfo[4].value = currentUser.password;
       setCurrentUserId(currentUser.id);
       setUserinfo(tempInfo);
     } catch (error) {
@@ -164,7 +170,7 @@ function Profile(props) {
 
         setSubscription(res);
       }
-    } catch (error) {}
+    } catch (error) { }
     setLoading(false);
   };
 
@@ -178,11 +184,13 @@ function Profile(props) {
       name: userInfo[0].value,
       email: userInfo[1].value,
       contactNumber: userInfo[2].value,
-      password: userInfo[3].value,
+      address: userInfo[3].value,
+      password: userInfo[4].value,
     };
 
     try {
       await updateUser(currentUserId, body);
+      toast.success("User Info Updated")
     } catch (error) {
       console.log('user profile update errr: ', error);
     }
