@@ -203,7 +203,6 @@ function Profile(props) {
         let res = await cancelUserSub(id);
         await deleteSubscriptionPlan(docId);
         await userSubscriptions();
-        console.log(res);
       } catch (error) {
         console.log('sub cancel erro: ', error);
       }
@@ -337,6 +336,7 @@ function Profile(props) {
               {showPersonal == 'personal' ? (
                 <div
                   style={{
+                    overflow: "scroll",
                     border: '1px solid grey',
                     borderBottomRightRadius: 10,
                     borderTopRightRadius: 10,

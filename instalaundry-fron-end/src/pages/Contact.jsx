@@ -25,7 +25,7 @@ export default function Contact() {
       <div className="container-fluid py-5">
         <div className="row d-flex justify-content-center align-items-center">
           <div
-            className="col-6   justify-content-center align-items-center"
+            className="col-md-6 d-flex justify-content-center align-items-center"
             style={{ marginTop: '5rem' }}
           >
             <img
@@ -33,7 +33,7 @@ export default function Contact() {
               style={{ height: '23rem', marginLeft: '6rem' }}
             ></img>
           </div>
-          <div className="col-6 d-flex flex-column justify-content-center align-items-center">
+          <div className="col-md-6 d-flex flex-column justify-content-center align-items-center">
             <h1
               className="display-4 text-center mb-5"
               style={{ fontSize: '2.5rem' }}
