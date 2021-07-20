@@ -233,49 +233,52 @@ function MyAppbar(props) {
             </a>
           </>
         ) : (
-          <a
-            style={{
-              cursor: 'pointer',
-              color: logout ? Colors.primary : Colors.secondary,
-            }}
-            onClick={() => {
-              handleLogout();
-              setHome(false);
-              setAbout(false);
-              setFaq(false);
-              setPricing(false);
-              setContact(false);
-              setLogin(false);
-              setSignup(false);
-              setLogout(true);
-              setProfile(false);
-            }}
-            className="nav-item nav-link"
-          >
-            Logout
-          </a>
+          <>
+            <a
+              style={{
+                cursor: 'pointer',
+                color: logout ? Colors.primary : Colors.secondary,
+              }}
+              onClick={() => {
+                handleLogout();
+                setHome(false);
+                setAbout(false);
+                setFaq(false);
+                setPricing(false);
+                setContact(false);
+                setLogin(false);
+                setSignup(false);
+                setLogout(true);
+                setProfile(false);
+              }}
+              className="nav-item nav-link"
+            >
+              Logout
+            </a>
+            <a
+              style={{
+                cursor: 'pointer',
+                color: profile ? Colors.primary : null,
+              }}
+              onClick={() => {
+                history.push('/profile');
+                setHome(false);
+                setAbout(false);
+                setFaq(false);
+                setPricing(false);
+                setContact(false);
+                setLogin(false);
+                setSignup(false);
+                setLogout(false);
+                setProfile(true);
+              }}
+              className="nav-item nav-link"
+            >
+              Account
+            </a>
+          </>
         )}
-        <a
-          style={{
-            cursor: 'pointer',
-            color: profile ? Colors.primary : null,
-          }}
-          onClick={() => {
-            history.push('/profile');
-            setHome(false);
-            setAbout(false);
-            setFaq(false);
-            setPricing(false);
-            setContact(false);
-            setLogin(false);
-            setSignup(false);
-            setLogout(false);
-            setProfile(true);
-          }}
-          className="nav-item nav-link"
-        >
-          Profile
-        </a>
+
       </List>
     </div>
   );
@@ -521,49 +524,52 @@ function MyAppbar(props) {
                     </a>
                   </>
                 ) : (
-                  <a
-                    style={{
-                      cursor: 'pointer',
-                      color: logout ? Colors.primary : Colors.secondary,
-                    }}
-                    onClick={() => {
-                      handleLogout();
-                      setHome(false);
-                      setAbout(false);
-                      setFaq(false);
-                      setPricing(false);
-                      setContact(false);
-                      setLogin(false);
-                      setSignup(false);
-                      setLogout(true);
-                      setProfile(false);
-                    }}
-                    className="nav-item nav-link"
-                  >
-                    Logout
-                  </a>
+                  <>
+                    <a
+                      style={{
+                        cursor: 'pointer',
+                        color: logout ? Colors.primary : Colors.secondary,
+                      }}
+                      onClick={() => {
+                        handleLogout();
+                        setHome(false);
+                        setAbout(false);
+                        setFaq(false);
+                        setPricing(false);
+                        setContact(false);
+                        setLogin(false);
+                        setSignup(false);
+                        setLogout(true);
+                        setProfile(false);
+                      }}
+                      className="nav-item nav-link"
+                    >
+                      Logout
+                    </a>
+                    <a
+                      style={{
+                        cursor: 'pointer',
+                        color: profile ? Colors.primary : null,
+                      }}
+                      onClick={() => {
+                        history.push('/profile');
+                        setHome(false);
+                        setAbout(false);
+                        setFaq(false);
+                        setPricing(false);
+                        setContact(false);
+                        setLogin(false);
+                        setSignup(false);
+                        setLogout(false);
+                        setProfile(true);
+                      }}
+                      className="nav-item nav-link"
+                    >
+                      Account
+                    </a>
+                  </>
                 )}
-                <a
-                  style={{
-                    cursor: 'pointer',
-                    color: profile ? Colors.primary : null,
-                  }}
-                  onClick={() => {
-                    history.push('/profile');
-                    setHome(false);
-                    setAbout(false);
-                    setFaq(false);
-                    setPricing(false);
-                    setContact(false);
-                    setLogin(false);
-                    setSignup(false);
-                    setLogout(false);
-                    setProfile(true);
-                  }}
-                  className="nav-item nav-link"
-                >
-                  Account
-                </a>
+
               </div>
             </div>
           </nav>

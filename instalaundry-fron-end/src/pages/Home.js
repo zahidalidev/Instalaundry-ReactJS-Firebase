@@ -48,7 +48,7 @@ export default function Home() {
 
     let ava = false;
     postalCodes.map((item) => {
-      if (item.code === tempCode) {
+      if (item.code.toLowerCase() === tempCode.toLowerCase()) {
         ava = true;
       }
     });

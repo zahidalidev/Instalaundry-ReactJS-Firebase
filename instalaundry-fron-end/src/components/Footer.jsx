@@ -257,7 +257,7 @@ export default function Footer() {
                 </Button>
               </div>
               <div style={{ marginTop: '2rem' }}>
-                <p style={{ fontSize: '1rem' }}>
+                <p style={{ fontSize: '0.9rem' }}>
                   Connect with us on Android and IOS !
                 </p>
                 <div className="row">
