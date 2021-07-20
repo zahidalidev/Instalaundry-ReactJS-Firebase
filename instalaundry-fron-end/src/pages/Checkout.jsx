@@ -62,7 +62,7 @@ export default function Checkout(props) {
     {
       id: 0,
       label: 'Gender',
-      value: '',
+      value: 'male',
       dropItems: [
         {
           label: 'Male',
@@ -77,7 +77,7 @@ export default function Checkout(props) {
     {
       id: 1,
       label: 'Status',
-      value: '',
+      value: 'single',
       dropItems: [
         {
           label: 'Single',
@@ -359,7 +359,7 @@ export default function Checkout(props) {
           className="row  d-flex justify-content-center align-items-center"
           style={{ marginTop: '3rem' }}
         >
-          <div className="col-5 text-white " style={{ height: '30rem' }}>
+          <div className="col-7 text-white " style={{ height: '20rem' }}>
             {infoFeild.map((item, index) => (
               <div
                 key={index}
@@ -376,7 +376,7 @@ export default function Checkout(props) {
             ))}
           </div>
 
-          <div className="col-5  text-white " style={{ height: '30rem' }}>
+          <div hidden={true} className="col-1  text-white " style={{ height: '30rem' }}>
             {infoDropFeild.map((item, index) => (
               <div
                 style={{ marginTop: index === 0 ? '-0.4rem' : '1.5rem' }}
