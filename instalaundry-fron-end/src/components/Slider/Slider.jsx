@@ -27,13 +27,13 @@ function Slider(props) {
                 <div className="p-3" style={{ maxWidth: '900rem' }}>
                   <h4
                     className=" text-white text-uppercase mb-md-6"
-                    style={{ fontSize: '2.9rem' }}
+                    style={{ fontSize: '3.7vw' }}
                   >
                     Full Load of Laundry starting <br /> at $9.99/Week
                   </h4>
                   <h1
                     className=" display-3 text-white mb-md-4"
-                    style={{ fontSize: '2rem' }}
+                    style={{ fontSize: '3vw' }}
                   >
                     12 Hours service guarantee
                   </h1>

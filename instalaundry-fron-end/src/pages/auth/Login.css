@@ -39,8 +39,11 @@
 
 @media (max-width: 767px) {
   .loginContainer {
-    width: 100%;
+    width: 20rem;
     height: 600px;
+  }
+  .login-fluid{
+    padding: 1rem !important
   }
   .loginButton {
     width: 200px !important;
@@ -49,5 +52,8 @@
   .forgetButton {
     width: 200px !important;
     margin-left: 40px !important;
+  }
+  .register-responsive{
+    width: 20rem !important;
   }
 }

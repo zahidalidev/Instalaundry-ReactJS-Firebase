@@ -118,7 +118,7 @@ class Register extends Component {
         {/* Login start         */}
 
         <div
-          className="container-fluid"
+          className="container-fluid login-fluid"
           style={{
             backgroundImage: 'url(' + img1 + ')',
             backgroundSize: 'cover',
@@ -128,7 +128,7 @@ class Register extends Component {
         >
           <div className="container-fluid">
             <div
-              className="container loginContainer"
+              className="container loginContainer register-responsive "
               style={{ height: '50rem ', width: '38rem' }}
             >
               <div className="row" style={{ justifyContent: 'center' }}>

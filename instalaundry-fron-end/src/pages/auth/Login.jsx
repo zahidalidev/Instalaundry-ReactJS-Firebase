@@ -98,7 +98,7 @@ class Login extends Component {
             </div>
             {/* Login start         */}
             <div
-              className="container-fluid"
+              className="container-fluid login-fluid "
               style={{
                 backgroundImage: 'url(' + img1 + ')',
                 backgroundSize: 'cover',
@@ -107,17 +107,17 @@ class Login extends Component {
               }}
             >
               <div
-                className="container-fluid"
-                // style={{
-                //   position: 'absolute',
-                //   top: '21rem',
-                //   left: 0,
-                //   bottom: '100rem',
-                //   right: 0,
-                //   backgroundColor: 'black',
-                //   width: '100%',
-                //   height: '100%',
-                // }}
+                className="container-fluid align-items-center justify-content-center"
+              // style={{
+              //   position: 'absolute',
+              //   top: '21rem',
+              //   left: 0,
+              //   bottom: '100rem',
+              //   right: 0,
+              //   backgroundColor: 'black',
+              //   width: '100%',
+              //   height: '100%',
+              // }}
               >
                 {/* <img src={img1} style={{ width: '100%', height: '100%' }}></img> */}
                 <div className="container loginContainer">

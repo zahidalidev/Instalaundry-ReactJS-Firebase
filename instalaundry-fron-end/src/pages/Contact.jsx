@@ -30,7 +30,7 @@ export default function Contact() {
           >
             <img
               src={img1}
-              style={{ height: '23rem', marginLeft: '6rem' }}
+              style={{ width: "23rem" }}
             ></img>
           </div>
           <div className="col-md-6 d-flex flex-column justify-content-center align-items-center">
@@ -82,7 +82,7 @@ export default function Contact() {
                       ></i>
                     </div>
                     <h5 className="font-weight-medium m-0 mt-2">
-                      123 Street, New York, USA
+                      Lower mainland 604 laundary
                     </h5>
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export default function Contact() {
                       ></i>
                     </div>
                     <h5 className="font-weight-medium m-0 mt-2">
-                      +012 345 6789
+                      604-528-6379
                     </h5>
                   </div>
                 </div>
