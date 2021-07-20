@@ -248,12 +248,12 @@ export default function Orderdetails(props) {
               className="row d-flex justify-content-center align-items-center"
               style={{
                 color: Colors.secondary,
-                fontSize: '2rem',
+                fontSize: '3.5rem',
                 fontWeight: 'bold',
-                marginTop: '1rem',
+                marginTop: '-4rem',
               }}
             >
-              Have Coupon / Referral Code?
+              Coupon Code
             </div>
             <div
               className="row d-flex justify-content-center align-items-center"
@@ -263,7 +263,6 @@ export default function Orderdetails(props) {
                 marginTop: '1.5rem',
               }}
             >
-              (If you have a coupon or referral code, please apply it below)
             </div>
             <div
               className="row d-flex justify-content-center align-items-center"

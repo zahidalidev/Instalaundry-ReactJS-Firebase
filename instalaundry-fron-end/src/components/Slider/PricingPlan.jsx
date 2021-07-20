@@ -97,7 +97,7 @@ export default function PricingPlan() {
                         <i
                           className="fa fa-hand-o-right"
                           aria-hidden="true"
-                          style={{ marginLeft: '1rem' }}
+                          style={{ marginLeft: '2vw' }}
                         ></i>{' '}
                         Upto to {item.weight}
                       </p>
@@ -105,7 +105,7 @@ export default function PricingPlan() {
                         <i
                           className="fa fa-hand-o-right"
                           aria-hidden="true"
-                          style={{ marginLeft: '1rem' }}
+                          style={{ marginLeft: '2vw' }}
                         ></i>{' '}
                         {item.size}
                       </p>
@@ -113,7 +113,7 @@ export default function PricingPlan() {
                         <i
                           className="fa fa-hand-o-right"
                           aria-hidden="true"
-                          style={{ marginLeft: '1rem' }}
+                          style={{ marginLeft: '2vw' }}
                         ></i>{' '}
                         Cancel anytime
                       </p>

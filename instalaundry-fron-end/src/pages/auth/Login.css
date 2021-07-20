@@ -39,7 +39,7 @@
 
 @media (max-width: 767px) {
   .loginContainer {
-    width: 20rem;
+    width: 19rem;
     height: 600px;
   }
   .login-fluid{
@@ -54,6 +54,6 @@
     margin-left: 40px !important;
   }
   .register-responsive{
-    width: 20rem !important;
+    width: 19rem !important;
   }
 }

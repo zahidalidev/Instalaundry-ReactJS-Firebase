@@ -117,11 +117,30 @@ function Profile(props) {
       },
     ],
   });
+  const [newPickupTiming, setNewPickupTiming] = useState({
+    label: 'Pickup Day',
+    value: '',
+    dropItems: [
+      {
+        label: 'Morning (8-11)',
+        value: 'morning',
+      },
+      {
+        label: 'Evening (6-9)',
+        value: 'evening',
+      },
+    ],
+  });
 
   const dropPickupChange = (value) => {
     let tempDays = { ...daysDrop };
     tempDays.value = value;
     setDaysDrop(tempDays);
+  };
+  const dropTimeChange = (value) => {
+    let tempDays = { ...newPickupTiming };
+    tempDays.value = value;
+    setNewPickupTiming(tempDays);
   };
 
   const [subscription, setSubscription] = useState([]);
@@ -140,7 +159,6 @@ function Profile(props) {
       if (currentUser) {
         currentUser = JSON.parse(currentUser);
       }
-      console.log("cure: ", currentUser)
       tempInfo[0].value = currentUser.name;
       tempInfo[1].value = currentUser.email;
       tempInfo[2].value = currentUser.contactNumber;
@@ -215,7 +233,7 @@ function Profile(props) {
       toast.error('Please Select the Day');
     }
     try {
-      await updatPickupInfo(currentUserId, { pickupDay: newPickupDay });
+      await updatPickupInfo(currentUserId, { pickupDay: newPickupDay, timing: newPickupTiming.value });
     } catch (error) {
       console.log('Update day error: ', error);
     }
@@ -515,7 +533,7 @@ function Profile(props) {
                     className="row d-flex flex-row align-items-center p-1 justify-content-center"
                   >
                     <h3 style={{ fontSize: '2rem' }}>
-                      Change Pickup Day / Time
+                      Change Pickup Day {'&'} Time
                     </h3>
                   </div>
                   <div className="row d-flex mt-5 flex-row justify-content-md-start">
@@ -540,6 +558,33 @@ function Profile(props) {
                             label="Status"
                           >
                             {daysDrop.dropItems.map((drop, i) => (
+                              <MenuItem key={i} value={drop.value}>
+                                {drop.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </div>
+                      <div
+                        className="row d-flex justify-content-center align-items-center"
+                        style={{ marginTop: '1.4rem' }}
+                      >
+                        <FormControl
+                          variant="outlined"
+                          className={classes.formControl}
+                          style={{ width: '60%' }}
+                        >
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Select Time
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            value={newPickupTiming.value}
+                            onChange={(e) => dropTimeChange(e.target.value)}
+                            label="Status"
+                          >
+                            {newPickupTiming.dropItems.map((drop, i) => (
                               <MenuItem key={i} value={drop.value}>
                                 {drop.label}
                               </MenuItem>

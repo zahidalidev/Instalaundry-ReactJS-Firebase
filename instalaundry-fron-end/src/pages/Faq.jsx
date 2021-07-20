@@ -55,7 +55,7 @@ export default function Faq() {
         <div className={classes.root}>
           <div className="row">
             <div className="col-1"></div>
-            <div className="col-5">
+            <div className="col-md-5">
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -157,7 +157,7 @@ export default function Faq() {
                 </AccordionDetails>
               </Accordion>
             </div>
-            <div className="col-5">
+            <div className="col-md-5">
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}

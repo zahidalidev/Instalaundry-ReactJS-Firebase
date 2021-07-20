@@ -9,6 +9,8 @@ import { Colors } from './../config/Colors';
 
 import logo from '../assets/img/logo1.png';
 import candalogo from '../assets/img/canadian.png';
+import androidLogo from '../assets/img/google-play.png';
+import iosLogo from '../assets/img/app-store.png';
 // import Form from './common/Form';
 // import DefaultFormEmail from './common/DefaultFormEmail';
 import axios from 'axios';
@@ -257,20 +259,15 @@ export default function Footer() {
                 </Button>
               </div>
               <div style={{ marginTop: '2rem' }}>
-                <p style={{ fontSize: '0.9rem' }}>
-                  Connect with us on Android and IOS !
-                </p>
                 <div className="row">
-                  <div className="col-2" style={{ marginTop: '0.2rem' }}>
+                  <div className="col-6" style={{ marginTop: '0.2rem' }}>
                     <a style={{ cursor: 'pointer' }}>
-                      <AndroidTwoToneIcon
-                        style={{ fontSize: '2rem' }}
-                      ></AndroidTwoToneIcon>
+                      <img style={{ width: '8.5rem' }} src={androidLogo} />
                     </a>
                   </div>
-                  <div className="col-2">
+                  <div className="col-6">
                     <a style={{ cursor: 'pointer' }}>
-                      <AppleIcon style={{ fontSize: '2.3rem' }}></AppleIcon>
+                      <img style={{ width: '8.5rem' }} src={iosLogo} />
                     </a>
                   </div>
                 </div>

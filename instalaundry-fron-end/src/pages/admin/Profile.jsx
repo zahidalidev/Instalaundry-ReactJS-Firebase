@@ -182,7 +182,7 @@ function Profile(props) {
 
                             {showComponent === "information" ?
 
-                                <div style={{ border: "1px solid grey", borderBottomRightRadius: 10, borderTopRightRadius: 10, backgroundColor: Colors.white }} className="d-flex flex-column justify-content-start col-md-8" >
+                                <div style={{ overflow: "scroll", border: "1px solid grey", borderBottomRightRadius: 10, borderTopRightRadius: 10, backgroundColor: Colors.white }} className="d-flex flex-column justify-content-start col-md-8" >
                                     <div style={{ marginTop: "2rem" }} className="row d-flex flex-row align-items-center p-2 justify-content-center" >
                                         <h3 style={{ fontSize: "2rem" }} >Peronal Infomation</h3>
                                     </div>
@@ -253,7 +253,7 @@ function Profile(props) {
                                 showComponent === "users" ?
                                     <div className="d-flex flex-column justify-content-start col-md-8" >
                                         <div style={{ marginTop: "-0.5rem" }} className="row d-flex flex-row align-items-center p-1 justify-content-center" >
-                                            <h3 style={{ fontSize: "2rem" }} >All Subscriptions</h3>
+                                            <h3 style={{ fontSize: "2rem" }} >All Users</h3>
                                         </div>
                                         <div style={{ marginTop: "2rem", marginLeft: "2vw", height: "35rem", width: '100%' }} className="row d-flex flex-row justify-content-md-start" >
                                             <DataGrid rows={users} columns={userColumns} pageSize={8} checkboxSelection={false} />
