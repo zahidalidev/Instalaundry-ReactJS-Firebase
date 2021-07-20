@@ -48,7 +48,7 @@ function Testimonial(props) {
 
     {
       id: 2,
-      name: 'Jack',
+      name: 'Cloee',
 
       description:
         'This is the second time I am using instalaundry. Extremely happy with Instalaundry’s services. I was tired of wasting hours at the laundromat and am so glad I found Instalaundry. They are fast, efficient, and economical.',

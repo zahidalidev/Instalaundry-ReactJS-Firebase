@@ -12,11 +12,11 @@ export default function PricingPlan() {
   const getAllPlans = async () => {
     try {
       const res = await getPlans();
-      console.log(res)
+      console.log(res);
       setPlans(res);
     } catch (error) {
       console.log('Pricing Plans: ', error);
-      setPlans([])
+      setPlans([]);
     }
   };
 
@@ -27,28 +27,24 @@ export default function PricingPlan() {
   const handleSelectPlans = (planObj) => {
     try {
       let user = localStorage.getItem('token');
-      user = JSON.parse(user)
+      user = JSON.parse(user);
       if (user.email) {
-        history.push('/checkout', { planObj })
+        history.push('/checkout', { planObj });
         return;
       }
-      alert("login first")
-      history.push('/login')
+      alert('login first');
+      history.push('/login');
     } catch (error) {
-
-      history.push('/login')
-      alert("login first")
+      history.push('/login');
+      alert('login first');
     }
-  }
+  };
 
   return (
     <>
       <div className="container-fluid pt-5 pb-3">
         <div className="container">
-          <h6 className="text-secondary text-uppercase text-center font-weight-medium mb-3">
-            Our Pricing Plan
-          </h6>
-          <h1 className="display-4 text-center mb-5">The Best Price</h1>
+          <h1 className="display-4 text-center mb-5">Subscription Plans</h1>
           <div className="row">
             {plans.map((item, index) => (
               <div key={index} className="col-lg-4 mb-4 ">
@@ -57,7 +53,9 @@ export default function PricingPlan() {
                   style={{ borderRadius: '1rem', height: '35rem' }}
                 >
                   <div
-                    className={`d-inline-flex flex-column align-items-center justify-content-center ${index == 1 ? 'bg-primary' : 'bg-secondary'} rounded-circle shadow mt-2 mb-4`}
+                    className={`d-inline-flex flex-column align-items-center justify-content-center ${
+                      index == 1 ? 'bg-primary' : 'bg-secondary'
+                    } rounded-circle shadow mt-2 mb-4`}
                     style={{
                       width: '255px',
                       height: '250px',
@@ -108,12 +106,14 @@ export default function PricingPlan() {
                     </p>
                   </div>
                   <Button
-                    onClick={() => handleSelectPlans({
-                      id: item.id,
-                      planTitle: item.name + " plan",
-                      planStripeId: item.planStripeId,
-                      price: item.price
-                    })}
+                    onClick={() =>
+                      handleSelectPlans({
+                        id: item.id,
+                        planTitle: item.name + ' plan',
+                        planStripeId: item.planStripeId,
+                        price: item.price,
+                      })
+                    }
                     style={{
                       backgroundColor:
                         index === 1 ? Colors.secondary : Colors.primaryBlue,

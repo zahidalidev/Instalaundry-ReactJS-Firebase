@@ -4,17 +4,11 @@ import img1 from '../assets/img/contact.jpg';
 export default function Contact() {
   return (
     <>
-      <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-2 mb-5">
-        <div className="container py-1">
+      <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-5 mb-5">
+        <div className="container py-1" style={{ marginTop: '3rem' }}>
           <div className="row  align-items-center py-4">
             <div className="col-md-6 text-center text-md-left">
-              <h1
-                className="mb-4 mb-md-0 text-white"
-                className="sliderMainHeading"
-                style={{ fontSize: '2.5rem', marginTop: '6rem' }}
-              >
-                Contact Us
-              </h1>
+              <h1 className="mb-4 mb-md-0 text-white">Contact Us</h1>
             </div>
             <div className="col-md-6 text-center text-md-right">
               <div className="d-inline-flex align-items-center">

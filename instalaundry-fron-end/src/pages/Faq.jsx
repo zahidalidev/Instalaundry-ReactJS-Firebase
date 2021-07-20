@@ -22,17 +22,11 @@ export default function Faq() {
 
   return (
     <>
-      <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-2 mb-5">
-        <div className="container py-1">
+      <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-5 mb-5">
+        <div className="container py-1" style={{ marginTop: '3rem' }}>
           <div className="row align-items-center py-4">
             <div className="col-md-6 text-center text-md-left">
-              <h1
-                className="mb-4 mb-md-0 text-white"
-                className="sliderMainHeading"
-                style={{ fontSize: '2.5rem', marginTop: '6rem' }}
-              >
-                FAQ'S
-              </h1>
+              <h1 className="mb-4 mb-md-0 text-white">FAQ'S</h1>
             </div>
             <div className="col-md-6 text-center text-md-right">
               <div className="d-inline-flex align-items-center">
@@ -56,39 +50,12 @@ export default function Faq() {
       </h6>
       <div
         className="container-fluid"
-        style={{ marginBottom: '6rem', marginTop: '6rem' }}
+        style={{ marginBottom: '8rem', marginTop: '6rem' }}
       >
         <div className={classes.root}>
           <div className="row">
-            <div className="col-3"></div>
-            <div className="col-6">
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography
-                    className={classes.heading}
-                    style={{ fontSize: '1.2rem' }}
-                  >
-                    How does InstaLaundry work?
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    <p style={{ color: Colors.secondary, fontWeight: 'bold' }}>
-                      Ans:
-                    </p>{' '}
-                    Instalaundry is a subscription laundry service. We provide a
-                    professional full-service model to help our customers save
-                    time, stress, and inconvience. We do not subcontract any
-                    work to other people/companies in order to maintain our
-                    service standards. Every load is individually washed with
-                    machines.
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
+            <div className="col-1"></div>
+            <div className="col-5">
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -166,7 +133,6 @@ export default function Faq() {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
-
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -190,6 +156,8 @@ export default function Faq() {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
+            </div>
+            <div className="col-5">
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -265,6 +233,7 @@ export default function Faq() {
                 </AccordionDetails>
               </Accordion>
             </div>
+            <div className="col-1"></div>
           </div>
         </div>
       </div>

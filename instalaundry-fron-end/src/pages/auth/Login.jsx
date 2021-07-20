@@ -10,7 +10,6 @@ import img1 from '../../assets/img/2.jpg';
 import './Login.css';
 import { Colors } from '../../config/Colors';
 
-
 class Login extends Component {
   state = {
     loginFeilds: [
@@ -82,16 +81,10 @@ class Login extends Component {
         ) : (
           <div>
             <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-2">
-              <div className="container py-1">
+              <div className="container py-1" style={{ marginTop: '5rem' }}>
                 <div className="row align-items-center py-4">
                   <div className="col-md-6 text-center text-md-left">
-                    <h1
-                      className="mb-4 mb-md-0 text-white"
-                      className="sliderMainHeading"
-                      style={{ fontSize: '2.5rem', marginTop: '6rem' }}
-                    >
-                      Login
-                    </h1>
+                    <h1 className="mb-4 mb-md-0 text-white">Login</h1>
                   </div>
                   <div className="col-md-6 text-center text-md-right">
                     <div className="d-inline-flex align-items-center">
@@ -115,16 +108,16 @@ class Login extends Component {
             >
               <div
                 className="container-fluid"
-              // style={{
-              //   position: 'absolute',
-              //   top: '21rem',
-              //   left: 0,
-              //   bottom: '100rem',
-              //   right: 0,
-              //   backgroundColor: 'black',
-              //   width: '100%',
-              //   height: '100%',
-              // }}
+                // style={{
+                //   position: 'absolute',
+                //   top: '21rem',
+                //   left: 0,
+                //   bottom: '100rem',
+                //   right: 0,
+                //   backgroundColor: 'black',
+                //   width: '100%',
+                //   height: '100%',
+                // }}
               >
                 {/* <img src={img1} style={{ width: '100%', height: '100%' }}></img> */}
                 <div className="container loginContainer">
@@ -182,6 +175,26 @@ class Login extends Component {
                             Login
                           </Button>
                         </div>
+                      </div>
+                    </div>
+                    <div className="row d-flex justify-content-start align-items-start">
+                      <div className="col-12 d-flex justify-content-start align-items-start">
+                        <a
+                          className="loginButton"
+                          onClick={() => this.props.history.push('/register')}
+                          style={{
+                            backgroundColor: Colors.white,
+                            fontSize: '1rem',
+                            width: '14rem',
+                            color: Colors.secondary,
+                            cursor: 'pointer',
+                            marginRight: '3rem',
+                          }}
+                          variant="contained"
+                          color="primary"
+                        >
+                          Don't have an account ?
+                        </a>
                       </div>
                     </div>
                     <div
