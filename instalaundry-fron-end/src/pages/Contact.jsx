@@ -26,13 +26,13 @@ export default function Contact() {
         <div className="row d-flex justify-content-center align-items-center">
           <div
             className="col-md-6 d-flex justify-content-center align-items-center"
-            style={{ marginTop: "5rem" }}
+            style={{ marginTop: "-1rem" }}
           >
             <img src={img1} style={{ width: "23rem" }}></img>
           </div>
           <div className="col-md-6 d-flex flex-column justify-content-center align-items-center">
             <h1
-              className="display-4 text-center mb-5"
+              className="display-4 pt-5 text-center mb-5"
               style={{ fontSize: "2.5rem" }}
             >
               Have a Question?
@@ -53,11 +53,11 @@ export default function Contact() {
       </div>
       <h1
         className="display-4 text-center mb-5"
-        style={{ fontSize: "3rem", marginTop: "8rem" }}
+        style={{ fontSize: "3rem", marginTop: "1rem" }}
       >
         Contact Us
       </h1>
-      <div className="container-fluid py-5" style={{ marginBottom: "6rem" }}>
+      <div className="container-fluid py-5" style={{ marginBottom: "2rem" }}>
         <div className="container" style={{ maxWidth: "900px" }}>
           <div className="row">
             <div className="col-12">

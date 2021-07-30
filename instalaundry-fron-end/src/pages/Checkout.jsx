@@ -339,24 +339,13 @@ export default function Checkout(props) {
         </div>
       </div>
       {/* Contact Info Start */}
-      <div className="container-fluid" style={{ marginTop: "6rem" }}>
+      <div className="container-fluid" style={{ marginTop: "-1rem" }}>
         <div className="row p-4 d-flex justify-content-center align-items-center">
-          <div className="col"> </div>
-          <div
-            className="col-8 "
-            style={{
-              color: Colors.secondary,
-              fontSize: "3vw",
-              fontWeight: "bold",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Contact Information
-          </div>
+          <h1 className="display-6 text-center mb-5">Contact Information</h1>
         </div>
         <div
           className="row  d-flex justify-content-center align-items-center"
-          style={{ marginTop: "3rem" }}
+          style={{ marginTop: "-1rem" }}
         >
           <div className="col-7 text-white " style={{ height: "20rem" }}>
             {infoFeild.map((item, index) => (
@@ -437,22 +426,13 @@ export default function Checkout(props) {
       {/* Contact Info End */}
 
       {/* Personal Info Start */}
-      <div className="container-fluid" style={{ marginTop: "-6rem" }}>
+      <div className="container-fluid" style={{ marginTop: "-8rem" }}>
         <div className="row p-4 d-flex justify-content-center align-items-center">
-          <div
-            className="col-md-8 d-flex justify-content-center align-items-center"
-            style={{
-              color: Colors.secondary,
-              fontSize: "3vw",
-              fontWeight: "bold",
-            }}
-          >
-            Pick Up Information
-          </div>
+          <h1 className="display-6 text-center mb-5">Personal Information</h1>
         </div>
         <div
           className="row  d-flex justify-content-center align-items-center"
-          style={{ marginTop: "3rem" }}
+          style={{ marginTop: "-1rem" }}
         >
           <div className="col-5 text-white " style={{ height: "30rem" }}>
             {pickupFeild.map((item, index) => (
@@ -542,7 +522,7 @@ export default function Checkout(props) {
       <div className="container-fluid" style={{ marginTop: "-4rem" }}>
         <div
           className="row d-flex justify-content-center align-items-center"
-          style={{ marginBottom: "5rem", marginTop: "4rem" }}
+          style={{ marginBottom: "5rem", marginTop: "6rem" }}
         >
           {loading ? (
             <CircularProgress disableShrink />

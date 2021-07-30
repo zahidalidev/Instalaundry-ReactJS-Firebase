@@ -45,7 +45,7 @@ export default function PricingPlan() {
 
   return (
     <>
-      <div className="container-fluid pt-5 pb-3">
+      <div className="container-fluid  pb-3">
         <div className="container">
           <h1 className="display-4 text-center mb-5">Subscription Plans</h1>
           <div className="row">

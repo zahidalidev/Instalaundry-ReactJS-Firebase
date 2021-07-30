@@ -42,14 +42,14 @@ export default function Pricing() {
 
       <h1
         className="display-4 text-center mb-5"
-        style={{ fontSize: "3rem", marginTop: "2.5rem" }}
+        style={{ fontSize: "3rem", marginTop: "0.5rem" }}
       >
         Frequently Asked Questions
       </h1>
 
       <div
         className="container-fluid"
-        style={{ marginBottom: "8rem", marginTop: "6rem" }}
+        style={{ marginBottom: "5rem", marginTop: "4rem" }}
       >
         <div className={classes.root}>
           <div className="row">

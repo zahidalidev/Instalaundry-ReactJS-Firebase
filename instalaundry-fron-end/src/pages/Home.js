@@ -72,7 +72,7 @@ export default function Home() {
     <div>
       <Slider />
       <Suspense fallback={<div></div>}>
-        <div className="container-fluid" style={{ marginTop: '12rem' }}>
+        <div className="container-fluid" style={{ marginTop: '11rem' }}>
           <div className="row d-flex justify-content-center align-items-center">
             <div
               className="col-8 d-flex justify-content-center align-items-center"
@@ -80,6 +80,7 @@ export default function Home() {
                 color: Colors.secondary,
                 fontSize: '2.3vw',
                 fontWeight: 'bold',
+                marginTop:'-2rem'
               }}
             >
               Check if we are available in your area or not!

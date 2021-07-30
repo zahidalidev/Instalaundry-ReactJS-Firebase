@@ -25,9 +25,9 @@ export default function About(props) {
           </div>
         </div>
       )}
-      <div className="container-fluid py-5">
+      <div className="container-fluid ">
         <div className="container">
-          <div className="row align-items-center">
+          <div className="row d-flex  align-items-center justify-content-center">
             <div className="col-lg-5">
               <img
                 className="img-fluid"
@@ -111,7 +111,7 @@ export default function About(props) {
                 Our Features
               </h6> */}
               <h1 className="mb-4">Why Instalaundary</h1>
-              <p style={{ marginTop: '2.5rem' }}>
+              <p style={{ marginTop: '2.3rem' }}>
                 We are not a specialty dry cleaner, we are a simple laundry wash
                 and delivery service supporting every day families, couples, and
                 individuals. We have a team of professional staff who are always
@@ -165,7 +165,7 @@ export default function About(props) {
                   style={{
                     borderRadius: '1.5rem',
                     width: '25rem',
-                    marginTop: '7rem',
+                    marginTop: '2rem',
                   }}
                 ></img>
               </div>

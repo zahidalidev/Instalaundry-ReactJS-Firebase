@@ -41,7 +41,7 @@ export default function Faq() {
 
       <h1
         className="display-4 text-center mb-5"
-        style={{ fontSize: "3rem", marginTop: "6rem" }}
+        style={{ fontSize: "3rem", marginTop: "3rem" }}
       >
         Frequently Asked Questions
       </h1>
@@ -50,7 +50,7 @@ export default function Faq() {
       </h6> */}
       <div
         className="container-fluid"
-        style={{ marginBottom: "8rem", marginTop: "6rem" }}
+        style={{ marginBottom: "5rem", marginTop: "6rem" }}
       >
         <div className={classes.root}>
           <div className="row">

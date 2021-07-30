@@ -155,48 +155,37 @@ class Register extends Component {
                     </div>
                   ))}
 
-                  <div className="row d-flex flex-row align-items-start justify-content-start">
-                    <div className="col-md-4"></div>
-
-                    <div className="col-md-8 align-items-start justify-content-start">
-                      <div className="d-flex flex-row align-items-start justify-content-start">
-                        <Button
-                          className="loginButton"
-                          onClick={this.handSignUp}
-                          style={{
-                            backgroundColor: Colors.secondary,
-                          }}
-                          variant="contained"
-                          color="primary"
-                        >
-                          Sign Up
-                        </Button>
-                      </div>
+                  <div className="col-md-12 align-items-center justify-content-center">
+                    <div className="d-flex flex-row align-items-center justify-content-center">
+                      <Button
+                        className="loginButton"
+                        onClick={this.handSignUp}
+                        style={{
+                          backgroundColor: Colors.secondary,
+                        }}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Sign Up
+                      </Button>
                     </div>
                   </div>
-                  <div
-                    className="row d-flex flex-row align-items-start justify-content-start"
-                    style={{ marginTop: "1.5rem" }}
-                  >
-                    <div className="col-md-2"></div>
-                    <div className="col-md-1"></div>
-                    <div className="col-md-8 align-items-start justify-content-start">
-                      <div className="d-flex flex-row align-items-start justify-content-start">
-                        <Button
-                          className="loginButton"
-                          onClick={() => this.props.history.push("/login")}
-                          style={{
-                            backgroundColor: Colors.secondary,
-                            width: "15rem",
-                            fontSize: "0.76rem",
-                            marginBottom: "1.4rem",
-                          }}
-                          variant="contained"
-                          color="primary"
-                        >
-                          Already Have an Account ?
-                        </Button>
-                      </div>
+                  <div className="col-md-12 align-items-center justify-content-center">
+                    <div className="d-flex flex-row align-items-center justify-content-center">
+                      <Button
+                        className="loginButton"
+                        onClick={() => this.props.history.push("/login")}
+                        style={{
+                          fontSize: "0.72rem",
+                          backgroundColor: Colors.primary,
+                          color: "black",
+                          cursor: "pointer",
+                          marginTop: "1.5rem",
+                          width: "15rem",
+                        }}
+                      >
+                        Already Have an Account ?
+                      </Button>
                     </div>
                   </div>
                 </div>

@@ -167,6 +167,7 @@ class Login extends Component {
                             onClick={this.handleLogin}
                             style={{
                               backgroundColor: Colors.secondary,
+                              width: "12rem",
                               // marginLeft: 'rem !important',
                             }}
                             variant="contained"
@@ -176,48 +177,41 @@ class Login extends Component {
                           </Button>
                         </div>
                       </div>
-                    </div>
-                    <div className="row d-flex justify-content-start align-items-start">
-                      <div className="col-12 d-flex justify-content-start align-items-start">
-                        <a
-                          className="loginButton"
-                          onClick={() => this.props.history.push("/register")}
-                          style={{
-                            backgroundColor: Colors.white,
-                            fontSize: "1rem",
-                            width: "14rem",
-                            color: Colors.secondary,
-                            cursor: "pointer",
-                            marginRight: "3rem",
-                          }}
-                          variant="contained"
-                          color="primary"
-                        >
-                          Don't have an account ?
-                        </a>
+                      <div className="col-md-12 align-items-center justify-content-center">
+                        <div className="d-flex flex-row align-items-center justify-content-center">
+                          <Button
+                            className="loginButton"
+                            onClick={() => this.props.history.push("/register")}
+                            style={{
+                              fontSize: "0.75rem",
+                              backgroundColor: Colors.primary,
+                              color: "black",
+                              cursor: "pointer",
+                              marginTop: "1.5rem",
+                              width: "12rem",
+                            }}
+                          >
+                            Don't have an account ?
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      className="row d-flex justify-content-start align-items-start"
-                      style={{ marginTop: "-1.5rem" }}
-                    >
-                      <div className="col-10 d-flex justify-content-start align-items-start">
-                        <a
-                          className="loginButton"
-                          onClick={() => this.props.history.push("/forget")}
-                          style={{
-                            backgroundColor: Colors.white,
-                            fontSize: "1.1rem",
-                            width: "14rem",
-                            color: Colors.primary,
-                            cursor: "pointer",
-                            marginRight: "1.1rem",
-                          }}
-                          variant="contained"
-                          color="primary"
-                        >
-                          Forget Password?
-                        </a>
+                      <div className="col-md-12 align-items-center justify-content-center">
+                        <div className="d-flex flex-row align-items-center justify-content-center">
+                          <Button
+                            className="loginButton"
+                            onClick={() => this.props.history.push("/forget")}
+                            style={{
+                              fontSize: "0.75rem",
+                              backgroundColor: Colors.primary,
+                              color: "black",
+                              cursor: "pointer",
+                              width: "12rem",
+                              marginTop: "1.5rem",
+                            }}
+                          >
+                            Forget Password ?
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>

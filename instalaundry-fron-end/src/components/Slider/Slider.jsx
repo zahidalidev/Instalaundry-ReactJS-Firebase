@@ -27,7 +27,10 @@ function Slider(props) {
                 <div className="p-3" style={{ maxWidth: "900rem" }}>
                   <h4
                     className=" text-white text-uppercase mb-md-6"
-                    style={{ fontSize: "3.7vw", cursor: "pointer" }}
+                    style={{
+                      fontSize: "3.7vw",
+                      cursor: "pointer",
+                    }}
                   >
                     Full Load of Laundry starting <br /> at $9.99/Week
                   </h4>
