@@ -72,17 +72,17 @@ export default function Home() {
     <div>
       <Slider />
       <Suspense fallback={<div></div>}>
-        <div className="container-fluid" style={{ marginTop: '14rem' }}>
+        <div className="container-fluid" style={{ marginTop: '12rem' }}>
           <div className="row d-flex justify-content-center align-items-center">
             <div
               className="col-8 d-flex justify-content-center align-items-center"
               style={{
                 color: Colors.secondary,
-                fontSize: '1.5rem',
+                fontSize: '2.3vw',
                 fontWeight: 'bold',
               }}
             >
-              Check whether we are available in your area or not!
+              Check if we are available in your area or not!
             </div>
           </div>
           <div

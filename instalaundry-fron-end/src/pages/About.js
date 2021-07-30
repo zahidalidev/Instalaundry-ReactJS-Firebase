@@ -47,20 +47,20 @@ export default function About(props) {
                 We Are Quality Laundry Provider In Your City
               </h1>
               <h5 className="font-weight-medium font-italic mb-4">
-                InstaLaundry is a revolutionary, eco-friendly valet service
+                Instalaundry is a revolutionary, eco-friendly valet service
               </h5>
               <p className="mb-2">
                 A Quality Laundry Service Provider In The Community A locally
                 inspired and home grown business in British Columbia. Our vision
-                and goal is to push the boundaries of tr aditional laundromat
+                and goal is to push the boundaries of traditional laundromat
                 services. We want to take out the stress of carrying your
                 laundry outdoors and the time it takes to watch over your load
                 in a creaky fluorescent store. Making a trip to your local
-                laundromat is just not necessary. A t Instalaundry we offer a
+                laundromat is just not necessary. At Instalaundry we offer a
                 subscription based model to eliminate the need for families and
-                individuals to step out of th eir home. Our team consists of
+                individuals to step out of their home. Our team consists of
                 dedicated individuals working hard to ensure every item of
-                clothing is washed and fo lded back in your hamper then
+                clothing is washed and folded back in your hamper then
                 delivered to your doorstep.
               </p>
               <div className="row">
@@ -92,7 +92,7 @@ export default function About(props) {
                   <div className="d-flex align-items-center">
                     <i className="fa fa-check text-primary mr-2"></i>
                     <p className="text-secondary font-weight-medium m-0">
-                      100% Satisfaction Gguarantee
+                      100% Satisfaction Gguaranteed
                     </p>
                   </div>
                 </div>
@@ -115,11 +115,11 @@ export default function About(props) {
                 We are not a specialty dry cleaner, we are a simple laundry wash
                 and delivery service supporting every day families, couples, and
                 individuals. We have a team of professional staff who are always
-                ready to support you, whether it is th rough email, online chat
+                ready to support you, whether it is through email, online chat
                 or our direct phone line. We are starting in select
                 neighbourhoods to ensure we provide you with the best service,
                 check our location bar to see if we are in your neighbourhood or
-                drop us an email to let us kno w you're waiting for us! Simple
+                drop us an email to let us know you're waiting for us! Simple
                 Service, no hidden fees Professional Staff Instant Support
               </p>
               <div className="row">

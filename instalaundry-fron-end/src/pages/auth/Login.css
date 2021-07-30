@@ -42,18 +42,18 @@
     width: 19rem;
     height: 600px;
   }
-  .login-fluid{
-    padding: 1rem !important
+  .login-fluid {
+    padding: 1rem !important;
   }
   .loginButton {
     width: 200px !important;
-    margin-left: 40px !important;
+    /* margin-left: 40px !important; */
   }
   .forgetButton {
     width: 200px !important;
     margin-left: 40px !important;
   }
-  .register-responsive{
+  .register-responsive {
     width: 19rem !important;
   }
 }

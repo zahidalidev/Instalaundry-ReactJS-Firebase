@@ -1,11 +1,11 @@
-import Button from '@material-ui/core/Button';
-import img1 from '../assets/img/contact.jpg';
+import Button from "@material-ui/core/Button";
+import img1 from "../assets/img/contact.jpg";
 
 export default function Contact() {
   return (
     <>
       <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-5 mb-5">
-        <div className="container py-1" style={{ marginTop: '3rem' }}>
+        <div className="container py-1" style={{ marginTop: "3rem" }}>
           <div className="row  align-items-center py-4">
             <div className="col-md-6 text-center text-md-left">
               <h1 className="mb-4 mb-md-0 text-white">Contact Us</h1>
@@ -26,17 +26,14 @@ export default function Contact() {
         <div className="row d-flex justify-content-center align-items-center">
           <div
             className="col-md-6 d-flex justify-content-center align-items-center"
-            style={{ marginTop: '5rem' }}
+            style={{ marginTop: "5rem" }}
           >
-            <img
-              src={img1}
-              style={{ width: "23rem" }}
-            ></img>
+            <img src={img1} style={{ width: "23rem" }}></img>
           </div>
           <div className="col-md-6 d-flex flex-column justify-content-center align-items-center">
             <h1
               className="display-4 text-center mb-5"
-              style={{ fontSize: '2.5rem' }}
+              style={{ fontSize: "2.5rem" }}
             >
               Have a Question?
             </h1>
@@ -48,20 +45,20 @@ export default function Contact() {
             in your Browser Settings. If you are still having difficulty
             connecting, please give us a call at:
             <br />
-            <a href="">604-LAUNDRY </a>Alternatively check out our FAQ's for
-            commonly asked questions and answers or Email us at:
-            <a href="">support@instalaundry.ca</a>
+            <a>604-LAUNDRY </a>Alternatively check out our FAQ's for commonly
+            asked questions and answers or Email us at:
+            <a>support@instalaundry.ca</a>
           </div>
         </div>
       </div>
       <h1
         className="display-4 text-center mb-5"
-        style={{ fontSize: '3rem', marginTop: '8rem' }}
+        style={{ fontSize: "3rem", marginTop: "8rem" }}
       >
         Contact Us
       </h1>
-      <div className="container-fluid py-5" style={{ marginBottom: '6rem' }}>
-        <div className="container" style={{ maxWidth: '900px' }}>
+      <div className="container-fluid py-5" style={{ marginBottom: "6rem" }}>
+        <div className="container" style={{ maxWidth: "900px" }}>
           <div className="row">
             <div className="col-12">
               <div className="row">
@@ -70,19 +67,19 @@ export default function Contact() {
                     <div
                       className="d-inline-flex align-items-center justify-content-center bg-white border border-light shadow rounded-circle mb-4"
                       style={{
-                        width: '100px',
-                        height: '100px',
-                        borderWidth: '15px !important',
+                        width: "100px",
+                        height: "100px",
+                        borderWidth: "15px !important",
                       }}
                     >
                       <i
                         class="fa fa-map-marker"
                         aria-hidden="true"
-                        style={{ fontSize: '2.5rem', color: '#62c7ce' }}
+                        style={{ fontSize: "2.5rem", color: "#62c7ce" }}
                       ></i>
                     </div>
                     <h5 className="font-weight-medium m-0 mt-2">
-                      Lower mainland 604 laundary
+                      Lower Mainland Canada
                     </h5>
                   </div>
                 </div>
@@ -91,9 +88,9 @@ export default function Contact() {
                     <div
                       className="d-inline-flex align-items-center justify-content-center bg-white border border-light shadow rounded-circle mb-4"
                       style={{
-                        width: '100px',
-                        height: '100px',
-                        borderWidth: '15px !important',
+                        width: "100px",
+                        height: "100px",
+                        borderWidth: "15px !important",
                       }}
                     >
                       <i className="fa fa-2x fa-envelope-open text-secondary"></i>
@@ -108,20 +105,18 @@ export default function Contact() {
                     <div
                       className="d-inline-flex align-items-center justify-content-center bg-white border border-light shadow rounded-circle mb-4"
                       style={{
-                        width: '100px',
-                        height: '100px',
-                        borderWidth: '15px !important',
+                        width: "100px",
+                        height: "100px",
+                        borderWidth: "15px !important",
                       }}
                     >
                       <i
                         class="fa fa-phone"
                         aria-hidden="true"
-                        style={{ fontSize: '2.5rem', color: '#62c7ce' }}
+                        style={{ fontSize: "2.5rem", color: "#62c7ce" }}
                       ></i>
                     </div>
-                    <h5 className="font-weight-medium m-0 mt-2">
-                      604-528-6379
-                    </h5>
+                    <h5 className="font-weight-medium m-0 mt-2">604-LAUNDRY</h5>
                   </div>
                 </div>
               </div>
@@ -144,7 +139,7 @@ export default function Contact() {
                           placeholder="Your Name"
                           required="required"
                           data-validation-required-message="Please enter your name"
-                          style={{ borderRadius: '0.5rem', height: '2.7rem' }}
+                          style={{ borderRadius: "0.5rem", height: "2.7rem" }}
                         />
                         <p className="help-block text-danger"></p>
                       </div>
@@ -158,7 +153,7 @@ export default function Contact() {
                           placeholder="Your Email"
                           required="required"
                           data-validation-required-message="Please enter your email"
-                          style={{ borderRadius: '0.5rem' }}
+                          style={{ borderRadius: "0.5rem" }}
                         />
                         <p className="help-block text-danger"></p>
                       </div>
@@ -172,7 +167,7 @@ export default function Contact() {
                       placeholder="Subject"
                       required="required"
                       data-validation-required-message="Please enter a subject"
-                      style={{ borderRadius: '0.5rem', height: '2.7rem' }}
+                      style={{ borderRadius: "0.5rem", height: "2.7rem" }}
                     />
                     <p className="help-block text-danger"></p>
                   </div>
@@ -184,17 +179,17 @@ export default function Contact() {
                       placeholder="Message"
                       required="required"
                       data-validation-required-message="Please enter your message"
-                      style={{ borderRadius: '0.5rem', height: '12rem' }}
+                      style={{ borderRadius: "0.5rem", height: "12rem" }}
                     ></textarea>
                     <p className="help-block text-danger"></p>
                   </div>
                   <div>
                     <Button
                       style={{
-                        backgroundColor: '#194376',
-                        color: 'white',
+                        backgroundColor: "#194376",
+                        color: "white",
 
-                        borderRadius: '0.5rem',
+                        borderRadius: "0.5rem",
                       }}
                       className="btn btn-primary py-md-3 px-md-2 mt-2"
                       variant="contained"

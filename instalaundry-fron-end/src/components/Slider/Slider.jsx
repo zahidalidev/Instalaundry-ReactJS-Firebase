@@ -1,13 +1,13 @@
-import React, { useEffect, useState, Suspense } from 'react';
-import Button from '@material-ui/core/Button';
-import { useHistory } from 'react-router';
+import React, { useEffect, useState, Suspense } from "react";
+import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router";
 
-import './Slider.css';
-import { Colors } from '../../config/Colors';
-import img1 from '../../assets/img/carousel-1.jpg';
+import "./Slider.css";
+import { Colors } from "../../config/Colors";
+import img1 from "../../assets/img/carousel-1.jpg";
 
 // lazy component
-const MyInfo = React.lazy(() => import('../MyInfo'));
+const MyInfo = React.lazy(() => import("../MyInfo"));
 
 function Slider(props) {
   const history = useHistory();
@@ -24,22 +24,22 @@ function Slider(props) {
             <div className="carousel-item active">
               <img id="im" className="w-100 imgClass" src={img1} alt="Image" />
               <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                <div className="p-3" style={{ maxWidth: '900rem' }}>
+                <div className="p-3" style={{ maxWidth: "900rem" }}>
                   <h4
                     className=" text-white text-uppercase mb-md-6"
-                    style={{ fontSize: '3.7vw' }}
+                    style={{ fontSize: "3.7vw", cursor: "pointer" }}
                   >
                     Full Load of Laundry starting <br /> at $9.99/Week
                   </h4>
                   <h1
                     className=" display-3 text-white mb-md-4"
-                    style={{ fontSize: '3vw' }}
+                    style={{ fontSize: "3vw" }}
                   >
                     12 Hours service guarantee
                   </h1>
                   {/* <a className="btn btn-primary py-md-3 px-md-5 mt-2">GET STARTED</a> */}
                   <Button
-                    onClick={() => history.push('/pricing')}
+                    onClick={() => history.push("/pricing")}
                     style={{
                       backgroundColor: Colors.secondary,
                       color: Colors.white,
