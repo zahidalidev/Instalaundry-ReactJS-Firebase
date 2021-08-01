@@ -78,6 +78,18 @@ class Register extends Component {
       return;
     }
 
+    if (!email.includes("@")) {
+      toast.error("Please write a vaild email address !");
+      this.setState({ loading: false });
+      return;
+    }
+
+    if (address.includes("@")) {
+      toast.error("Address should not have @. Write a valid address !");
+      this.setState({ loading: false });
+      return;
+    }
+
     const body = {
       name,
       email,
