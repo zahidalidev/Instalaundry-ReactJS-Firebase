@@ -1,15 +1,15 @@
-import { Colors } from '../config/Colors';
-import img1 from '../assets/img/about.jpg';
-import img2 from '../assets/img/about2.jpg';
+import { Colors } from "../config/Colors";
+import img1 from "../assets/img/about.jpg";
+import img2 from "../assets/img/about2.jpg";
 
-import CountUp from 'react-countup';
+import CountUp from "react-countup";
 
 export default function About(props) {
   return (
     <>
       {props.removeHeader ? null : (
         <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-5 mb-5">
-          <div className="container py-1" style={{ marginTop: '3rem' }}>
+          <div className="container py-1" style={{ marginTop: "3rem" }}>
             <div className="row  align-items-center py-4">
               <div className="col-md-6 text-center text-md-left">
                 <h1 className="mb-6 mb-md-0 text-white">About Us</h1>
@@ -33,9 +33,9 @@ export default function About(props) {
                 className="img-fluid"
                 src={img1}
                 style={{
-                  borderRadius: '1.5rem',
-                  width: '25rem',
-                  marginTop: '2rem',
+                  borderRadius: "1.5rem",
+                  width: "25rem",
+                  marginTop: "2rem",
                 }}
               ></img>
             </div>
@@ -60,8 +60,8 @@ export default function About(props) {
                 subscription based model to eliminate the need for families and
                 individuals to step out of their home. Our team consists of
                 dedicated individuals working hard to ensure every item of
-                clothing is washed and folded back in your hamper then
-                delivered to your doorstep.
+                clothing is washed and folded back in your hamper then delivered
+                to your doorstep.
               </p>
               <div className="row">
                 <div className="col-sm-6 pt-3">
@@ -111,7 +111,7 @@ export default function About(props) {
                 Our Features
               </h6> */}
               <h1 className="mb-4">Why Instalaundary</h1>
-              <p style={{ marginTop: '2.3rem' }}>
+              <p style={{ marginTop: "2.3rem" }}>
                 We are not a specialty dry cleaner, we are a simple laundry wash
                 and delivery service supporting every day families, couples, and
                 individuals. We have a team of professional staff who are always
@@ -125,8 +125,8 @@ export default function About(props) {
               <div className="row">
                 <div className="col-sm-6 mb-4">
                   <h1 className="text-secondary" data-toggle="counter-up">
-                    <CountUp end={12} duration={20}></CountUp>{' '}
-                    <span style={{ fontSize: '1.5rem' }}>Years</span>
+                    <CountUp end={12} duration={20}></CountUp>{" "}
+                    <span style={{ fontSize: "1.5rem" }}>Years</span>
                   </h1>
 
                   <h5 className="font-weight-bold">Experience</h5>
@@ -156,16 +156,16 @@ export default function About(props) {
               <div
                 className="d-flex flex-column align-items-center justify-content-center  h-100 py-1 px-3"
                 style={{
-                  borderRadius: '2rem',
+                  borderRadius: "2rem",
                 }}
               >
                 <img
                   className="img-fluid"
                   src={img2}
                   style={{
-                    borderRadius: '1.5rem',
-                    width: '25rem',
-                    marginTop: '2rem',
+                    borderRadius: "1.5rem",
+                    width: "25rem",
+                    marginTop: "1rem",
                   }}
                 ></img>
               </div>

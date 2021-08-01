@@ -89,3 +89,14 @@
     }
   }
 }
+
+.text-uppercase {
+  color: white;
+  cursor: pointer;
+  font-size: 3.7vw;
+  transition: 1s;
+}
+
+.text-uppercase:hover {
+  font-size: 4.2vw;
+}

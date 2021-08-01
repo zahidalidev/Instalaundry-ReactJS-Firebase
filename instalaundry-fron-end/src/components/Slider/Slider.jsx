@@ -26,11 +26,13 @@ function Slider(props) {
               <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
                 <div className="p-3" style={{ maxWidth: "900rem" }}>
                   <h4
-                    className=" text-white text-uppercase mb-md-6"
-                    style={{
-                      fontSize: "3.7vw",
-                      cursor: "pointer",
-                    }}
+                    className="text-uppercase mb-md-6"
+                    // style={{
+                    //   cursor: "pointer",
+                    //   fontSize: "3.7vw",
+                    //   color: "white",
+                    //   transition: "2s",
+                    // }}
                   >
                     Full Load of Laundry starting <br /> at $9.99/Week
                   </h4>

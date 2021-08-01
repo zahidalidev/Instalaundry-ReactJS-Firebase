@@ -120,7 +120,7 @@ function Forget(props) {
             <div className="row" style={{ justifyContent: "center" }}>
               <h1
                 className="loginHeading"
-                style={{ color: Colors.secondary, marginTop: "7rem" }}
+                style={{ color: Colors.secondary, marginTop: "4rem" }}
               >
                 Forget Password
               </h1>
@@ -133,7 +133,7 @@ function Forget(props) {
                       variant="outlined"
                       size="medium"
                       onChange={(e) => setEmail(e.target.value)}
-                      style={{ marginBottom: "10rem" }}
+                      style={{ marginTop: "-7rem" }}
                     />
                   ) : null}
                   {showCodeInput == "2" ? (
@@ -143,7 +143,7 @@ function Forget(props) {
                       variant="outlined"
                       size="medium"
                       onChange={(e) => setConfirmCode(e.target.value)}
-                      style={{ marginBottom: "10rem" }}
+                      style={{ marginTop: "-7rem" }}
                     />
                   ) : null}
 
@@ -154,7 +154,7 @@ function Forget(props) {
                       variant="outlined"
                       size="medium"
                       onChange={(e) => setNewPassword(e.target.value)}
-                      style={{ marginBottom: "10rem" }}
+                      style={{ marginTop: "-8rem" }}
                     />
                   ) : null}
                 </div>
