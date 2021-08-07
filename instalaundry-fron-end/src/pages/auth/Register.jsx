@@ -98,9 +98,15 @@ class Register extends Component {
     };
 
     try {
-      await addUser(body);
+      let res = await addUser(body);
+      if (res) {
+        localStorage.setItem("token", JSON.stringify(res));
+        window.location.reload();
+      } else {
+        toast.error("User Login Error: Email or password in invalid ");
+      }
       toast.success("Reistration Successfull");
-      this.props.history.push("/login");
+      this.props.history.push("/");
     } catch (error) {
       toast.error("User Login Error: Email or password in invalid ");
     }

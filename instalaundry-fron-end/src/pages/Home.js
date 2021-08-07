@@ -1,4 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 // components
 import Slider from "../components/Slider/Slider";
@@ -16,6 +17,8 @@ const Services = React.lazy(() => import("../components/Services"));
 const Testimonial = React.lazy(() => import("../components/Testimonial"));
 
 export default function Home() {
+  const history = useHistory();
+
   const [show, setShow] = useState(false);
   const [code, setCode] = useState([]);
   const [postalCodes, setPostalCodes] = useState([]);
@@ -53,6 +56,12 @@ export default function Home() {
 
     if (ava) {
       toast.success("Congratulations we are available in you area");
+      let user = localStorage.getItem("token");
+      if (user) {
+        history.push("./pricing");
+      } else {
+        history.push("./register");
+      }
     } else {
       toast.error("Sorry we are not available in you area");
     }
