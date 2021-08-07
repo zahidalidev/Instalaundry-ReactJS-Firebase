@@ -38,9 +38,15 @@
 }
 
 @media (max-width: 767px) {
+  .mobMarginTop {
+    margin-top: 1rem !important;
+  }
   .loginContainer {
     width: 19rem;
     height: 600px;
+  }
+  .forget2Container {
+    margin-left: -0.7rem !important;
   }
   .login-fluid {
     padding: 1rem !important;

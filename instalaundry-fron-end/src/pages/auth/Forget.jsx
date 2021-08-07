@@ -116,7 +116,7 @@ function Forget(props) {
         }}
       >
         <div className="container-fluid">
-          <div className="container loginContainer">
+          <div className="container loginContainer forget2Container">
             <div className="row" style={{ justifyContent: "center" }}>
               <h1
                 className="loginHeading"

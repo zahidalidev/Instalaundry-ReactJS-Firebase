@@ -7,8 +7,6 @@ import Button from "@material-ui/core/Button";
 import { Colors } from "../config/Colors";
 import { getAllPostalCodes } from "../services/UserServices";
 import { toast } from "react-toastify";
-import { makeStyles } from "@material-ui/core/styles";
-import LinearProgress from "@material-ui/core/LinearProgress";
 
 // lazy pages
 const About = React.lazy(() => import("./About"));
@@ -87,8 +85,8 @@ export default function Home() {
                 Check if we are available in your area or not!
               </h1> */}
               <h1
-                className="display text-center mb-5"
-                style={{ fontSize: "2rem", marginTop: "8rem" }}
+                className="display text-center mb-5 mobMarginTop"
+                style={{ fontSize: "2rem", marginTop: "12rem" }}
               >
                 Check if we are available in your area or not!
               </h1>
