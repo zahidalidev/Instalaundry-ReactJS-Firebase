@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import AndroidTwoToneIcon from '@material-ui/icons/AndroidTwoTone';
-import AppleIcon from '@material-ui/icons/Apple';
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import AndroidTwoToneIcon from "@material-ui/icons/AndroidTwoTone";
+import AppleIcon from "@material-ui/icons/Apple";
 
 // config
-import { Colors } from './../config/Colors';
+import { Colors } from "./../config/Colors";
 
-import logo from '../assets/img/logo1.png';
-import candalogo from '../assets/img/canadian.png';
-import androidLogo from '../assets/img/google-play.png';
-import iosLogo from '../assets/img/app-store.png';
+import logo from "../assets/img/logo1.png";
+import candalogo from "../assets/img/canadian.png";
+import androidLogo from "../assets/img/google-play.png";
+import iosLogo from "../assets/img/app-store.png";
 // import Form from './common/Form';
 // import DefaultFormEmail from './common/DefaultFormEmail';
-import axios from 'axios';
+import axios from "axios";
 
 export default function Footer() {
   const history = useHistory();
@@ -22,7 +22,7 @@ export default function Footer() {
   const [email, setEmail] = useState({});
 
   const getCurrentUser = async () => {
-    const user = JSON.parse(localStorage.getItem('token'));
+    const user = JSON.parse(localStorage.getItem("token"));
     if (user) {
       setCurrentUser(user);
     } else {
@@ -36,9 +36,9 @@ export default function Footer() {
 
   const handleSubscribeEmail = async () => {
     var data = {
-      service_id: 'service_siowrj7',
-      template_id: 'template_0bvfsqc',
-      user_id: 'user_ef7lljg2cLfLEVyVsoysv',
+      service_id: "service_siowrj7",
+      template_id: "template_0bvfsqc",
+      user_id: "user_ef7lljg2cLfLEVyVsoysv",
       template_params: {
         message: `Customer Email: ${email}
         Customer Name: ${name}`,
@@ -47,17 +47,17 @@ export default function Footer() {
     };
     try {
       await axios.post(
-        'https://api.emailjs.com/api/v1.0/email/send',
+        "https://api.emailjs.com/api/v1.0/email/send",
         JSON.stringify(data),
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
-      alert('Subscribed');
+      alert("Subscribed");
     } catch (error) {
-      console.log('error: ', error);
+      console.log("error: ", error);
     }
   };
 
@@ -68,17 +68,17 @@ export default function Footer() {
           <div className="col-lg-3 col-md-6 mb-5">
             <a>
               <h1
-                style={{ marginTop: '-1rem' }}
+                style={{ marginTop: "-1rem" }}
                 className="text-secondary mb-3"
               >
-                <img style={{ width: '16rem' }} src={logo} />
+                <img style={{ width: "16rem" }} src={logo} />
               </h1>
             </a>
             <p
               style={{
-                fontFamily: 'Courier',
+                fontFamily: "Courier",
                 wordSpacing: -4,
-                fontSize: '0.9rem',
+                fontSize: "0.9rem",
               }}
             >
               Our vision and goal is to push the boundaries of traditional
@@ -88,7 +88,7 @@ export default function Footer() {
             <div className="d-flex justify-content-start mt-4">
               <a
                 target="_blank"
-                style={{ fontSize: '2.2rem' }}
+                style={{ fontSize: "2.2rem" }}
                 className="text-white px-3"
                 href="https://m.facebook.com/instalaundrycanada/"
               >
@@ -97,15 +97,15 @@ export default function Footer() {
 
               <a
                 target="_blank"
-                style={{ cursor: 'pointer', fontSize: '2.2rem' }}
+                style={{ cursor: "pointer", fontSize: "2.2rem" }}
                 className="text-white px-1"
                 href="http://instagram.com/instalaundrycanada"
               >
                 <i className="fab fa-instagram"></i>
               </a>
 
-              <a style={{ marginLeft: '2.2rem' }}>
-                <img style={{ width: '8.5rem' }} src={candalogo} />
+              <a style={{ marginLeft: "2.2rem" }}>
+                <img style={{ width: "8.5rem" }} src={candalogo} />
               </a>
             </div>
           </div>
@@ -113,37 +113,37 @@ export default function Footer() {
             <h4 className="text-white mb-4">Get In Touch</h4>
             <p
               style={{
-                fontFamily: 'Courier',
+                fontFamily: "Courier",
                 wordSpacing: -4,
-                fontSize: '0.9rem',
+                fontSize: "0.9rem",
               }}
             >
               You can contact us on the following platforms or links!
             </p>
             <p
               style={{
-                fontFamily: 'Courier',
+                fontFamily: "Courier",
                 wordSpacing: -4,
-                fontSize: '0.9rem',
+                fontSize: "0.9rem",
               }}
             >
               <i class="fa fa-map-marker" aria-hidden="true"></i> Lower Mainland
-              604 Laundary
+              Canada
             </p>
             <p
               style={{
-                fontFamily: 'Courier',
+                fontFamily: "Courier",
                 wordSpacing: -4,
-                fontSize: '0.9rem',
+                fontSize: "0.9rem",
               }}
             >
-              <i class="fa fa-phone" aria-hidden="true"></i> 604-528-6379
+              <i class="fa fa-phone" aria-hidden="true"></i> 604-LAUNDRY
             </p>
             <p
               style={{
-                fontFamily: 'Courier',
+                fontFamily: "Courier",
                 wordSpacing: -4,
-                fontSize: '0.9rem',
+                fontSize: "0.9rem",
               }}
             >
               <i className="fa fa-envelope mr-2"></i>support@instalaundry.ca
@@ -154,26 +154,26 @@ export default function Footer() {
             <div className="d-flex flex-column justify-content-start">
               <a
                 style={{
-                  fontFamily: 'Courier',
+                  fontFamily: "Courier",
                   wordSpacing: -4,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
+                  fontSize: "0.9rem",
+                  cursor: "pointer",
                 }}
                 className="text-white mb-2"
-                onClick={() => history.push('/home')}
+                onClick={() => history.push("/home")}
               >
                 <i className="fa fa-angle-right mr-2"></i>
                 Home
               </a>
               <a
                 style={{
-                  fontFamily: 'Courier',
+                  fontFamily: "Courier",
                   wordSpacing: -4,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
+                  fontSize: "0.9rem",
+                  cursor: "pointer",
                 }}
                 className="text-white mb-2"
-                onClick={() => history.push('/about')}
+                onClick={() => history.push("/about")}
               >
                 <i className="fa fa-angle-right mr-2"></i>
                 About Us
@@ -181,39 +181,39 @@ export default function Footer() {
 
               <a
                 style={{
-                  fontFamily: 'Courier',
+                  fontFamily: "Courier",
                   wordSpacing: -4,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
+                  fontSize: "0.9rem",
+                  cursor: "pointer",
                 }}
                 className="text-white mb-2"
-                onClick={() => history.push('/pricing')}
+                onClick={() => history.push("/pricing")}
               >
                 <i className="fa fa-angle-right mr-2"></i>
                 Pricing
               </a>
               <a
                 style={{
-                  fontFamily: 'Courier',
+                  fontFamily: "Courier",
                   wordSpacing: -4,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
+                  fontSize: "0.9rem",
+                  cursor: "pointer",
                 }}
                 className="text-white"
-                onClick={() => history.push('/contact')}
+                onClick={() => history.push("/contact")}
               >
                 <i className="fa fa-angle-right mr-2"></i>
                 Contact Us
               </a>
-              {currentUser.role === 'admin' ? (
+              {currentUser.role === "admin" ? (
                 <a
-                  onClick={() => history.push('/admin')}
+                  onClick={() => history.push("/admin")}
                   style={{
-                    marginTop: '0.6rem',
-                    fontFamily: 'Courier',
+                    marginTop: "0.6rem",
+                    fontFamily: "Courier",
                     wordSpacing: -4,
-                    fontSize: '0.9rem',
-                    cursor: 'pointer',
+                    fontSize: "0.9rem",
+                    cursor: "pointer",
                   }}
                   className="text-white"
                 >
@@ -232,7 +232,7 @@ export default function Footer() {
                   placeholder="Your Name"
                   required="required"
                   onChange={(e) => setName(e.target.value)}
-                  style={{ borderRadius: '0.5rem' }}
+                  style={{ borderRadius: "0.5rem" }}
                 />
               </div>
               <div className="form-group">
@@ -242,13 +242,13 @@ export default function Footer() {
                   placeholder="Your Email"
                   required="required"
                   onChange={(e) => setEmail(e.target.value)}
-                  style={{ borderRadius: '0.5rem' }}
+                  style={{ borderRadius: "0.5rem" }}
                 />
               </div>
               <div>
                 <Button
                   style={{
-                    backgroundColor: '#1a1a1a',
+                    backgroundColor: "#1a1a1a",
                     color: Colors.white,
                   }}
                   className="btn btn-primary py-md-2 px-md-4 mt-2"
@@ -258,16 +258,16 @@ export default function Footer() {
                   Submitt Now
                 </Button>
               </div>
-              <div style={{ marginTop: '2rem' }}>
+              <div style={{ marginTop: "2rem" }}>
                 <div className="row">
-                  <div className="col-6" style={{ marginTop: '0.2rem' }}>
-                    <a style={{ cursor: 'pointer' }}>
-                      <img style={{ width: '8.5rem' }} src={androidLogo} />
+                  <div className="col-6" style={{ marginTop: "0.2rem" }}>
+                    <a style={{ cursor: "pointer" }}>
+                      <img style={{ width: "8.5rem" }} src={androidLogo} />
                     </a>
                   </div>
                   <div className="col-6">
-                    <a style={{ cursor: 'pointer' }}>
-                      <img style={{ width: '8.5rem' }} src={iosLogo} />
+                    <a style={{ cursor: "pointer" }}>
+                      <img style={{ width: "8.5rem" }} src={iosLogo} />
                     </a>
                   </div>
                 </div>

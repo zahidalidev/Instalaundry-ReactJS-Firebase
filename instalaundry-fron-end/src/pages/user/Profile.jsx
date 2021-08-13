@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import { makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import React, { useState, useEffect } from "react";
+import Button from "@material-ui/core/Button";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-import Paynow from '../../components/client/Paynow';
-import Breadcrumbs from '../../components/common/Breadcrumbs';
-import MyTextFeild from '../../components/common/MyTextFeild';
-import SubscriptionCard from '../../components/SubscriptionCard';
+import Paynow from "../../components/client/Paynow";
+import Breadcrumbs from "../../components/common/Breadcrumbs";
+import MyTextFeild from "../../components/common/MyTextFeild";
+import SubscriptionCard from "../../components/SubscriptionCard";
 
 // config
-import { Colors } from '../../config/Colors';
+import { Colors } from "../../config/Colors";
 import {
   getAllUserSubscriptions,
   updateUser,
   deleteSubscriptionPlan,
   updatPickupInfo,
-} from '../../services/UserServices';
-import { getPlans } from '../../services/PricingServices';
-import { cancelUserSub } from '../../services/OrderServices';
-import configObj from '../../config/config.json';
-import { toast } from 'react-toastify';
+} from "../../services/UserServices";
+import { getPlans } from "../../services/PricingServices";
+import { cancelUserSub } from "../../services/OrderServices";
+import configObj from "../../config/config.json";
+import { toast } from "react-toastify";
 
 const stripePromise = loadStripe(configObj.stripPublicId);
 
@@ -42,9 +42,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile(props) {
   const classes = useStyles();
-  const [showPersonal, setShowPersonal] = useState('personal');
-  const [currentUserId, setCurrentUserId] = useState('');
-  const [tip, setTip] = useState('');
+  const [showPersonal, setShowPersonal] = useState("personal");
+  const [currentUserId, setCurrentUserId] = useState("");
+  const [tip, setTip] = useState("");
   const [lbsCount, setLbsCount] = useState(10);
   const [loading, setLoading] = useState(false);
 
@@ -62,72 +62,72 @@ function Profile(props) {
 
   const [userInfo, setUserinfo] = useState([
     {
-      title: 'Full Name',
-      value: '',
+      title: "Full Name",
+      value: "",
     },
     {
-      title: 'Email',
-      value: '',
+      title: "Email",
+      value: "",
     },
     {
-      title: 'Contact Number',
-      value: '',
+      title: "Contact Number",
+      value: "",
     },
     {
-      title: 'Full Address',
-      value: '',
+      title: "Full Address",
+      value: "",
     },
     {
-      title: 'Password',
-      value: '',
+      title: "Password",
+      value: "",
     },
   ]);
 
   const [daysDrop, setDaysDrop] = useState({
-    label: 'Pickup Day',
-    value: '',
+    label: "Pickup Day",
+    value: "",
     dropItems: [
       {
-        label: 'Monday',
-        value: 'monday',
+        label: "Monday",
+        value: "monday",
       },
       {
-        label: 'Tuesday',
-        value: 'tuesday',
+        label: "Tuesday",
+        value: "tuesday",
       },
       {
-        label: 'Wednesday',
-        value: 'wednesday',
+        label: "Wednesday",
+        value: "wednesday",
       },
       {
-        label: 'Thursday',
-        value: 'thursday',
+        label: "Thursday",
+        value: "thursday",
       },
       {
-        label: 'Friday',
-        value: 'friday',
+        label: "Friday",
+        value: "friday",
       },
       {
-        label: 'Saturday',
-        value: 'saturday',
+        label: "Saturday",
+        value: "saturday",
       },
       {
-        label: 'Sunday',
-        value: 'sunday',
+        label: "Sunday",
+        value: "sunday",
       },
     ],
   });
   const [newPickupTiming, setNewPickupTiming] = useState({
-    label: 'Pickup Day',
-    value: '',
+    label: "Pickup Day",
+    value: "",
     dropItems: [
       {
-        label: 'Morning (8-11)',
-        value: 'morning',
+        label: "Morning (8-11)",
+        value: "morning",
       },
       {
-        label: 'Evening (6-9)',
-        value: 'evening',
+        label: "Evening (6-9)",
+        value: "evening",
       },
     ],
   });
@@ -155,7 +155,7 @@ function Profile(props) {
     const tempInfo = [...userInfo];
 
     try {
-      let currentUser = localStorage.getItem('token');
+      let currentUser = localStorage.getItem("token");
       if (currentUser) {
         currentUser = JSON.parse(currentUser);
       }
@@ -167,7 +167,7 @@ function Profile(props) {
       setCurrentUserId(currentUser.id);
       setUserinfo(tempInfo);
     } catch (error) {
-      console.log('Getting Info Error: ', error);
+      console.log("Getting Info Error: ", error);
     }
   };
 
@@ -188,7 +188,7 @@ function Profile(props) {
 
         setSubscription(res);
       }
-    } catch (error) { }
+    } catch (error) {}
     setLoading(false);
   };
 
@@ -208,34 +208,37 @@ function Profile(props) {
 
     try {
       await updateUser(currentUserId, body);
-      toast.success("User Info Updated")
+      toast.success("User Info Updated");
     } catch (error) {
-      console.log('user profile update errr: ', error);
+      console.log("user profile update errr: ", error);
     }
   };
 
   const handleCancelSub = async (id, docId) => {
-    let confrRes = window.confirm('Do you Want to cancel Subscription');
+    let confrRes = window.confirm("Do you Want to cancel Subscription");
     if (confrRes) {
       try {
         let res = await cancelUserSub(id);
         await deleteSubscriptionPlan(docId);
         await userSubscriptions();
       } catch (error) {
-        console.log('sub cancel erro: ', error);
+        console.log("sub cancel erro: ", error);
       }
     }
   };
 
   const handlePickuDay = async () => {
     let newPickupDay = daysDrop.value;
-    if (newPickupDay == '') {
-      toast.error('Please Select the Day');
+    if (newPickupDay == "") {
+      toast.error("Please Select the Day");
     }
     try {
-      await updatPickupInfo(currentUserId, { pickupDay: newPickupDay, timing: newPickupTiming.value });
+      await updatPickupInfo(currentUserId, {
+        pickupDay: newPickupDay,
+        timing: newPickupTiming.value,
+      });
     } catch (error) {
-      console.log('Update day error: ', error);
+      console.log("Update day error: ", error);
     }
   };
 
@@ -244,53 +247,53 @@ function Profile(props) {
       <Breadcrumbs
         title="Profile"
         currentPage="Profile"
-        previousPages={['Home']}
+        previousPages={["Home"]}
       />
-      <div className="container-fluid" style={{ marginTop: '-3rem' }}>
+      <div className="container-fluid" style={{ marginTop: "-6rem" }}>
         <div className="row d-flex flex-row text-center justify-content-md-start">
           <div
-            style={{ marginTop: '7rem', marginBottom: '5rem' }}
+            style={{ marginTop: "7rem", marginBottom: "2rem" }}
             className="justify-content-center align-items-center col-md-12"
           >
             <div className="row d-flex flex-row text-start text-white justify-content-center">
               <div
                 style={{
-                  border: '1px solid grey',
+                  border: "1px solid grey",
                   borderBottomLeftRadius: 10,
                   borderTopLeftRadius: 10,
                   backgroundColor: Colors.secondary,
-                  height: '40rem',
+                  height: "40rem",
                 }}
                 className="d-flex flex-column justify-content-start col-md-3"
               >
                 <div
-                  onClick={() => setShowPersonal('personal')}
+                  onClick={() => setShowPersonal("personal")}
                   style={{
                     borderTopLeftRadius: 10,
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     backgroundColor:
-                      showPersonal === 'personal' ? Colors.primaryTrans : null,
-                    borderBottom: '1px solid white',
+                      showPersonal === "personal" ? Colors.primaryTrans : null,
+                    borderBottom: "1px solid white",
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
                 >
-                  <p style={{ marginTop: '1rem' }} className="">
+                  <p style={{ marginTop: "1rem" }} className="">
                     Personal Information
                   </p>
                 </div>
 
                 <div
-                  onClick={() => setShowPersonal('day')}
+                  onClick={() => setShowPersonal("day")}
                   style={{
                     borderTopLeftRadius: 10,
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     backgroundColor:
-                      showPersonal === 'day' ? Colors.primaryTrans : null,
-                    borderBottom: '1px solid white',
+                      showPersonal === "day" ? Colors.primaryTrans : null,
+                    borderBottom: "1px solid white",
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
                 >
-                  <p style={{ marginTop: '1rem' }} className="">
+                  <p style={{ marginTop: "1rem" }} className="">
                     Change Pickup Day
                   </p>
                 </div>
@@ -298,64 +301,64 @@ function Profile(props) {
                 <div
                   onClick={() => {
                     userSubscriptions();
-                    setShowPersonal('subscription');
+                    setShowPersonal("subscription");
                   }}
                   style={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     backgroundColor:
-                      showPersonal == 'subscription'
+                      showPersonal == "subscription"
                         ? Colors.primaryTrans
                         : null,
-                    borderBottom: '1px solid white',
+                    borderBottom: "1px solid white",
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
                 >
-                  <p style={{ marginTop: '1rem' }} className="">
+                  <p style={{ marginTop: "1rem" }} className="">
                     My Subscriptions
                   </p>
                 </div>
 
                 <div
                   onClick={() => {
-                    setShowPersonal('tip');
+                    setShowPersonal("tip");
                   }}
                   style={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     backgroundColor:
-                      showPersonal == 'tip' ? Colors.primaryTrans : null,
-                    borderBottom: '1px solid white',
+                      showPersonal == "tip" ? Colors.primaryTrans : null,
+                    borderBottom: "1px solid white",
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
                 >
-                  <p style={{ marginTop: '1rem' }} className="">
+                  <p style={{ marginTop: "1rem" }} className="">
                     Pay Tip
                   </p>
                 </div>
 
                 <div
                   onClick={() => {
-                    setShowPersonal('load');
+                    setShowPersonal("load");
                   }}
                   style={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     backgroundColor:
-                      showPersonal == 'load' ? Colors.primaryTrans : null,
-                    borderBottom: '1px solid white',
+                      showPersonal == "load" ? Colors.primaryTrans : null,
+                    borderBottom: "1px solid white",
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
                 >
-                  <p style={{ marginTop: '1rem' }} className="">
+                  <p style={{ marginTop: "1rem" }} className="">
                     Want To Add Extra Load
                   </p>
                 </div>
               </div>
 
               {/* Personal Info start */}
-              {showPersonal == 'personal' ? (
+              {showPersonal == "personal" ? (
                 <div
                   style={{
                     overflow: "scroll",
-                    border: '1px solid grey',
+                    border: "1px solid grey",
                     borderBottomRightRadius: 10,
                     borderTopRightRadius: 10,
                     backgroundColor: Colors.white,
@@ -363,35 +366,35 @@ function Profile(props) {
                   className="d-flex flex-column justify-content-start col-md-8"
                 >
                   <div
-                    style={{ marginTop: '2rem' }}
+                    style={{ marginTop: "2rem" }}
                     className="row d-flex flex-row align-items-center p-2 justify-content-center"
                   >
-                    <h3 style={{ fontSize: '2rem' }}>Peronal Infomation</h3>
+                    <h3 style={{ fontSize: "2rem" }}>Peronal Infomation</h3>
                   </div>
 
                   <div className="row d-flex flex-row justify-content-md-center">
                     <div
                       className="col-md-12 d-flex justify-content-center align-self-center"
                       style={{
-                        flexDirection: 'column',
+                        flexDirection: "column",
                         height: 300,
                         flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
+                        justifyContent: "center",
+                        alignItems: "center",
                       }}
                     >
                       <div
-                        style={{ marginTop: '10rem', width: '100%' }}
+                        style={{ marginTop: "10rem", width: "100%" }}
                         className="row"
                       ></div>
 
                       {userInfo.map((user, index) => (
                         <div
                           key={index}
-                          style={{ marginTop: '2rem', width: '100%' }}
+                          style={{ marginTop: "2rem", width: "100%" }}
                         >
                           <MyTextFeild
-                            width={'78%'}
+                            width={"78%"}
                             label={user.title}
                             value={user.value}
                             onChange={(value) => handleUserInfo(index, value)}
@@ -415,20 +418,20 @@ function Profile(props) {
                 </div>
               ) : null}
 
-              {showPersonal == 'subscription' ? (
+              {showPersonal == "subscription" ? (
                 // subscription plan start;
                 <div className="d-flex flex-column justify-content-start col-md-8">
                   <div
-                    style={{ marginTop: '-0.5rem' }}
+                    style={{ marginTop: "3rem" }}
                     className="row d-flex flex-row align-items-center p-1 justify-content-center"
                   >
-                    <h3 style={{ fontSize: '2rem' }}>My Subscriptions</h3>
+                    <h3 style={{ fontSize: "2rem" }}>My Subscriptions</h3>
                   </div>
                   {loading ? (
                     <div className="container-fluid">
                       <div
                         className="d-flex justify-content-center align-items-center"
-                        style={{ height: '30rem' }}
+                        style={{ height: "30rem" }}
                       >
                         <CircularProgress disableShrink />
                       </div>
@@ -440,14 +443,14 @@ function Profile(props) {
                           key={index}
                           className="col-md-6 d-flex justify-content-center"
                           style={{
-                            marginTop: '2rem',
-                            flexDirection: 'column',
+                            marginTop: "2rem",
+                            flexDirection: "column",
                             flex: 1,
-                            justifyContent: 'center',
-                            alignItems: 'center',
+                            justifyContent: "center",
+                            alignItems: "center",
                           }}
                         >
-                          <div style={{ width: '100%' }}>
+                          <div style={{ width: "100%" }}>
                             <SubscriptionCard
                               showCancelBtn={true}
                               packageName={sub.packageName}
@@ -464,21 +467,21 @@ function Profile(props) {
                 </div>
               ) : null}
 
-              {showPersonal == 'tip' ? (
+              {showPersonal == "tip" ? (
                 // subscription plan start;
                 <div className="d-flex flex-column justify-content-start col-md-8">
                   <div
-                    style={{ marginTop: '-0.5rem' }}
+                    style={{ marginTop: "3rem" }}
                     className="row d-flex flex-row align-items-center p-1 justify-content-center"
                   >
-                    <h3 style={{ fontSize: '2rem' }}>Pay Tip</h3>
+                    <h3 style={{ fontSize: "2rem" }}>Pay Tip</h3>
                   </div>
                   <div className="row d-flex mt-5 flex-row justify-content-md-start">
-                    <div style={{ marginTop: '2rem', width: '100%' }}>
+                    <div style={{ marginTop: "0.5rem", width: "100%" }}>
                       <MyTextFeild
-                        width={'60%'}
+                        width={"60%"}
                         label={
-                          'Pay Tip (In Dollar), Enter Only Number For example 5, 10...'
+                          "Pay Tip (In Dollar), Enter Only Number For example 5, 10..."
                         }
                         value={tip}
                         onChange={(value) => setTip(value)}
@@ -495,20 +498,20 @@ function Profile(props) {
                   </div>
                 </div>
               ) : null}
-              {showPersonal == 'load' ? (
+              {showPersonal == "load" ? (
                 // subscription plan start;
                 <div className="d-flex flex-column justify-content-start col-md-8">
                   <div
-                    style={{ marginTop: '-0.5rem' }}
+                    style={{ marginTop: "3rem" }}
                     className="row d-flex flex-row align-items-center p-1 justify-content-center"
                   >
-                    <h3 style={{ fontSize: '2rem' }}>Pay for Extra Load</h3>
+                    <h3 style={{ fontSize: "2rem" }}>Pay for Extra Load</h3>
                   </div>
                   <div className="row d-flex mt-5 flex-row justify-content-md-start">
-                    <div style={{ marginTop: '2rem', width: '100%' }}>
+                    <div style={{ marginTop: "-0.7rem", width: "100%" }}>
                       <h6>Add Extra Load in LBS from 10 to 50lbs</h6>
                       <ButtonGroup
-                        style={{ marginTop: '2rem' }}
+                        style={{ marginTop: "2rem" }}
                         size="small"
                         aria-label="small outlined button group"
                       >
@@ -525,27 +528,27 @@ function Profile(props) {
                   </div>
                 </div>
               ) : null}
-              {showPersonal == 'day' ? (
+              {showPersonal == "day" ? (
                 // subscription plan start;
                 <div className="d-flex flex-column justify-content-start col-md-8">
                   <div
-                    style={{ marginTop: '-0.5rem' }}
+                    style={{ marginTop: "-0.5rem" }}
                     className="row d-flex flex-row align-items-center p-1 justify-content-center"
                   >
-                    <h3 style={{ fontSize: '2rem' }}>
-                      Change Pickup Day {'&'} Time
+                    <h3 style={{ fontSize: "2rem", marginTop: "3rem" }}>
+                      Change Pickup Day {"&"} Time
                     </h3>
                   </div>
                   <div className="row d-flex mt-5 flex-row justify-content-md-start">
-                    <div style={{ marginTop: '2rem', width: '100%' }}>
+                    <div style={{ marginTop: "-2rem", width: "100%" }}>
                       <div
                         className="row d-flex justify-content-center align-items-center"
-                        style={{ marginTop: '1.4rem' }}
+                        style={{ marginTop: "1.4rem" }}
                       >
                         <FormControl
                           variant="outlined"
                           className={classes.formControl}
-                          style={{ width: '60%' }}
+                          style={{ width: "60%" }}
                         >
                           <InputLabel id="demo-simple-select-outlined-label">
                             Select Day
@@ -567,12 +570,12 @@ function Profile(props) {
                       </div>
                       <div
                         className="row d-flex justify-content-center align-items-center"
-                        style={{ marginTop: '1.4rem' }}
+                        style={{ marginTop: "1.4rem" }}
                       >
                         <FormControl
                           variant="outlined"
                           className={classes.formControl}
-                          style={{ width: '60%' }}
+                          style={{ width: "60%" }}
                         >
                           <InputLabel id="demo-simple-select-outlined-label">
                             Select Time

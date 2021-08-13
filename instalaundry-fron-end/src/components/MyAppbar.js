@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button';
 
 import logo from '../assets/img/logo1.png';
 
@@ -501,10 +502,17 @@ function MyAppbar(props) {
                     >
                       Login
                     </a>
-                    <a
+                    
+                    <Button
                       style={{
                         cursor: 'pointer',
-                        color: signup ? Colors.primary : null,
+                        // 
+                        backgroundColor:Colors.secondary,
+                        color:Colors.white,
+                        height:'2.5rem',
+                        marginTop:'1.4rem',
+                        fontSize:'0.9rem',
+                        
                       }}
                       onClick={() => {
                         history.push('/register');
@@ -518,10 +526,10 @@ function MyAppbar(props) {
                         setLogout(false);
                         setProfile(false);
                       }}
-                      className="nav-item nav-link"
+                      
                     >
                       Sign Up
-                    </a>
+                    </Button>
                   </>
                 ) : (
                   <>

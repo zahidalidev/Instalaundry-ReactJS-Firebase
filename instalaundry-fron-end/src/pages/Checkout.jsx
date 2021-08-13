@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Grid from "@material-ui/core/Grid";
+import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-} from '@material-ui/pickers';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { useHistory } from 'react-router';
-import 'date-fns';
-import _ from 'lodash';
+} from "@material-ui/pickers";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { useHistory } from "react-router";
+import "date-fns";
+import _ from "lodash";
 
 //config
-import { Colors } from '../config/Colors';
-import MyTextFeild from '../components/common/MyTextFeild';
-import { toast } from 'react-toastify';
+import { Colors } from "../config/Colors";
+import MyTextFeild from "../components/common/MyTextFeild";
+import { toast } from "react-toastify";
 
 //Services
-import { updateUser, addPickUpInfo } from '../services/UserServices';
+import { updateUser, addPickUpInfo } from "../services/UserServices";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -48,44 +48,44 @@ export default function Checkout(props) {
   const [infoFeild, setInfoFeild] = useState([
     {
       id: 0,
-      label: 'Full Name',
-      value: '',
+      label: "Full Name",
+      value: "",
     },
     {
       id: 1,
-      label: 'Phone Number',
-      value: '',
+      label: "Phone Number",
+      value: "",
     },
   ]);
 
   const [infoDropFeild, setInfoDropFeild] = useState([
     {
       id: 0,
-      label: 'Gender',
-      value: 'male',
+      label: "Gender",
+      value: "male",
       dropItems: [
         {
-          label: 'Male',
-          value: 'male',
+          label: "Male",
+          value: "male",
         },
         {
-          label: 'Female',
-          value: 'female',
+          label: "Female",
+          value: "female",
         },
       ],
     },
     {
       id: 1,
-      label: 'Status',
-      value: 'single',
+      label: "Status",
+      value: "single",
       dropItems: [
         {
-          label: 'Single',
-          value: 'single',
+          label: "Single",
+          value: "single",
         },
         {
-          label: 'Married',
-          value: 'married',
+          label: "Married",
+          value: "married",
         },
       ],
     },
@@ -94,106 +94,106 @@ export default function Checkout(props) {
   const [pickupFeild, setPickupFeild] = useState([
     {
       id: 0,
-      label: 'Company Name (optional) ',
-      value: '',
+      label: "Company Name (optional) ",
+      value: "",
     },
     {
       id: 1,
-      label: 'Street Address',
-      value: '',
+      label: "Street Address",
+      value: "",
     },
     {
       id: 2,
-      label: 'City',
-      value: '',
+      label: "City",
+      value: "",
     },
     {
       id: 3,
-      label: 'Postal Code',
-      value: '',
+      label: "Postal Code",
+      value: "",
     },
   ]);
 
   const [pickupDropFeild, setPickupDropFeild] = useState([
     {
       id: 0,
-      label: 'Country',
-      value: '',
+      label: "Country",
+      value: "",
       dropItems: [
         {
-          label: 'Canada',
-          value: 'canada',
+          label: "Canada",
+          value: "canada",
         },
       ],
     },
     {
       id: 1,
-      label: 'Province',
-      value: '',
+      label: "Province",
+      value: "",
       dropItems: [
         {
-          label: 'British Columbia',
-          value: 'british columbia',
+          label: "British Columbia",
+          value: "british columbia",
         },
         {
-          label: 'Ontario',
-          value: 'ontario',
+          label: "Ontario",
+          value: "ontario",
         },
       ],
     },
     {
       id: 2,
-      label: 'Timing',
-      value: '',
+      label: "Timing",
+      value: "",
       dropItems: [
         {
-          label: 'Morning (8-11)',
-          value: 'morning',
+          label: "Morning (8-11)",
+          value: "morning",
         },
         {
-          label: 'Evening (6-9)',
-          value: 'evening',
+          label: "Evening (6-9)",
+          value: "evening",
         },
       ],
     },
     {
       id: 3,
-      label: 'Pickup Day',
-      value: '',
+      label: "Pickup Day",
+      value: "",
       dropItems: [
         {
-          label: 'Monday',
-          value: 'monday',
+          label: "Monday",
+          value: "monday",
         },
         {
-          label: 'Tuesday',
-          value: 'tuesday',
+          label: "Tuesday",
+          value: "tuesday",
         },
         {
-          label: 'Wednesday',
-          value: 'wednesday',
+          label: "Wednesday",
+          value: "wednesday",
         },
         {
-          label: 'Thursday',
-          value: 'thursday',
+          label: "Thursday",
+          value: "thursday",
         },
         {
-          label: 'Friday',
-          value: 'friday',
+          label: "Friday",
+          value: "friday",
         },
         {
-          label: 'Saturday',
-          value: 'saturday',
+          label: "Saturday",
+          value: "saturday",
         },
         {
-          label: 'Sunday',
-          value: 'sunday',
+          label: "Sunday",
+          value: "sunday",
         },
       ],
     },
   ]);
 
-  const [apartmentSuit, setApartmentSuit] = useState('');
+  const [apartmentSuit, setApartmentSuit] = useState("");
 
   const infoFieldChange = (index, value) => {
     let tempFeilds = [...infoFeild];
@@ -248,15 +248,15 @@ export default function Checkout(props) {
     };
 
     for (const property in userInfo) {
-      if (userInfo[property] === '') {
-        toast.error('Please fill the values');
+      if (userInfo[property] === "") {
+        toast.error("Please fill the values");
         return;
       }
     }
 
     for (const property in pickupInof) {
-      if (pickupInof[property] === '') {
-        toast.error('Please fill the values');
+      if (pickupInof[property] === "") {
+        toast.error("Please fill the values");
         return;
       }
     }
@@ -266,7 +266,7 @@ export default function Checkout(props) {
 
     setLoading(true);
     try {
-      const currentUser = JSON.parse(localStorage.getItem('token'));
+      const currentUser = JSON.parse(localStorage.getItem("token"));
       if (!currentUser) {
         setLoading(false);
         return;
@@ -278,7 +278,7 @@ export default function Checkout(props) {
       pickupInof.userId = userId;
 
       const res = await updateUser(userId, userInfo);
-      console.log('res: ', res);
+      console.log("res: ", res);
       if (res) {
         const pickUpres = await addPickUpInfo(userId, pickupInof);
         if (pickUpres) {
@@ -297,15 +297,15 @@ export default function Checkout(props) {
             lbsPrice: extraLoad ? lbsCount : 0,
           };
 
-          history.push('/orderdetails', { checkOutObj });
+          history.push("/orderdetails", { checkOutObj });
         } else {
-          toast.error('Something went wrong please try again1');
+          toast.error("Something went wrong please try again1");
         }
       } else {
-        toast.error('Something went wrong please try again2');
+        toast.error("Something went wrong please try again2");
       }
     } catch (error) {
-      toast.error('Something went wrong please try again3');
+      toast.error("Something went wrong please try again3");
     }
     setLoading(false);
   };
@@ -330,8 +330,7 @@ export default function Checkout(props) {
             <div className="col-md-6 text-center text-md-left">
               <h1
                 className="mb-4 mb-md-0 text-white"
-                className="sliderMainHeading"
-                style={{ fontSize: '2.5rem', marginTop: '6rem' }}
+                style={{ fontSize: "2.5rem", marginTop: "6rem" }}
               >
                 Checkout
               </h1>
@@ -340,30 +339,19 @@ export default function Checkout(props) {
         </div>
       </div>
       {/* Contact Info Start */}
-      <div className="container-fluid" style={{ marginTop: '6rem' }}>
+      <div className="container-fluid" style={{ marginTop: "-1rem" }}>
         <div className="row p-4 d-flex justify-content-center align-items-center">
-          <div className="col"> </div>
-          <div
-            className="col-8 "
-            style={{
-              color: Colors.secondary,
-              fontSize: '3vw',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            Contact Information
-          </div>
+          <h1 className="display-6 text-center mb-5">Contact Information</h1>
         </div>
         <div
           className="row  d-flex justify-content-center align-items-center"
-          style={{ marginTop: '3rem' }}
+          style={{ marginTop: "-1rem" }}
         >
-          <div className="col-7 text-white " style={{ height: '20rem' }}>
+          <div className="col-7 text-white " style={{ height: "20rem" }}>
             {infoFeild.map((item, index) => (
               <div
                 key={index}
-                style={{ marginTop: index === 0 ? null : '3rem' }}
+                style={{ marginTop: index === 0 ? null : "3rem" }}
                 className="row d-flex justify-content-center align-items-center"
               >
                 <MyTextFeild
@@ -376,16 +364,20 @@ export default function Checkout(props) {
             ))}
           </div>
 
-          <div hidden={true} className="col-1  text-white " style={{ height: '30rem' }}>
+          <div
+            hidden={true}
+            className="col-1  text-white "
+            style={{ height: "30rem" }}
+          >
             {infoDropFeild.map((item, index) => (
               <div
-                style={{ marginTop: index === 0 ? '-0.4rem' : '1.5rem' }}
+                style={{ marginTop: index === 0 ? "-0.4rem" : "1.5rem" }}
                 className="row d-flex justify-content-start align-items-start"
               >
                 <FormControl
                   variant="outlined"
                   className={classes.formControl}
-                  style={{ width: '78%' }}
+                  style={{ width: "78%" }}
                 >
                   <InputLabel id="demo-simple-select-outlined-label">
                     {item.label}
@@ -408,7 +400,7 @@ export default function Checkout(props) {
 
             <div
               className="row d-flex justify-content-start align-items-start"
-              style={{ marginTop: '1.5rem' }}
+              style={{ marginTop: "1.5rem" }}
             >
               <div className="col-5 d-flex align-items-start justify-content-start">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -421,7 +413,7 @@ export default function Checkout(props) {
                       value={selectedDate}
                       onChange={handleDateChange}
                       KeyboardButtonProps={{
-                        'aria-label': 'change date',
+                        "aria-label": "change date",
                       }}
                     />
                   </Grid>
@@ -434,27 +426,18 @@ export default function Checkout(props) {
       {/* Contact Info End */}
 
       {/* Personal Info Start */}
-      <div className="container-fluid" style={{ marginTop: '-6rem' }}>
+      <div className="container-fluid" style={{ marginTop: "-8rem" }}>
         <div className="row p-4 d-flex justify-content-center align-items-center">
-          <div
-            className="col-md-8 d-flex justify-content-center align-items-center"
-            style={{
-              color: Colors.secondary,
-              fontSize: '3vw',
-              fontWeight: 'bold',
-            }}
-          >
-            Pick Up Information
-          </div>
+          <h1 className="display-6 text-center mb-5">Personal Information</h1>
         </div>
         <div
           className="row  d-flex justify-content-center align-items-center"
-          style={{ marginTop: '3rem' }}
+          style={{ marginTop: "-1rem" }}
         >
-          <div className="col-5 text-white " style={{ height: '30rem' }}>
+          <div className="col-5 text-white " style={{ height: "30rem" }}>
             {pickupFeild.map((item, index) => (
               <div
-                style={{ marginTop: index === 0 ? null : '3rem' }}
+                style={{ marginTop: index === 0 ? null : "3rem" }}
                 className="row d-flex justify-content-center align-items-center"
               >
                 <MyTextFeild
@@ -467,11 +450,11 @@ export default function Checkout(props) {
             ))}
 
             <div
-              style={{ marginTop: '3rem' }}
+              style={{ marginTop: "3rem" }}
               className="row d-flex justify-content-center align-items-center"
             >
               <Button
-                style={{ marginRight: '0.5rem' }}
+                style={{ marginRight: "0.5rem" }}
                 onClick={() => showExtraLoad(!extraLoad)}
               >
                 Want to add Extra Load? (1lbs/$1)
@@ -489,17 +472,17 @@ export default function Checkout(props) {
             </div>
           </div>
 
-          <div className="col-5  text-white " style={{ height: '30rem' }}>
+          <div className="col-5  text-white " style={{ height: "30rem" }}>
             {pickupDropFeild.map((item, index) => (
               <div
                 key={index}
                 className="row d-flex justify-content-start align-items-start"
-                style={{ marginTop: index === 0 ? '-0.5rem' : '1.4rem' }}
+                style={{ marginTop: index === 0 ? "-0.5rem" : "1.4rem" }}
               >
                 <FormControl
                   variant="outlined"
                   className={classes.formControl}
-                  style={{ width: '78%' }}
+                  style={{ width: "78%" }}
                 >
                   <InputLabel id="demo-simple-select-outlined-label">
                     {item.label}
@@ -522,24 +505,24 @@ export default function Checkout(props) {
 
             <div
               className="row d-flex justify-content-start align-items-start"
-              style={{ marginTop: '2.5rem', marginLeft: '-0.3rem' }}
+              style={{ marginTop: "2.5rem", marginLeft: "-0.3rem" }}
             >
               <MyTextFeild
                 width="78%"
                 value={apartmentSuit}
                 label="Apartment, Suite, unit etc(Optional)"
                 onChange={(value) => setApartmentSuit(value)}
-                style={{ fontSize: '5rem' }}
+                style={{ fontSize: "5rem" }}
               ></MyTextFeild>
             </div>
           </div>
         </div>
       </div>
       {/* Personal Info End */}
-      <div className="container-fluid" style={{ marginTop: '-4rem' }}>
+      <div className="container-fluid" style={{ marginTop: "-4rem" }}>
         <div
           className="row d-flex justify-content-center align-items-center"
-          style={{ marginBottom: '5rem', marginTop: '4rem' }}
+          style={{ marginBottom: "5rem", marginTop: "6rem" }}
         >
           {loading ? (
             <CircularProgress disableShrink />
@@ -549,9 +532,9 @@ export default function Checkout(props) {
               style={{
                 backgroundColor: Colors.secondary,
                 color: Colors.white,
-                height: '3rem',
-                width: '13rem',
-                borderRadius: '0.5rem',
+                height: "3rem",
+                width: "13rem",
+                borderRadius: "0.5rem",
               }}
               className="btn btn-primary py-md-3 px-md-2 mt-2"
               variant="contained"

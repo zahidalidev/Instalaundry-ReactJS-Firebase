@@ -1,23 +1,24 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 // components
-import Slider from '../components/Slider/Slider';
-import MyTextFeild from '../components/common/MyTextFeild';
-import Button from '@material-ui/core/Button';
-import { Colors } from '../config/Colors';
-import { getAllPostalCodes } from '../services/UserServices';
-import { toast } from 'react-toastify';
-import { makeStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Slider from "../components/Slider/Slider";
+import MyTextFeild from "../components/common/MyTextFeild";
+import Button from "@material-ui/core/Button";
+import { Colors } from "../config/Colors";
+import { getAllPostalCodes } from "../services/UserServices";
+import { toast } from "react-toastify";
 
 // lazy pages
-const About = React.lazy(() => import('./About'));
+const About = React.lazy(() => import("./About"));
 
 // laxy components
-const Services = React.lazy(() => import('../components/Services'));
-const Testimonial = React.lazy(() => import('../components/Testimonial'));
+const Services = React.lazy(() => import("../components/Services"));
+const Testimonial = React.lazy(() => import("../components/Testimonial"));
 
 export default function Home() {
+  const history = useHistory();
+
   const [show, setShow] = useState(false);
   const [code, setCode] = useState([]);
   const [postalCodes, setPostalCodes] = useState([]);
@@ -31,15 +32,15 @@ export default function Home() {
         setPostalCodes([]);
       }
     } catch (error) {
-      console.log('getting all users error: ', error);
+      console.log("getting all users error: ", error);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     handlePostalCodes();
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -54,9 +55,15 @@ export default function Home() {
     });
 
     if (ava) {
-      toast.success('Congratulations we are available in you area');
+      toast.success("Congratulations we are available in you area");
+      let user = localStorage.getItem("token");
+      if (user) {
+        history.push("./pricing");
+      } else {
+        history.push("./register");
+      }
     } else {
-      toast.error('Sorry we are not available in you area');
+      toast.error("Sorry we are not available in you area");
     }
     console.log(postalCodes, tempCode);
   };
@@ -72,26 +79,35 @@ export default function Home() {
     <div>
       <Slider />
       <Suspense fallback={<div></div>}>
-        <div className="container-fluid" style={{ marginTop: '14rem' }}>
+        <div className="container-fluid">
           <div className="row d-flex justify-content-center align-items-center">
-            <div
-              className="col-8 d-flex justify-content-center align-items-center"
-              style={{
-                color: Colors.secondary,
-                fontSize: '1.5rem',
-                fontWeight: 'bold',
-              }}
-            >
-              Check whether we are available in your area or not!
+            <div className="col-8 d-flex justify-content-center align-items-center">
+              {/* <h1
+                className="display-4 pt-5 text-center mb-5"
+                style={{
+                  color: Colors.secondary,
+                  fontSize: "2.3vw",
+                  fontWeight: "bold",
+                  marginTop: "-5rem",
+                }}
+              >
+                Check if we are available in your area or not!
+              </h1> */}
+              <h1
+                className="display text-center mb-5 mobMarginTop"
+                style={{ fontSize: "2rem", marginTop: "12rem" }}
+              >
+                Check if we are available in your area or not!
+              </h1>
             </div>
           </div>
           <div
             className="row d-flex justify-content-center align-items-center"
-            style={{ marginTop: '2.5rem' }}
+            style={{ marginTop: "-1rem" }}
           >
             <div className="col-8 d-flex justify-content-center align-items-center">
               <MyTextFeild
-                width={'50%'}
+                width={"50%"}
                 label="Postal Code"
                 value={code}
                 onChange={(value) => setCode(value)}
@@ -100,7 +116,7 @@ export default function Home() {
           </div>
           <div
             className="row d-flex justify-content-center align-items-center"
-            style={{ marginTop: '2.5rem' }}
+            style={{ marginTop: "1.4rem" }}
           >
             <div className="col-8 d-flex justify-content-center align-items-center">
               <Button
