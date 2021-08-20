@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import _ from 'lodash';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import _ from "lodash";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import Button from "@material-ui/core/Button";
 
-import logo from '../assets/img/logo1.png';
+import logo from "../assets/img/logo1.png";
+import avatar from "../assets/img/avatar.jpeg";
 
 //config
-import { Colors } from './../config/Colors';
+import { Colors } from "./../config/Colors";
 
 const useStyles = makeStyles({
   list: {
     width: 250,
   },
   fullList: {
-    width: 'auto',
+    width: "auto",
   },
 });
 
@@ -46,8 +47,8 @@ function MyAppbar(props) {
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
     ) {
       return;
     }
@@ -56,7 +57,7 @@ function MyAppbar(props) {
   };
 
   const getCurrentUser = async () => {
-    const user = JSON.parse(localStorage.getItem('token'));
+    const user = JSON.parse(localStorage.getItem("token"));
     if (user) {
       setCurrentUser(user);
     } else {
@@ -69,27 +70,33 @@ function MyAppbar(props) {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     window.location.reload();
   };
 
   const list = (anchor) => (
     <div
       className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
       })}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
+        <img
+          style={{ width: "7rem", borderRadius: "5rem", marginLeft: "4rem" }}
+          src={avatar}
+        ></img>
+        <hr></hr>
+
         <a
           style={{
-            cursor: 'pointer',
+            cursor: "pointer",
             color: home ? Colors.primary : null,
           }}
           onClick={() => {
-            history.push('/home');
+            history.push("/home");
             setHome(true);
             setAbout(false);
             setFaq(false);
@@ -106,11 +113,11 @@ function MyAppbar(props) {
         </a>
         <a
           style={{
-            cursor: 'pointer',
+            cursor: "pointer",
             color: about ? Colors.primary : null,
           }}
           onClick={() => {
-            history.push('/about');
+            history.push("/about");
             setHome(false);
             setAbout(true);
             setFaq(false);
@@ -127,11 +134,11 @@ function MyAppbar(props) {
         </a>
         <a
           style={{
-            cursor: 'pointer',
+            cursor: "pointer",
             color: faq ? Colors.primary : null,
           }}
           onClick={() => {
-            history.push('/faq');
+            history.push("/faq");
             setHome(false);
             setAbout(false);
             setFaq(true);
@@ -148,11 +155,11 @@ function MyAppbar(props) {
         </a>
         <a
           style={{
-            cursor: 'pointer',
+            cursor: "pointer",
             color: pricing ? Colors.primary : null,
           }}
           onClick={() => {
-            history.push('/pricing');
+            history.push("/pricing");
             setHome(false);
             setAbout(false);
             setFaq(false);
@@ -169,11 +176,11 @@ function MyAppbar(props) {
         </a>
         <a
           style={{
-            cursor: 'pointer',
+            cursor: "pointer",
             color: contact ? Colors.primary : null,
           }}
           onClick={() => {
-            history.push('/contact');
+            history.push("/contact");
             setHome(false);
             setAbout(false);
             setFaq(false);
@@ -192,11 +199,11 @@ function MyAppbar(props) {
           <>
             <a
               style={{
-                cursor: 'pointer',
+                cursor: "pointer",
                 color: login ? Colors.primary : null,
               }}
               onClick={() => {
-                history.push('/login');
+                history.push("/login");
                 setHome(false);
                 setAbout(false);
                 setFaq(false);
@@ -213,11 +220,11 @@ function MyAppbar(props) {
             </a>
             <a
               style={{
-                cursor: 'pointer',
+                cursor: "pointer",
                 color: signup ? Colors.primary : null,
               }}
               onClick={() => {
-                history.push('/register');
+                history.push("/register");
                 setHome(false);
                 setAbout(false);
                 setFaq(false);
@@ -237,7 +244,7 @@ function MyAppbar(props) {
           <>
             <a
               style={{
-                cursor: 'pointer',
+                cursor: "pointer",
                 color: logout ? Colors.primary : Colors.secondary,
               }}
               onClick={() => {
@@ -258,11 +265,11 @@ function MyAppbar(props) {
             </a>
             <a
               style={{
-                cursor: 'pointer',
+                cursor: "pointer",
                 color: profile ? Colors.primary : null,
               }}
               onClick={() => {
-                history.push('/profile');
+                history.push("/profile");
                 setHome(false);
                 setAbout(false);
                 setFaq(false);
@@ -279,7 +286,6 @@ function MyAppbar(props) {
             </a>
           </>
         )}
-
       </List>
     </div>
   );
@@ -347,17 +353,17 @@ function MyAppbar(props) {
           style={{ zIndex: 9 }}
         >
           <Drawer
-            anchor={'right'}
-            open={state['right']}
-            onClose={toggleDrawer('right', false)}
+            anchor={"right"}
+            open={state["right"]}
+            onClose={toggleDrawer("right", false)}
           >
-            {list('right')}
+            {list("right")}
           </Drawer>
 
           <nav className="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 pl-3 pl-lg-5">
             <img
-              onClick={() => history.push('/home')}
-              style={{ width: '13rem', cursor: 'pointer' }}
+              onClick={() => history.push("/home")}
+              style={{ width: "13rem", cursor: "pointer" }}
               src={logo}
             />
             <button
@@ -365,7 +371,7 @@ function MyAppbar(props) {
               className="navbar-toggler"
               data-toggle="collapse"
               data-target="#navbarCollapse"
-              onClick={toggleDrawer('right', true)}
+              onClick={toggleDrawer("right", true)}
             >
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -376,11 +382,11 @@ function MyAppbar(props) {
               <div className="navbar-nav ml-auto py-0">
                 <a
                   style={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     color: home ? Colors.primary : null,
                   }}
                   onClick={() => {
-                    history.push('/home');
+                    history.push("/home");
                     setHome(true);
                     setAbout(false);
                     setFaq(false);
@@ -397,11 +403,11 @@ function MyAppbar(props) {
                 </a>
                 <a
                   style={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     color: about ? Colors.primary : null,
                   }}
                   onClick={() => {
-                    history.push('/about');
+                    history.push("/about");
                     setHome(false);
                     setAbout(true);
                     setFaq(false);
@@ -418,11 +424,11 @@ function MyAppbar(props) {
                 </a>
                 <a
                   style={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     color: faq ? Colors.primary : null,
                   }}
                   onClick={() => {
-                    history.push('/faq');
+                    history.push("/faq");
                     setHome(false);
                     setAbout(false);
                     setFaq(true);
@@ -439,11 +445,11 @@ function MyAppbar(props) {
                 </a>
                 <a
                   style={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     color: pricing ? Colors.primary : null,
                   }}
                   onClick={() => {
-                    history.push('/pricing');
+                    history.push("/pricing");
                     setHome(false);
                     setAbout(false);
                     setFaq(false);
@@ -460,11 +466,11 @@ function MyAppbar(props) {
                 </a>
                 <a
                   style={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     color: contact ? Colors.primary : null,
                   }}
                   onClick={() => {
-                    history.push('/contact');
+                    history.push("/contact");
                     setHome(false);
                     setAbout(false);
                     setFaq(false);
@@ -483,11 +489,11 @@ function MyAppbar(props) {
                   <>
                     <a
                       style={{
-                        cursor: 'pointer',
+                        cursor: "pointer",
                         color: login ? Colors.primary : null,
                       }}
                       onClick={() => {
-                        history.push('/login');
+                        history.push("/login");
                         setHome(false);
                         setAbout(false);
                         setFaq(false);
@@ -502,20 +508,19 @@ function MyAppbar(props) {
                     >
                       Login
                     </a>
-                    
+
                     <Button
                       style={{
-                        cursor: 'pointer',
-                        // 
-                        backgroundColor:Colors.secondary,
-                        color:Colors.white,
-                        height:'2.5rem',
-                        marginTop:'1.4rem',
-                        fontSize:'0.9rem',
-                        
+                        cursor: "pointer",
+                        //
+                        backgroundColor: Colors.secondary,
+                        color: Colors.white,
+                        height: "2.5rem",
+                        marginTop: "1.4rem",
+                        fontSize: "0.9rem",
                       }}
                       onClick={() => {
-                        history.push('/register');
+                        history.push("/register");
                         setHome(false);
                         setAbout(false);
                         setFaq(false);
@@ -526,7 +531,6 @@ function MyAppbar(props) {
                         setLogout(false);
                         setProfile(false);
                       }}
-                      
                     >
                       Sign Up
                     </Button>
@@ -535,7 +539,7 @@ function MyAppbar(props) {
                   <>
                     <a
                       style={{
-                        cursor: 'pointer',
+                        cursor: "pointer",
                         color: logout ? Colors.primary : Colors.secondary,
                       }}
                       onClick={() => {
@@ -556,11 +560,11 @@ function MyAppbar(props) {
                     </a>
                     <a
                       style={{
-                        cursor: 'pointer',
+                        cursor: "pointer",
                         color: profile ? Colors.primary : null,
                       }}
                       onClick={() => {
-                        history.push('/profile');
+                        history.push("/profile");
                         setHome(false);
                         setAbout(false);
                         setFaq(false);
@@ -577,7 +581,6 @@ function MyAppbar(props) {
                     </a>
                   </>
                 )}
-
               </div>
             </div>
           </nav>
