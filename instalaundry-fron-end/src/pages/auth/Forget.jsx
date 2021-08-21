@@ -90,16 +90,17 @@ function Forget(props) {
   return (
     <>
       <div className="page-header container-fluid bg-secondary pt-2 pt-lg-4 pb-2">
-        <div className="container py-1">
+        <div className="container py-1" style={{ marginTop: "5rem" }}>
           <div className="row align-items-center py-4">
             <div className="col-md-6 text-center text-md-left">
-              <h1
-                className="mb-4 mb-md-0 text-white"
-                className="sliderMainHeading"
-                style={{ fontSize: "2.5rem", marginTop: "6rem" }}
-              >
-                Forget Password
-              </h1>
+              <h1 className="mb-4 mb-md-0 text-white">Forget Password</h1>
+            </div>
+            <div className="col-md-6 text-center text-md-right">
+              <div className="d-inline-flex align-items-center">
+                {/* <a className="btn text-white">Home</a>
+                  <i className="fas fa-angle-right text-white"></i>
+                  <a className="btn text-white disabled">Login</a> */}
+              </div>
             </div>
           </div>
         </div>
