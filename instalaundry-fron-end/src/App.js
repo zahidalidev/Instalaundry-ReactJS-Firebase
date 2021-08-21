@@ -1,30 +1,31 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import gif1 from '../src/assets/img/gif1.gif';
+import React, { Suspense, useEffect, useState } from "react";
+import { Redirect, Route } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import gif1 from "../src/assets/img/gif1.gif";
 
 //styles
-import 'react-toastify/dist/ReactToastify.css';
-import './css/style.css';
-import './css/style.min.css';
+import "react-toastify/dist/ReactToastify.css";
+import "./css/style.css";
+import "./css/style.min.css";
 
 // pages
-import Home from './pages/Home';
-import About from './pages/About';
-import Pricing from './pages/Pricing';
-import Faq from './pages/Faq';
-import Contact from './pages/Contact';
-import Profile from './pages/user/Profile';
-import Checkout from './pages/Checkout';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
-import AdminProfile from './pages/admin/Profile';
-import Orderdetails from './pages/Orderdetails';
-import Forget from './pages/auth/Forget';
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Pricing from "./pages/Pricing";
+import Faq from "./pages/Faq";
+import Contact from "./pages/Contact";
+import Profile from "./pages/user/Profile";
+import Checkout from "./pages/Checkout";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import AdminProfile from "./pages/admin/Profile";
+import Orderdetails from "./pages/Orderdetails";
+import Forget from "./pages/auth/Forget";
 
 // components
-import MyAppbar from './components/MyAppbar';
-const Footer = React.lazy(() => import('./components/Footer'));
+import MyAppbar from "./components/MyAppbar";
+import ScrollToTop from "./components/ScrollToTop";
+const Footer = React.lazy(() => import("./components/Footer"));
 
 function App(props) {
   const [loading, setLoading] = useState(true);
@@ -37,13 +38,14 @@ function App(props) {
 
   return (
     <>
+      <ScrollToTop />
       {loading ? (
         <div className="container-fluid">
           <div
             className="d-flex justify-content-center align-items-center"
-            style={{ marginTop: '9rem' }}
+            style={{ marginTop: "9rem" }}
           >
-            <img src={gif1} style={{ height: '20rem', width: '25rem' }}></img>
+            <img src={gif1} style={{ height: "20rem", width: "25rem" }}></img>
           </div>
         </div>
       ) : (
@@ -102,7 +104,7 @@ function App(props) {
 
           <Redirect
             to={{
-              pathname: '/home',
+              pathname: "/home",
               state: { from: props.location },
             }}
           />
