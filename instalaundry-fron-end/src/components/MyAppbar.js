@@ -8,7 +8,6 @@ import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
 
 import logo from "../assets/img/logo1.png";
-import avatar from "../assets/img/avatar.jpeg";
 
 //config
 import { Colors } from "./../config/Colors";
@@ -84,11 +83,6 @@ function MyAppbar(props) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <img
-          style={{ width: "7rem", borderRadius: "5rem", marginLeft: "4rem" }}
-          src={avatar}
-        ></img>
-        <hr></hr>
 
         <a
           style={{
@@ -111,6 +105,8 @@ function MyAppbar(props) {
         >
           Home
         </a>
+        <hr />
+
         <a
           style={{
             cursor: "pointer",
@@ -132,6 +128,8 @@ function MyAppbar(props) {
         >
           About
         </a>
+        <hr />
+
         <a
           style={{
             cursor: "pointer",
@@ -153,6 +151,8 @@ function MyAppbar(props) {
         >
           FAQ's
         </a>
+        <hr />
+
         <a
           style={{
             cursor: "pointer",
@@ -174,6 +174,8 @@ function MyAppbar(props) {
         >
           Pricing
         </a>
+        <hr />
+
         <a
           style={{
             cursor: "pointer",
@@ -195,6 +197,8 @@ function MyAppbar(props) {
         >
           Contact
         </a>
+        <hr />
+
         {_.isEmpty(currentUser) ? (
           <>
             <a
@@ -218,6 +222,8 @@ function MyAppbar(props) {
             >
               Login
             </a>
+            <hr />
+
             <a
               style={{
                 cursor: "pointer",
@@ -239,6 +245,8 @@ function MyAppbar(props) {
             >
               Sign Up
             </a>
+            <hr />
+
           </>
         ) : (
           <>
@@ -263,6 +271,8 @@ function MyAppbar(props) {
             >
               Logout
             </a>
+            <hr />
+
             <a
               style={{
                 cursor: "pointer",
@@ -284,6 +294,8 @@ function MyAppbar(props) {
             >
               Account
             </a>
+            <hr />
+
           </>
         )}
       </List>

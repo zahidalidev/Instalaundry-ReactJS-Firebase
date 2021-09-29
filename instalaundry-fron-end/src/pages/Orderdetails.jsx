@@ -280,6 +280,7 @@ export default function Orderdetails(props) {
       </div>
       <Elements stripe={stripePromise}>
         <Paynow
+        
           planDetails={subscribedDetail}
           extraLbs={orderDetail[3].price}
           extraTip={orderDetail[2].price}
