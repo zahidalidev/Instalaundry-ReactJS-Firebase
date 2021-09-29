@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useHistory } from "react-router";
+
 
 // stripe
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
@@ -40,6 +42,9 @@ const useStyles = makeStyles({
 
 function HomePage(props) {
     const classes = useStyles();
+
+    const history = useHistory();
+
     // State
 
     const stripe = useStripe();
@@ -212,7 +217,9 @@ function HomePage(props) {
             console.log(result.error.message);
         } else {
             // The payment has been processed!
+            //new navigation to profile page implimented here!
             if (result.paymentIntent.status === 'succeeded') {
+                history.push("/profile")//here
                 console.log('Money is in the bank!');
                 toast.success("Successfull")
             }
