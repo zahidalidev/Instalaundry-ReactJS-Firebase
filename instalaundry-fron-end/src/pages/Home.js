@@ -58,7 +58,7 @@ export default function Home() {
       toast.success("Congratulations we are available in you area");
       let user = localStorage.getItem("token");
       if (user) {
-        history.push("./pricing");
+        history.push("./register");
       } else {
         history.push("./register");
       }

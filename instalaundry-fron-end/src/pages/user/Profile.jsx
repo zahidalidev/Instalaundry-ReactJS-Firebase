@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ScrollIntoView from 'react-scroll-into-view';
 
 import Paynow from "../../components/client/Paynow";
 import Breadcrumbs from "../../components/common/Breadcrumbs";
@@ -252,24 +253,27 @@ function Profile(props) {
       <div className="container-fluid" style={{ marginTop: "-6rem" }}>
         <div className="row d-flex flex-row text-center justify-content-md-start">
           <div
-            style={{ marginTop: "7rem", marginBottom: "2rem" }}
+            style={{ marginTop: "6rem", marginBottom: "2rem" }}
             className="justify-content-center align-items-center col-md-12"
           >
             <div className="row d-flex flex-row text-start text-white justify-content-center">
+              
               <div
                 style={{
                   border: "1px solid grey",
-                  borderBottomLeftRadius: 10,
-                  borderTopLeftRadius: 10,
-                  backgroundColor: Colors.secondary,
-                  height: "40rem",
+                 borderRadius:10,
+                  backgroundColor: "#394a6b",
+                  height: "22.7rem",
                 }}
                 className="d-flex flex-column justify-content-start col-md-3"
               >
+
+                <ScrollIntoView selector="#footer">
                 <div
                   onClick={() => setShowPersonal("personal")}
                   style={{
                     borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10,
                     cursor: "pointer",
                     backgroundColor:
                       showPersonal === "personal" ? Colors.primaryTrans : null,
@@ -281,11 +285,12 @@ function Profile(props) {
                     Personal Information
                   </p>
                 </div>
-
+                </ScrollIntoView>
+                
+                <ScrollIntoView selector="#footer">
                 <div
                   onClick={() => setShowPersonal("day")}
                   style={{
-                    borderTopLeftRadius: 10,
                     cursor: "pointer",
                     backgroundColor:
                       showPersonal === "day" ? Colors.primaryTrans : null,
@@ -297,7 +302,9 @@ function Profile(props) {
                     Change Pickup Day
                   </p>
                 </div>
-
+                </ScrollIntoView>
+                
+                <ScrollIntoView selector="#footer">
                 <div
                   onClick={() => {
                     userSubscriptions();
@@ -317,7 +324,9 @@ function Profile(props) {
                     My Subscriptions
                   </p>
                 </div>
-
+                </ScrollIntoView>
+                
+                <ScrollIntoView selector="#footer">
                 <div
                   onClick={() => {
                     setShowPersonal("tip");
@@ -334,16 +343,19 @@ function Profile(props) {
                     Pay Tip
                   </p>
                 </div>
-
+              </ScrollIntoView>
+              
+              <ScrollIntoView selector="#footer">
                 <div
                   onClick={() => {
                     setShowPersonal("load");
                   }}
                   style={{
                     cursor: "pointer",
+                    borderBottomLeftRadius:10,
+                    borderBottomRightRadius:10,
                     backgroundColor:
                       showPersonal == "load" ? Colors.primaryTrans : null,
-                    borderBottom: "1px solid white",
                   }}
                   className="row d-flex flex-row align-items-center p-2 justify-content-center"
                 >
@@ -351,6 +363,7 @@ function Profile(props) {
                     Want To Add Extra Load
                   </p>
                 </div>
+                </ScrollIntoView>
               </div>
 
               {/* Personal Info start */}
@@ -359,17 +372,17 @@ function Profile(props) {
                   style={{
                     overflow: "scroll",
                     border: "1px solid grey",
-                    borderBottomRightRadius: 10,
-                    borderTopRightRadius: 10,
+                    borderTopLeftRadius:10,
                     backgroundColor: Colors.white,
                   }}
+                  id="footer"
                   className="d-flex flex-column justify-content-start col-md-8"
                 >
                   <div
                     style={{ marginTop: "2rem" }}
                     className="row d-flex flex-row align-items-center p-2 justify-content-center"
                   >
-                    <h3 style={{ fontSize: "2rem" }}>Peronal Infomation</h3>
+                    <h3 style={{ fontSize: "2rem" }}>Personal Information</h3>
                   </div>
 
                   <div className="row d-flex flex-row justify-content-md-center">
@@ -377,14 +390,14 @@ function Profile(props) {
                       className="col-md-12 d-flex justify-content-center align-self-center"
                       style={{
                         flexDirection: "column",
-                        height: 300,
+                        height: 500,
                         flex: 1,
                         justifyContent: "center",
                         alignItems: "center",
                       }}
                     >
                       <div
-                        style={{ marginTop: "10rem", width: "100%" }}
+                        style={{ marginTop: "-6rem", width: "100%" }}
                         className="row"
                       ></div>
 
