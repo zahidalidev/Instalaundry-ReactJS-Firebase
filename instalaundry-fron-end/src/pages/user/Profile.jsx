@@ -10,6 +10,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ScrollIntoView from 'react-scroll-into-view';
+import axios from "axios"
 
 import Paynow from "../../components/client/Paynow";
 import Breadcrumbs from "../../components/common/Breadcrumbs";
@@ -124,11 +125,11 @@ function Profile(props) {
     dropItems: [
       {
         label: "Morning (8-11)",
-        value: "morning",
+        value: "Morning (8-11)",
       },
       {
         label: "Evening (6-9)",
-        value: "evening",
+        value: "Evening (6-9)",
       },
     ],
   });
@@ -189,7 +190,7 @@ function Profile(props) {
 
         setSubscription(res);
       }
-    } catch (error) {}
+    } catch (error) { }
     setLoading(false);
   };
 
@@ -238,8 +239,38 @@ function Profile(props) {
         pickupDay: newPickupDay,
         timing: newPickupTiming.value,
       });
+      await handleSubscribeEmailForChangeDay(newPickupDay, newPickupTiming.value)
     } catch (error) {
       console.log("Update day error: ", error);
+    }
+  };
+
+  const handleSubscribeEmailForChangeDay = async (pickupDay, timing) => {
+    let currentUser = localStorage.getItem("token");
+    currentUser = JSON.parse(currentUser);
+    var data = {
+      service_id: "service_siowrj7",
+      template_id: "template_0bvfsqc",
+      user_id: "user_ef7lljg2cLfLEVyVsoysv",
+      template_params: {
+        message: `Update in Day/Time of Subscription: Customer Email: ${currentUser.email}
+        , Name: ${currentUser.name}, Contact Number: ${currentUser.contactNumber}, Day: ${pickupDay}, Time: ${timing}`,
+        to_email: "instalaundary2@gmail.com",
+      },
+    };
+    try {
+      await axios.post(
+        "https://api.emailjs.com/api/v1.0/email/send",
+        JSON.stringify(data),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success("Updated");
+    } catch (error) {
+      console.log("error: ", error);
     }
   };
 
@@ -257,11 +288,11 @@ function Profile(props) {
             className="justify-content-center align-items-center col-md-12"
           >
             <div className="row d-flex flex-row text-start text-white justify-content-center">
-              
+
               <div
                 style={{
                   border: "1px solid grey",
-                 borderRadius:10,
+                  borderRadius: 10,
                   backgroundColor: "#394a6b",
                   height: "22.7rem",
                 }}
@@ -269,100 +300,100 @@ function Profile(props) {
               >
 
                 <ScrollIntoView selector="#footer">
-                <div
-                  onClick={() => setShowPersonal("personal")}
-                  style={{
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                    cursor: "pointer",
-                    backgroundColor:
-                      showPersonal === "personal" ? Colors.primaryTrans : null,
-                    borderBottom: "1px solid white",
-                  }}
-                  className="row d-flex flex-row align-items-center p-2 justify-content-center"
-                >
-                  <p style={{ marginTop: "1rem" }} className="">
-                    Personal Information
-                  </p>
-                </div>
+                  <div
+                    onClick={() => setShowPersonal("personal")}
+                    style={{
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                      cursor: "pointer",
+                      backgroundColor:
+                        showPersonal === "personal" ? Colors.primaryTrans : null,
+                      borderBottom: "1px solid white",
+                    }}
+                    className="row d-flex flex-row align-items-center p-2 justify-content-center"
+                  >
+                    <p style={{ marginTop: "1rem" }} className="">
+                      Personal Information
+                    </p>
+                  </div>
                 </ScrollIntoView>
-                
+
                 <ScrollIntoView selector="#footer">
-                <div
-                  onClick={() => setShowPersonal("day")}
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor:
-                      showPersonal === "day" ? Colors.primaryTrans : null,
-                    borderBottom: "1px solid white",
-                  }}
-                  className="row d-flex flex-row align-items-center p-2 justify-content-center"
-                >
-                  <p style={{ marginTop: "1rem" }} className="">
-                    Change Pickup Day
-                  </p>
-                </div>
+                  <div
+                    onClick={() => setShowPersonal("day")}
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor:
+                        showPersonal === "day" ? Colors.primaryTrans : null,
+                      borderBottom: "1px solid white",
+                    }}
+                    className="row d-flex flex-row align-items-center p-2 justify-content-center"
+                  >
+                    <p style={{ marginTop: "1rem" }} className="">
+                      Change Pickup Day
+                    </p>
+                  </div>
                 </ScrollIntoView>
-                
+
                 <ScrollIntoView selector="#footer">
-                <div
-                  onClick={() => {
-                    userSubscriptions();
-                    setShowPersonal("subscription");
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor:
-                      showPersonal == "subscription"
-                        ? Colors.primaryTrans
-                        : null,
-                    borderBottom: "1px solid white",
-                  }}
-                  className="row d-flex flex-row align-items-center p-2 justify-content-center"
-                >
-                  <p style={{ marginTop: "1rem" }} className="">
-                    My Subscriptions
-                  </p>
-                </div>
+                  <div
+                    onClick={() => {
+                      userSubscriptions();
+                      setShowPersonal("subscription");
+                    }}
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor:
+                        showPersonal == "subscription"
+                          ? Colors.primaryTrans
+                          : null,
+                      borderBottom: "1px solid white",
+                    }}
+                    className="row d-flex flex-row align-items-center p-2 justify-content-center"
+                  >
+                    <p style={{ marginTop: "1rem" }} className="">
+                      My Subscriptions
+                    </p>
+                  </div>
                 </ScrollIntoView>
-                
+
                 <ScrollIntoView selector="#footer">
-                <div
-                  onClick={() => {
-                    setShowPersonal("tip");
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor:
-                      showPersonal == "tip" ? Colors.primaryTrans : null,
-                    borderBottom: "1px solid white",
-                  }}
-                  className="row d-flex flex-row align-items-center p-2 justify-content-center"
-                >
-                  <p style={{ marginTop: "1rem" }} className="">
-                    Pay Tip
-                  </p>
-                </div>
-              </ScrollIntoView>
-              
-              <ScrollIntoView selector="#footer">
-                <div
-                  onClick={() => {
-                    setShowPersonal("load");
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    borderBottomLeftRadius:10,
-                    borderBottomRightRadius:10,
-                    backgroundColor:
-                      showPersonal == "load" ? Colors.primaryTrans : null,
-                  }}
-                  className="row d-flex flex-row align-items-center p-2 justify-content-center"
-                >
-                  <p style={{ marginTop: "1rem" }} className="">
-                    Want To Add Extra Load
-                  </p>
-                </div>
+                  <div
+                    onClick={() => {
+                      setShowPersonal("tip");
+                    }}
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor:
+                        showPersonal == "tip" ? Colors.primaryTrans : null,
+                      borderBottom: "1px solid white",
+                    }}
+                    className="row d-flex flex-row align-items-center p-2 justify-content-center"
+                  >
+                    <p style={{ marginTop: "1rem" }} className="">
+                      Pay Tip
+                    </p>
+                  </div>
+                </ScrollIntoView>
+
+                <ScrollIntoView selector="#footer">
+                  <div
+                    onClick={() => {
+                      setShowPersonal("load");
+                    }}
+                    style={{
+                      cursor: "pointer",
+                      borderBottomLeftRadius: 10,
+                      borderBottomRightRadius: 10,
+                      backgroundColor:
+                        showPersonal == "load" ? Colors.primaryTrans : null,
+                    }}
+                    className="row d-flex flex-row align-items-center p-2 justify-content-center"
+                  >
+                    <p style={{ marginTop: "1rem" }} className="">
+                      Want To Add Extra Load
+                    </p>
+                  </div>
                 </ScrollIntoView>
               </div>
 
@@ -372,7 +403,7 @@ function Profile(props) {
                   style={{
                     overflow: "scroll",
                     border: "1px solid grey",
-                    borderTopLeftRadius:10,
+                    borderTopLeftRadius: 10,
                     backgroundColor: Colors.white,
                   }}
                   id="footer"
@@ -505,6 +536,7 @@ function Profile(props) {
                     <Elements stripe={stripePromise}>
                       <Paynow
                         onlyTip={true}
+                        typeTip="Tip"
                         tipPrice={parseFloat(tip.match(/(\d+)/))}
                       />
                     </Elements>
@@ -536,7 +568,7 @@ function Profile(props) {
                   </div>
                   <div className="contaienr-fluid mt-4">
                     <Elements stripe={stripePromise}>
-                      <Paynow onlyTip={true} tipPrice={parseFloat(lbsCount)} />
+                      <Paynow typeTip="Extra load" onlyTip={true} tipPrice={parseFloat(lbsCount)} />
                     </Elements>
                   </div>
                 </div>

@@ -202,6 +202,7 @@ const handleSubscribeEmail = async (pickUpObj, tip, extralbs) => {
       province: pickUpObj.province,
       countary: pickUpObj.countary,
       pickupDay: pickUpObj.pickupDay,
+      pickupTiming: pickUpObj.timing,
       extralbs,
       tip,
       subscriptionplan: pickUpObj.planName,

@@ -148,11 +148,11 @@ export default function Checkout(props) {
       dropItems: [
         {
           label: "Morning (8-11)",
-          value: "morning",
+          value: "Morning (8-11)",
         },
         {
           label: "Evening (6-9)",
-          value: "evening",
+          value: "Evening (6-9)",
         },
       ],
     },

@@ -16,6 +16,7 @@ import CardInput from './CardInput';
 import { paySinglePayment, paySubscription } from '../../services/OrderServices';
 import { subscribePlan, getSubscriptionDetails } from '../../services/UserServices';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const useStyles = makeStyles({
     root: {
@@ -171,6 +172,7 @@ function HomePage(props) {
                     let dis = 100 - Math.round((total / subtotal) * 100);
                     toast.success(`You Got ${dis}% Discount`)
                 }
+                history.push("/profile")
             }
 
         } catch (error) {
@@ -183,7 +185,7 @@ function HomePage(props) {
         let currentUser = JSON.parse(localStorage.getItem('token'));
         if (currentUser) {
             if (props.onlyTip) {
-                handleSinglePay(currentUser.email)
+                handleSinglePay(currentUser.email, props.typeTip)
             } else if (props.tipPrice == 0) {
                 handleSubmitSub(currentUser.email)
             } else {
@@ -194,7 +196,7 @@ function HomePage(props) {
     }
 
 
-    const handleSinglePay = async (email) => {
+    const handleSinglePay = async (email, typeTip) => {
 
         if (!stripe || !elements) {
             return;
@@ -219,12 +221,42 @@ function HomePage(props) {
             // The payment has been processed!
             //new navigation to profile page implimented here!
             if (result.paymentIntent.status === 'succeeded') {
-                history.push("/profile")//here
                 console.log('Money is in the bank!');
-                toast.success("Successfull")
+                toast.success("Payed Successfully")
+                await handleEmailForExtra(typeTip)
+                // history.push("/profile")//here
             }
         }
         setLoading(false)
+    };
+
+
+    const handleEmailForExtra = async (typeTip) => {
+        let currentUser = localStorage.getItem("token");
+        currentUser = JSON.parse(currentUser);
+        var data = {
+            service_id: "service_siowrj7",
+            template_id: "template_0bvfsqc",
+            user_id: "user_ef7lljg2cLfLEVyVsoysv",
+            template_params: {
+                message: `${typeTip} By ${currentUser.email}: Customer Email: ${currentUser.email}
+            , Name: ${currentUser.name}, Contact Number: ${currentUser.contactNumber}, price: ${props.tipPrice}`,
+                to_email: "instalaundary2@gmail.com",
+            },
+        };
+        try {
+            await axios.post(
+                "https://api.emailjs.com/api/v1.0/email/send",
+                JSON.stringify(data),
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+        } catch (error) {
+            console.log("error: ", error);
+        }
     };
 
     return (

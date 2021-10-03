@@ -40,9 +40,9 @@ export default function Footer() {
       template_id: "template_0bvfsqc",
       user_id: "user_ef7lljg2cLfLEVyVsoysv",
       template_params: {
-        message: `Customer Email: ${email}
-        Customer Name: ${name}`,
-        to_email: email,
+        message: `News Subscription Request: Customer Email: ${email}
+        and Customer Name: ${name}`,
+        to_email: "instalaundary2@gmail.com",
       },
     };
     try {
