@@ -281,7 +281,7 @@ function Profile(props) {
         currentPage="Profile"
         previousPages={["Home"]}
       />
-      <div className="container-fluid" style={{ marginTop: "-6rem" }}>
+      <div className="container-fluid" style={{ marginTop: "-5rem" }}>
         <div className="row d-flex flex-row text-center justify-content-md-start">
           <div
             style={{ marginTop: "6rem", marginBottom: "2rem" }}
@@ -416,12 +416,12 @@ function Profile(props) {
                     <h3 style={{ fontSize: "2rem" }}>Personal Information</h3>
                   </div>
 
-                  <div className="row d-flex flex-row justify-content-md-center">
+                  <div style={{marginTop:25}} className="row d-flex flex-row justify-content-md-center">
                     <div
                       className="col-md-12 d-flex justify-content-center align-self-center"
                       style={{
                         flexDirection: "column",
-                        height: 500,
+                        height: 470,
                         flex: 1,
                         justifyContent: "center",
                         alignItems: "center",
