@@ -185,6 +185,35 @@ export const updatPickupInfo = async (id, body) => {
   }
 };
 
+const sendUserEmail = async (day, time, email) => {
+
+  var data = {
+    service_id: "service_siowrj7",
+    template_id: "template_0bvfsqc",
+    user_id: "user_ef7lljg2cLfLEVyVsoysv",
+    template_params: {
+      message: `Thank you for subscribing to InstaLaundry. 
+      You're pick up day is ${day} between ${time}. 
+      Just place your items in a garbage bag outside your front door and our drivers will pick it up`,
+      to_email: email,
+    },
+  };
+  try {
+    await axios.post(
+      "https://api.emailjs.com/api/v1.0/email/send",
+      JSON.stringify(data),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    alert("Subscribed");
+  } catch (error) {
+    console.log("error: ", error);
+  }
+}
+
 const handleSubscribeEmail = async (pickUpObj, tip, extralbs) => {
   console.log("new email: ", pickUpObj, tip, extralbs);
 
@@ -220,6 +249,8 @@ const handleSubscribeEmail = async (pickUpObj, tip, extralbs) => {
         },
       }
     );
+
+    await sendUserEmail(pickUpObj.pickupDay, pickUpObj.timing, pickUpObj.email);
   } catch (error) {
     console.log("error: ", error);
   }
